@@ -1,4 +1,5 @@
 name: TK_blog
 #baseurl: /TK_blog
+baseurl: /
 markdown: kramdown
 pygments: true
