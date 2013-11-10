@@ -1,14 +1,16 @@
 ---
-　　layout: default
-　　title: TK's Blog
+layout: default
+title: TK's Blog
 ---
-<h1>{{ page.title }}</h1>
-<h2>About me</h2>
-I am a second year master student in University of Alberta. Here is a <a href="http://webdocs.cs.ualberta.ca/~pjin1/">online CV</a> of me.
 
-<h2>Recent Posts</h2>
-<ul>
-    　　　　{% for post in site.posts %}
-    　　　　　　<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
-    　　　　{% endfor %}
-</ul>
+<div id="home">
+	<h1>About me</h1>
+	<p>I am a second year master student in University of Alberta. Here is a <a href="http://webdocs.cs.ualberta.ca/~pjin1/">online CV</a> of me.</p>
+
+	<h1>Blog Posts</h1>
+	<ul class="posts">
+	{% for post in site.posts %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+	</ul>
+</div>

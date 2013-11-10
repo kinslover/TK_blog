@@ -1,7 +1,9 @@
 ---
 title: My second post
-comment: true
-layout: default
+comments: true
+layout: post
+published: true
+categories: jekyll update
 ---
 # Yes
 - hehe 
