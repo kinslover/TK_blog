@@ -6,7 +6,7 @@ layout: default
 # Yes
 - hehe 
 - haha
-- hoho
+- ho
 
 $$ a = b + c$$
 \[
