@@ -1,3 +1,9 @@
-- 文本1
-- 文本2
-- 文本3
+---
+title: My second post
+layout: default
+---
+# Yes
+- hehe 
+- haha
+- hoho
+
