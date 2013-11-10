@@ -9,6 +9,7 @@ layout: default
 - ho
 
 $$ a = b + c$$
+
 \[
 \begin{aligned}
 \dot{x} & = \sigma(y-x) \\
