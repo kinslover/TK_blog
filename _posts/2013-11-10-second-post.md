@@ -3,7 +3,7 @@ title: My second post
 comments: true
 layout: post
 published: true
-categories: jekyll update
+
 ---
 # Yes
 - hehe 
