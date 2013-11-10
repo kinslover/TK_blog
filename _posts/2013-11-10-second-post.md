@@ -8,6 +8,7 @@ layout: default
 - haha
 - hoho
 
+$$ a = b + c$$
 \[
 \begin{aligned}
 \dot{x} & = \sigma(y-x) \\
