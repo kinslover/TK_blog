@@ -5,7 +5,7 @@ comments: true
 
 ---
 
-I decided to distribute a new blog on Github with Jekyll yesterday, because I really like its simple style and I can write locally and push it to github, which is really convenient. However, I do not want to commit changes and push them to Github for testing, even when I have only tiny changes. That is why I would like to have a Jekyll locally installed.
+I decided to distribute a new blog on Github with Jekyll yesterday, because I really like its simple style and I can write locally and push it to github, which is really convenient. During the procedure of configuring my site and writing articles, it is quite inconvenient to commit and push, when we want to test the effect, because some changes may be very tiny. Thus to test my site more efficiently, I have the Jekyll locally installed.
 
 However, the `baseurl` in _config.yml causes a very annoying problem that makes the site either works well on Github or locally, but cannot work at the same time without changing the codes. Here is a short description of the problem. I don't have my own domain name for my site, so I have a domain name like `username.github.io/your_blog_name/`. The problem is that if I want to have the site run on Github, I need to set
 
