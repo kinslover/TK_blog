@@ -32,11 +32,11 @@
 <p class="meta">13 Nov 2013</p>
 
 <div class="post">
-<h2 id="assumptions">Assumptions</h2>
+<h1 id="assumptions">1. Assumptions</h1>
 
 <p>All examples are <script type="math/tex">i.i.d</script>, from the joint distribution <script type="math/tex">P(X, Y)</script>. In this article, uppercase letters represent the random variables, while lowercase letters represent constant values.</p>
 
-<h2 id="three-levels">Three levels</h2>
+<h1 id="three-levels">2. Three levels</h1>
 
 <ul>
   <li><strong>Prediction</strong>:Given a dataset <script type="math/tex">d</script>, the hypothesis learned from this dataset, and the value of <script type="math/tex">x</script>. The prediction <script type="math/tex">h(x)</script> can be evaluated by the error . </li>
@@ -62,7 +62,7 @@ E_{X,Y}[err(h(X|d), Y)]
 E_{D}[E_{X,Y}[err(h(X|D), Y)]]
 </script>
 
-<h2 id="error-function">Error function</h2>
+<h1 id="error-function">3. Error function</h1>
 
 <p>So let us focus on the case with <script type="math/tex">L2</script> error function. </p>
 
@@ -70,46 +70,163 @@ E_{D}[E_{X,Y}[err(h(X|D), Y)]]
 	err(h(x|d), Y) = (h(x|d) - Y)^2
 \end{equation}</script>
 
-<h2 id="analysis-for-evaluation-of-predictions">Analysis for evaluation of predictions</h2>
+<h1 id="analysis-for-evaluation-of-predictions">4. Analysis for evaluation of predictions</h1>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Thus for a given <script type="math/tex">x</script> and <script type="math/tex">d</script>, we measure our prediction over the distribution $$P(Y</td>
-      <td>x)$$</td>
-    </tr>
-  </tbody>
-</table>
+<p>Thus for a given <script type="math/tex">x</script> and <script type="math/tex">h(x)</script>, we measure our prediction over the distribution <script type="math/tex">P(Y\vert x)</script></p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{equation}
 	\begin{split}
-		 E_{Y|x}[err(h(x|d), Y)] &= E_{Y|x}[(h(x|d) - Y)^2]\\
-		&= E_{Y|x}[(h(x|d) -E[Y|x]+E[Y|x] - Y)^2]\\
-		&= E_{Y|x}[(h(x|d) -E[Y|x])^2] + E_{Y|x}[(E[Y|x] - Y)^2] \\
-		&+ 2 E_{Y|x}[(h(X|d)-E[Y|x])(E[Y|x] - Y)]\\
-		&= (h(x|d) -E[Y|x])^2 + E_{Y|x}[(E[Y|x] - Y)^2] \\		
+		 E_{Y|x}[err(h(x), Y)] &= E_{Y|x}[(h(x) - Y)^2]\\
+		&= E_{Y|x}[(h(x) -E[Y|x]+E[Y|x] - Y)^2]\\
+		&= E_{Y|x}[(h(x) -E[Y|x])^2] + E_{Y|x}[(E[Y|x] - Y)^2] \\
+		&+ 2 E_{Y|x}[(h(x)-E[Y|x])(E[Y|x] - Y)]\\
+		&= (h(x) -E[Y|x])^2 + E_{Y|x}[(E[Y|x] - Y)^2] \\		
 	\end{split}
 \end{equation} %]]></script>
 
-<table>
-  <tbody>
-    <tr>
-      <td>The fisrt term in this equation is the square of the bias and the second term is the variance of the variable $$Y</td>
-      <td>x$$, which is a property of the distribution and thus totally out of our control.</td>
-    </tr>
-  </tbody>
-</table>
+<p>The fisrt term in this equation is the square of the bias and the second term is the variance of the variable <script type="math/tex">Y\vert x</script>, which is a property of the distribution and thus totally out of our control.</p>
 
-<p>And from the above derivation, we know that we should set </p>
+<p>And from the above derivation, we know that the hypothesis that minimizes the expected error of our prediction is</p>
 
 <script type="math/tex; mode=display">
-h(x|d) = E[Y|x]
+h^{opt}(x) = E[Y|x].
 </script>
 
-<p>to minimize the expected error of our prediction.</p>
+<h1 id="analysis-for-evaluation-of-hypotheses">5. Analysis for evaluation of hypotheses</h1>
 
-<p>(to be continued)</p>
+<p>Given the training set <script type="math/tex">d</script>, we measure the hypothesis learned from this set with the expected error of its predictions over the distribution of all possible sample pair <script type="math/tex">P(X, Y)</script>.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{equation}
+	\begin{split}
+		 E_{X, Y}[err(h(X|d), Y)] &= E_{X, Y}[(h(X|d) - Y)^2]\\
+		&= E_{X}\{E_{Y|X}[(h(X|d) -E_{Y|X}[Y])^2] + E_{Y|X}[(E_{Y|X}[Y] - Y)^2]\}
+	\end{split}
+\end{equation} %]]></script>
+
+<h1 id="analysis-for-evaluation-of-learner">6. Analysis for evaluation of learner</h1>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{equation}
+	\begin{split}
+		 E_{D}\{E_{X, Y}[err(h(X|D), Y)]\} &= E_{D}\{E_{X, Y}[(h(X|D) - Y)^2]\}\\
+		 &= E_{D}\{E_{X,Y}[(h(X|D) -E_{Y|X}[Y])^2 + E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\}\\
+		&= E_{X,Y} \{ E_{D}[(h(X|D) -E_{D}[h(X|D)])^2 + E_{D}[(E_{D}[h(X|D)] - E_{Y|X}[Y])^2]] \\
+		& + 2 E_{D}[(h(X|D) -E_{D}[h(X|D)])(E_{D}[h(X|D)] - E_{Y|X}[Y]) \} \\
+		&+ E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\\
+		&= E_{X,Y} \{ E_{D}[(h(X|D) -E_{D}[h(X|D)])^2]\} \\&
+		+ E_{X,Y} \{(E_{D}[h(X|D)] - E_{Y|X}[Y])^2 \}+ E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\\		
+	\end{split}
+\end{equation} %]]></script>
+
+<p>The first term represents the variance of our prediction over different training sets <script type="math/tex">D</script>. The second term represents the bias, i.e., how well our prediction approximates the true <script type="math/tex">Y</script>. The first two terms make the <strong>approximation error</strong> together. The third term is the variance of <script type="math/tex">Y</script>, i.e. the random noise.</p>
+
+<h1 id="furthe-analysis">7. Furthe analysis</h1>
+
+<p>Let </p>
+
+<script type="math/tex; mode=display">
+\hat{E}_{X, Y}[err(f(X), Y)] = \frac{1}{t} \sum^{t}_{i = 1} err(f(x_i), y_i),
+</script>
+
+<p>where <script type="math/tex">(x_i,y_i) \in D</script>, be the error of a certain hypothesis on training set.</p>
+
+<p>Now suppose we have a hypothesis space <script type="math/tex">H</script>, <script type="math/tex">\hat{h}(X\vert D)</script> is the hypothesis <script type="math/tex">\in H</script> that minimizes the <script type="math/tex">MSE</script> on training dataset <script type="math/tex">D</script>, i.e.,</p>
+
+<script type="math/tex; mode=display">
+\hat{h}(X|D) = argmin_{h \in H} \hat{E}_{X,Y}[(h(X) - Y)^2]
+</script>
+
+<p>and <script type="math/tex">h^*(X)</script> is the hypothesis <script type="math/tex">\in H</script> that minimizes the expected <script type="math/tex">MSE</script> over <script type="math/tex">P(X, Y)</script>,i.e. </p>
+
+<script type="math/tex; mode=display">
+h^*(X) = argmin_{h \in H} E_{X,Y}[(h(X) - Y)^2]
+</script>
+
+<p>It is easy to see that </p>
+
+<script type="math/tex; mode=display">
+E_{D}[\hat{h}(X|D)] = h^*(X)
+</script>
+
+<p>Then we consider about the expected error of this learner</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{equation}
+	\begin{split}
+		 E_{D}\{E_{X, Y}[err(\hat{h}(X|D), Y)]\} &= E_{D}\{E_{X, Y}[(\hat{h}(X|d) - Y)^2]\}\\
+		&= E_{X,Y} \{ E_{D}[(\hat{h}(X|D) - h^*(X))^2 + E_{D}[(h^*(X) - Y)^2]]\\
+		& + 2 E_{D}[(\hat{h}(X|D) -h^*(X))](h(X) - Y) \}\\
+		&= E_{X} \{ E_{D}[(\hat{h}(X|D) - h^*(X))^2]\} + E_{X,Y}\{(h^*(X) - Y)^2\}\\
+	\end{split}
+\end{equation} %]]></script>
+
+<p>The first term is the variance of our learner, as <script type="math/tex">E_{D}[\hat{h}(X \vert D)] = h^*(X)</script>. The second term is actually the combination of the bias and noise and also reppresent the lowest possible MSE on future sample, as <script type="math/tex">h^*(X) = argmin_{h \in H} E_{X,Y}[(h(X) - Y)^2]</script>.</p>
+
+<p>As <script type="math/tex">h_*(X)</script> is <strong>does not depend on training dataset D</strong>, we have </p>
+
+<script type="math/tex; mode=display">
+E_{X, Y}[(h^*(X) - Y)^2] = E_{D}\hat{E}_{X, Y}[(h^*(X) - Y)^2]
+</script>
+
+<p>which means that the training error of <script type="math/tex">h^*</script> is an <strong>unbiased estimate</strong> of its test error.</p>
+
+<p>Then for <script type="math/tex">\hat{E}_{X, Y}[(h^*(X) - Y)^2]</script>, we have </p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{equation}
+	\begin{split}
+\hat{E}_{X, Y}[(h^*(X) - Y)^2] 
+		&= \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D) + \hat{h}(X|D) - Y)^2]\\
+		&= \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D))^2] + \hat{E}_{X, Y}[(\hat{h}(X|D) - Y)^2]\\
+		& + 2 \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D))(\hat{h}(X|D) - Y)]\\
+		&= \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D))^2] + \hat{E}_{X, Y}[(\hat{h}(X|D) - Y)^2]
+	\end{split}
+\end{equation} %]]></script>
+
+<p>So we have </p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{equation}
+	\begin{split}
+		 E_{D}\{E_{X, Y}[err(\hat{h}(X|D), Y)]\} 
+		 &=  E_{D}E_{X,Y}[(\hat{h}(X|D) - h^*(X))^2] + E_{X, Y}[(h^*(X) - Y)^2]\\
+		 &= E_{D}E_{X,Y}[(\hat{h}(X|D) - h^*(X))^2] + E_{D}\hat{E}_{X, Y}[(h^*(X) - Y)^2]\\
+		 &= E_{D} E_{X}[(\hat{h}(X|D) - h^*(X))^2] + E_{D}[\hat{E}_{X}[(\hat{h}(X|D)-h^*(X))^2]]\\ 
+		 &+ E_{D}[\hat{E}_{X, Y}[(\hat{h}(X|D) - Y)^2]]\\
+	\end{split}
+\end{equation} %]]></script>
+
+<p>Here the first term is variance of the leaner for future sample, as said above; the second term represents the variance of the learner on training dataset; and the third term indicates the leaner’s <script type="math/tex">MSE</script> on training set, i.e. the expected training error. So we can easily conclude that for a learner, <strong>the expected test error <script type="math/tex">\geq</script> optimal test error <script type="math/tex">\geq</script> expected training error</strong></p>
+
+<h1 id="the-tradeoff">8. The Tradeoff</h1>
+
+<h2 id="increase-the-size-of-training-set-t--vert-d-vert">Increase the size of training set $t = \vert D \vert$</h2>
+<ul>
+  <li>the optimal test error <script type="math/tex">E_{X, Y}[(h^*(X) - Y)^2]</script> does not change
+    <ul>
+      <li>the expected training error increases</li>
+      <li>the training variance decreases</li>
+    </ul>
+  </li>
+  <li>the variance on future samples decreases</li>
+</ul>
+
+<p>Thus the overall expected test error decreases. There is no tradeoff in this part.</p>
+
+<h2 id="increase-the-repressiveness-of-the-hypothesis-space">Increase the repressiveness of the hypothesis space</h2>
+<ul>
+  <li>the optimal test error <script type="math/tex">E_{X, Y}[(h^*(X) - Y)^2]</script> decreases
+    <ul>
+      <li>the expected training error decreases</li>
+      <li>the training variance increases</li>
+    </ul>
+  </li>
+  <li>the variance on future samples increases</li>
+</ul>
+
+<p>We don’t know if the whole thing decreases or increases. It is a trade-off.</p>
 
 </div>
 
