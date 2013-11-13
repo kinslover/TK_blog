@@ -112,21 +112,37 @@ h^{opt}(x) = E[Y|x].
 
 <h1 id="analysis-for-evaluation-of-learner">6. Analysis for evaluation of learner</h1>
 
-<p>$$\begin{equation}
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{equation}
 	\begin{split}
-		 E<em>{D}{E</em>{X, Y}[err(h(X|D), Y)]} &amp;= E<em>{D}{E</em>{X, Y}[(h(X|D) - Y)^2]}<br />
-		 &amp;= E<em>{D}{E</em>{X,Y}[(h(X|D) -E<em>{Y|X}[Y])^2 + E</em>{X,Y}[(E<em>{Y|X}[Y] - Y)^2]}<br />
-		&amp;= E</em>{X,Y} { E<em>{D}[(h(X|D) -E</em>{D}[h(X|D)])^2 + E<em>{D}[(E</em>{D}[h(X|D)] - E<em>{Y|X}[Y])^2]] <br />
-		&amp; + 2 E</em>{D}[(h(X|D) -E<em>{D}[h(X|D)])(E</em>{D}[h(X|D)] - E<em>{Y|X}[Y]) } <br />
-		&amp;+ E</em>{X,Y}[(E<em>{Y|X}[Y] - Y)^2]<br />
-		&amp;= E</em>{X,Y} { E<em>{D}[(h(X|D) -E</em>{D}[h(X|D)])^2]} \&amp;
-		+ E<em>{X,Y} {(E</em>{D}[h(X|D)] - E<em>{Y|X}[Y])^2 }+ E</em>{X,Y}[(E_{Y|X}[Y] - Y)^2]\		
+		 E_{D}\{E_{X, Y}[err(h(X|D), Y)]\} &= E_{D}\{E_{X, Y}[(h(X|D) - Y)^2]\}\\
+		 &= E_{D}\{E_{X,Y}[(h(X|D) -E_{Y|X}[Y])^2 + E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\}\\
+		&= E_{X,Y} \{ E_{D}[(h(X|D) -E_{D}[h(X|D)])^2 + E_{D}[(E_{D}[h(X|D)] - E_{Y|X}[Y])^2]] \\
+		& + 2 E_{D}[(h(X|D) -E_{D}[h(X|D)])(E_{D}[h(X|D)] - E_{Y|X}[Y]) \} \\
+		&+ E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\\
+		&= E_{X,Y} \{ E_{D}[(h(X|D) -E_{D}[h(X|D)])^2]\} \\&
+		+ E_{X,Y} \{(E_{D}[h(X|D)] - E_{Y|X}[Y])^2 \}+ E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\\		
 	\end{split}
-\end{equation}$$
-- The first two terms make the <strong>approximation error</strong> together. 
-	- <strong>First term</strong>: the variance of our prediction over different training sets <script type="math/tex">D</script>. 
-	- <strong>Second term</strong>: the bias, i.e., how well our prediction approximates the true <script type="math/tex">Y</script>. 
-- Third term: the expected variance of <script type="math/tex">Y|X</script> over the distribution of <script type="math/tex">P(X)</script>, i.e. the random noise.</p>
+\end{equation} %]]></script>
+
+<ul>
+  <li>The first two terms make the <strong>approximation error</strong> together. 
+    <ul>
+      <li><strong>First term</strong>: the variance of our prediction over different training sets <script type="math/tex">D</script>. </li>
+      <li><strong>Second term</strong>: the bias, i.e., how well our prediction approximates the true <script type="math/tex">Y</script>. </li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Third term: the expected variance of $$Y</td>
+          <td>X<script type="math/tex"> over the distribution of </script>P(X)$$, i.e. the random noise.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
 
 <h1 id="furthe-analysis">7. Furthe analysis</h1>
 
