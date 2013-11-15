@@ -1,0 +1,405 @@
+notes<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>[notes][ESL] Chapter 2: Overview of Supervised Learning</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h1>[notes][ESL] Chapter 2: Overview of Supervised Learning</h1>
+
+<h1>2.1 Instroduction</h1>
+
+<p><strong>Supervised Learning</strong>: predict output values from input values.</p>
+
+<p>Some equivalent terminologies:</p>
+
+<ul>
+<li>Input: predictors, independent variables, features</li>
+<li>Ouput: responses, dependent variables</li>
+</ul>
+
+<h1>2.2 Variable Types and Terminology</h1>
+
+<h2>Three variable types</h2>
+
+<ul>
+<li>Quantitative (continuos)
+
+<ul>
+<li>ratio defined</li>
+<li>ratio not defined</li>
+</ul></li>
+<li>Qualitative (discrete, categorical, factors)</li>
+<li>Ordered categorical</li>
+</ul>
+
+<p>We usually do some coding to the qualitative variables</p>
+
+<ul>
+<li>target: for binary varibles, we use 0-1 or (-1)-(+1) coding</li>
+<li>dummy variables: for a variable with \( K \) possible values, we use \( K \) binary variables to code it</li>
+</ul>
+
+<h2>Notations:</h2>
+
+<p>Generally, upper case letters represent the random variables, while lower case ones indicate some observed values, which are regarded as fixed or constant.</p>
+
+<ul>
+<li>\( X \): input variable or vector, \( j_{th} \) component of which is written as \( X_j \), while \( i_{th} \) observed value of \( X \) is \( x_i \)</li>
+<li>\( Y, G \): output varible. \( Y \) for quantative and \( G \) for qualitative </li>
+<li>\( \mathbf{X} \): \( N \times p \) matrix, training data, consist of \( x_i^T \), \( i = 1,...N \). The \( j_{th} \) component is \( \mathbf{x}_j \)</li>
+</ul>
+
+<h2>learning task</h2>
+
+<p>Given the value of an input vector \( X \), make a good prediction of the output \( Y/G \), denoted by \( \hat{Y}/\hat{G} \)</p>
+
+<h1>Least Squares and Nearest Neighbors</h1>
+
+<ul>
+<li>Linear model
+
+<ul>
+<li>huge assumptions about the structure </li>
+<li>stable but maybe not very accurate predictions</li>
+</ul></li>
+<li>\( k \)-nearest neighbor
+
+<ul>
+<li>few assumptions, if any, about the structure </li>
+<li>accurate but not stable predictions (sensitive to small changes in training dataset)</li>
+</ul></li>
+</ul>
+
+<h2>Linear Models and Least Squares</h2>
+
+<h3>Linear Models</h3>
+
+<p>Generally, we use &ldquo;hat&rdquo; over something to represent an estimate of it, such as, using \( \hat{X} \) to estimate \( X \).</p>
+
+<p>Given a input vector \( X^T = (X_1,X_2,...,X_p) \), we predict the output \( Y \) via the model,</p>
+
+<p>\[  \hat{Y} = \hat{\beta}_0 + \sum^p_{j = 1}X_j \hat{\beta_j} \]</p>
+
+<p>\( \beta_0 \) is known as intercept or bias. If we include \( \mathbf{1} \) as a feature, then </p>
+
+<p>\[  \hat{Y} = X^T\hat{\beta} \]</p>
+
+<p>if the output \( Y \) is scaler, then the dimension of \( \hat{\beta} \) is \( 1\times p \). Generally, the output can be \( K \)-vector, then the dimension of \( \hat{\beta} \) should be \( K \times p \).</p>
+
+<p>In the \( p+1 \) dimensional space, \( (X, \hat{Y}) \) is a hyperplane. If \( \mathbf{1} \) is included, the hyperplane includes the origin and thus is a subspace.</p>
+
+<h3>Least Squares</h3>
+
+<p>We write \( \hat{\beta} \) instead of \( \beta \), because we assume that there is a &ldquo;perfect&rdquo; \( \beta \). Our task is to estimate the \( \beta \) by fitting the data.</p>
+
+<p>One way to do that is <em>least square fit</em>. Define</p>
+
+<p>\[  RSS(\beta) = \sum_{i = 1}^{N} (y_i - x_i^T \beta) = (\mathbf{X}\beta - \mathbf{y})^T(\mathbf{X}\beta - \mathbf{y})  \]</p>
+
+<p>Then we do the fit as follows</p>
+
+<p>\[  \hat{\beta} = argmin_{\beta} RSS(\beta).  \]</p>
+
+<p>To get the solution, we take derivative of \( RSS(\beta) \) w.r.t. \( \beta \) and get</p>
+
+<p>\[  \mathbf{X}^T(\mathbf{y} - \mathbf{X}\beta)  \]</p>
+
+<p>Then we set the derivate to zero, and if \( X^TX \) is nonsingular, we have </p>
+
+<p>\[  \hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} \]</p>
+
+<p>And then we have the fitte value \( \mathbf{\hat{y}} \) to be</p>
+
+<p>\[  \mathbf{\hat{y}} = \mathbf{X} \hat{\beta} \]</p>
+
+<p>So the fitted surface \( (X, \hat{y}) \) is actually \( (X, X \hat{\beta}) \), parameterized by \( \hat{\beta} \).</p>
+
+<h2>Simulation Experiment</h2>
+
+<p>The input \( X \) is a two dimensional vector and the ouput variable \( G \) is a binary variable. We make prediction \( \hat{G} \) as</p>
+
+<p>\[ 
+\begin{equation}
+  \hat{G} = 
+  \left\{
+    \begin{array}{r@{\;=\;}l}
+    1 & \hat{Y} > 0.5\\
+    0 & \hat{Y} \leq 0.5
+    \end{array}
+  \right.
+\end{equation}
+ \]</p>
+
+<p>where \( \hat{Y} = X \beta \) and the <em>decision boundary</em> is \( \{x| x\beta = 0.5\} \).</p>
+
+<p>Let us consider about how the data is generated</p>
+
+<ul>
+<li><strong>Scenario 1</strong>: The training data in each class were generated from bivariate Gaussian distributions with uncorrelated components and different means, i.e. several independent bivariate Gaussian distributions.</li>
+</ul>
+
+<p>[put a figure here]</p>
+
+<ul>
+<li><strong>Scenario 2</strong>: We have ten low-variance Gaussian distribution for each class respectively. Their means are distributed as Gaussian too. The way to generate a sample is to first select one Gaussian distribution out of the ten and then draw a point from that distribution.</li>
+</ul>
+
+<p>For scenario 1, a linear boundary is the best we can do. For scenario 2, a nonlinear one is better.</p>
+
+<h2>2.3.2 Nearest-Neighbor Methods</h2>
+
+<p>\[ 
+\hat{Y}(X) =\frac{1}{k} \sum_{x_i \in N_k(X)}(y_i)
+ \]</p>
+
+<p>where \( N_k(X) \) is the set of \( k \) training samples that are nearest to \( X \).</p>
+
+<p>If the output variable is categorical, we can still put a threshold (decision boundary) on \( \hat{Y} \) to decide \( \hat{G} \). A majortiy vote is the case where the decision boundary is \( \{x| \hat{Y}(x) = 0.5\} \). Usually the decision boundary of $k$NN is irregular.</p>
+
+<p>Though it seems we only have one parameter \( k \) in $k$NN instead of \( p \) in Linear model. Actually the effective number of parameter in $k$NN is \( \frac{N}{k} \), which is generally greater than \( p \).</p>
+
+<h2>2.3.3 From Least Squares to Nearest Neighbors</h2>
+
+<p>Least Squares method has stronly replied the linear assumption, which makes it a simple model. This simplicity makes it less sensitive to the change of training dataset and thus enjoy a low variance, but potentially a high bias. For $k$NN, it hardly relies on any strict assumption, which makes it enjoy a low bias, but a high variance, i.e. quite sensitive to the change of training set (for small \( k \)).</p>
+
+<p>For senario 1, linear model is more appropriate, while $k$NN works better for senario 2.</p>
+
+<p>Many most popular techniques come from these two simple procedure. Below list some popular ways of enhancing these two methods:</p>
+
+<blockquote>
+<ul>
+<li>Kernel methods use <strong>weights that decrease smoothly to zero with distance</strong> from the target point, rather than the effective 0/1 weights used by k-nearest neighbors.</li>
+<li>In high-dimensional spaces the distance kernels are modified to <strong>emphasize some variable</strong> more than others.</li>
+<li>Local regression fits linear models by <strong>locally weighted least squares</strong>, rather than fitting constants locally.</li>
+<li>Linear models fit to a <strong>basis expansion</strong> of the original inputs allow arbitrarily complex models.</li>
+<li>Projection pursuit and neural network models consist of sums of <strong>non-linearly transformed</strong> linear models.</li>
+</ul>
+</blockquote>
+
+<h1>2.4 Statistical Decision Theory</h1>
+
+<p>Let \( X \in \mathbb{R}^p \) be the input vector, with real valued variables and \( Y\in \mathbb{R} \). And the underlied joint distribution is \( Pr(X, Y) \). Then suppose that our loss function is \( L(Y, f(X)) = (Y - f(x))^2 \), i.e. the squared loss. Then we have a measure for function \( f \), which we can use as a criterion to selecte \( f \),</p>
+
+<p>\[ 
+\begin{equation}
+  \begin{split}
+    EPE(f) &= E(Y - f(X))^2\\
+    &= \int [y - f(x)]^2 Pr(dx, dy)
+  \end{split}
+\end{equation}
+ \]</p>
+
+<p>Then we can condition it on \( X \)</p>
+
+<p>\[ 
+\begin{equation}
+  \begin{split}
+    EPE(f) &= E_{X}E_{Y|X}[(Y - f(X))^2|X]\\
+  \end{split}
+\end{equation}
+ \]</p>
+
+<p>By minimizing it pointwisely, we get the solution</p>
+
+<p>\[ 
+f(x) = E(Y| X = x)
+ \]</p>
+
+<p>This is also known as the <em>regression function</em>. It is the best prediction of \( Y \) at any point \( X = x \), given the perfect knowledge of \( Pr(X, Y) \), w.r.t. the averaged squared error.</p>
+
+<p>Note if we change the loss function, the solution is different. For example, if we use \( L(Y) = |Y-f(x)| \), the solution will be the conditional median instead of the conditional mean. This is actually more robust than least squares, as it is much less sensitive to the outlier than least square fit. However, as the derivate of it is not continuos at zero, which makes it hard to optimize and lose the closed form solution.</p>
+
+<h3>Nearest-Neighbor</h3>
+
+<p>The nearest-neighbor methods exactly follow this thought in an approximated way,</p>
+
+<p>\[ 
+\hat{f}(x) = Ave(y_i| x_i \in N_k(x)),
+ \]</p>
+
+<p>And the two approximations used here are</p>
+
+<blockquote>
+<ul>
+<li>expectation is approximated by averaging over <strong>sample data</strong>;</li>
+<li>conditioning at a point is <strong>relaxed</strong> to conditioning on some region
+“close” to the target point.</li>
+</ul>
+</blockquote>
+
+<p>It is easy to see that as \( N,K \to \infty, s.t. k/N \to 0 \), we have \( \hat{f}(x) \to E[Y|X = x] \). But the problem is that we usually don&#39;t have that much data, i.e the first approximation is bad. Another problem is that as \( p \) increases, the data samples we have will be scattered very sparsely in the space, which leads to fail of using nearest neighbor as a surrorgate for conditioning, i.e. the second approximation is not good. And the <em>convergence rate</em> also decreases.</p>
+
+<h3>Linear regression</h3>
+
+<p>Linear regression is a <em>model-based</em> approach. It means that we have the belief/assumption that the regression function is approximately linear in its arguments:</p>
+
+<p>\[ 
+f(x) = E(Y| X = x) \approx x^T\beta
+ \]</p>
+
+<p>If this assumption is satisfied, we have </p>
+
+<p>\[ 
+\begin{equation}
+  \begin{split}
+    EPE(f) &= E[(Y - X^T\beta)^2]\\
+  \end{split}
+\end{equation}
+ \]</p>
+
+<p>Then by differentiating it w.r.t \( \beta \) and set the gradient to zero, we can get the closed form solution</p>
+
+<p>\[ 
+\beta = [E(XX^T)]^{-1}E(XY)
+ \]</p>
+
+<p>Thus actually both nearest-neighbor and linear model are trying to approximate the condtional expectations by averages.</p>
+
+<h1>2.5 Local Methods in High Dimensions</h1>
+
+</body>
+
+</html>
+

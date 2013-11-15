@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Linear method for regression</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h1>Linear method for regression</h1>
+
+<h1>3.1 Introduction</h1>
+
+<p>Assumption: the regression function \( E[Y|X] \) is linear in the input vector \( X_1,...,X_p \).</p>
+
+<p>Linear model is simple, but often provide <strong>adequate</strong> and <strong>interpretable</strong> description of how inputs affect the ouput.</p>
+
+<p>For scenarios, where</p>
+
+<ul>
+<li>small number of training samples</li>
+<li>low signal-to-noise ratio</li>
+<li>sparse data</li>
+</ul>
+
+<p>linear methods can outperform fancier non-linear methods.</p>
+
+<p>And we can this non-linear transformation, basis expansion or some other techniques to extend its scope of applications.</p>
+
+<h1>3.2 Linear Regression Models and Least Squares</h1>
+
+<p>The linear regression model has the form</p>
+
+<p>\[ 
+f(X) = \beta_0 + \sum_{j = 1}^p X_j\beta_j
+ \]</p>
+
+<p>Variables \( X_j \) come from various sources:</p>
+
+<blockquote>
+<ul>
+<li>quantitative inputs;</li>
+<li><strong>transformations</strong> of quantitative inputs, such as log, square-root or square</li>
+<li><strong>basis expansions</strong>, such as X_2 = X_1<sup>2,</sup> X_3 = X_1<sup>3,</sup> leading to a polynomial representation;</li>
+<li><strong>numeric or &ldquo;dummy&rdquo; coding</strong> of the levels of qualitative inputs. </li>
+<li><strong>interactions</strong> between variables, for example, \( X_3 = X_1 X_2 \).</li>
+</ul>
+</blockquote>
+
+<p>\( Least squares \) is a popular way of estimating \( \beta \). First the residual sum of squares is defined</p>
+
+<p>\[ 
+RSS(\beta) = \sum_{i = 1}^N(f(x_i) - y_i)
+ \]</p>
+
+<p>And we want the \( \beta \) that minimize \( RSS(\beta) \), i.e. \( \hat{\beta} = argmin_{\beta}RSS(\beta) \).</p>
+
+<p>Note that <em>least squares</em> does not assume that our model is linear. It is a general way of estimation.</p>
+
+<p>For linear models, we have </p>
+
+<p>\[ 
+\begin{equation}
+  \begin{split}
+    RSS(\beta) &= \sum_{i = 1}^N(f(x_i) - y_i)
+    &= \sum_{i = 1}^N(\sum_{j}^px_{ij}\beta_j - y_i)
+  \end{split}
+\end{equation}
+ \]</p>
+
+<p>Assume that we have added a \( \mathbf{1} \) vector to the input vector, then we can rewrite the \( RSS(\beta) \) as </p>
+
+<p>\[ 
+RSS(\beta) = (\mathbf{y} - \mathbf{X}\beta)^T(\mathbf{y} - \mathbf{X}\beta)
+ \]</p>
+
+<p>Differentiate it w.r.t \( \beta \) and we get </p>
+
+<p>\[ 
+\frac{\partial RSS}{\partial \beta} = -2 \mathbf{X}^T(\mathbf{y} - \mathbf{X}\beta)
+ \]</p>
+
+<p>Assuming that \( X \) is full column rank, thus \( X^TX \) is positive definite and hence it is invertible, we set the derivate above to zero and get the <strong>unique</strong> solution</p>
+
+<p>\[ 
+\hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}
+ \]</p>
+
+<p>Then the predicted values at the training samples are</p>
+
+<p>\[ 
+\begin{equation}
+  \begin{split}
+  \hat{\mathbf{y}} = \mathbf{X}\hat{\beta} = \mathbf{X}(\mathbf{X}^T\mathbf{X})\mathbf{X}^T\mathbf{y}
+  \end{split}
+\end{equation}
+ \]</p>
+
+<p>The matrix \( H = \mathbf{X}(\mathbf{X}^T\mathbf{X})\mathbf{X}^T \) is called &ldquo;hat&rdquo; matrix as it puts a hat on \( y \).</p>
+
+<p>The geometrical explanation about how we estimate is as follows. Our target is to minimize \( RSS(\beta) = \| \mathbf{y} - \mathbf{\hat{y}}\|_2^2 \). Then \( \mathbf{y} - \mathbf{\hat{y}} \) is orthogonal to the column space of \( \mathbf{X} \).</p>
+
+<p>\[ 
+X^T(\hat{\mathbf{y}} - \mathbf{y}) = 0
+ \]</p>
+
+<p>Then</p>
+
+<p>\[ 
+X^T(X\beta - \mathbf{y}) = 0
+ \]</p>
+
+<p>What is interesting here is that it seems that we rediscover \( \frac{\partial RSS(\beta)}{\partial \beta} = 0 \) from a different point of view. Here \( H \) can be called <em>projection matrix</em>, as it projects \( \mathbf{y} \) on to the column space of \( \mathbf{X} \).</p>
+
+<p>When \( \mathbf{X} \) contains linear dependent variables, \( X^TX \) is singular. But \( \hat{\mathbf{y}} \) are still projection of \( \mathbf{y} \) on the column space. The difference is that we have multiple(infinite?) representations of \( \hat{\mathbf{y}} \) now.</p>
+
+<h2>Sampling properties of \( \hat{\beta} \)</h2>
+
+<p>Assuming that \( y_i \) are uncorrelated and have constant \( \sigma^2 \). \( x_i \) are fixed(not random). Then as \( \hat{\beta} = (\mathbf{X}^T\mathbf{X})\mathbf{X}^T\mathbf{y} \), the variance-covariance matrix of the least squares estimates is</p>
+
+<p>\[ 
+Var(\hat{\beta}) = (\mathbf{X}^T\mathbf{X})^{-1}\sigma^2
+ \]</p>
+
+<p>\( \sigma^2 \) can be estimated by</p>
+
+<p>\[ 
+\hat{\sigma^2} = \frac{1}{N-p-1} \sum_{i = 1}^N(y_i - \hat{y_i})^2,
+ \]</p>
+
+<p>which is an unbiased estimate of \( \sigma^2 \).</p>
+
+<p>Now we assume that linear model is the right model for the regression function and the way \( Y \) is generated from \( X \) is</p>
+
+<p>\[ 
+\begin{equation}
+  \begin{split}
+  Y &= E[Y|X] + \epsilon\\
+  &=X\beta + \epsilon,
+  \end{split}
+\end{equation}
+ \]</p>
+
+<p>where \( \epsilon \sim N(0, \sigma^2) \).</p>
+
+<p>Then </p>
+
+<p>\[ 
+\begin{equation}
+  \begin{split}
+  E[\hat{\beta}] &= E[(\mathbf{X}^T\mathbf{X})\mathbf{X}^T\mathbf{y}] \\
+  &=E[(\mathbf{X}^T\mathbf{X})\mathbf{X}^T(X\beta + \epsilon)]\\
+  &=(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{X}\beta\\
+  &=\mathbf{I}\beta = \beta
+  \end{split}
+\end{equation}
+ \]</p>
+
+<p>Thus we have </p>
+
+<p>\[ 
+\hat{\beta} \sim N(\beta, (\mathbf{X}^T\mathbf{X})^{-1}\sigma^2)
+ \]</p>
+
+<p>Also,</p>
+
+<p>\[ 
+(N-p-1)\hat{\sigma}^2 =\sum_{i = 1}^N(y_i - \hat{y_i})^2 = \sigma^2\sum_{i = 1}^N(\frac{y_i - x_i^T\hat{\beta}}{\sigma})^2 \sim \sigma^2 \chi^2_{N-p-1}
+ \]</p>
+
+<p>And the two estimations \( \hat{sigma} \) and \( \hat{\beta} \) are statistically independent.</p>
+
+</body>
+
+</html>
+
