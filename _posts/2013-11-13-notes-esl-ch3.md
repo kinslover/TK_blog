@@ -1,3 +1,12 @@
+---
+layout: post
+title: [notes][ESL] Chapter 3: Overview of Supervised Learning
+comments: true
+published: false
+
+---
+
+
 Linear method for regression
 ========================================================
 
