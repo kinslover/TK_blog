@@ -163,7 +163,82 @@ $$
 (N-p-1)\hat{\sigma}^2 =\sum_{i = 1}^N(y_i - \hat{y_i})^2 = \sigma^2\sum_{i = 1}^N(\frac{y_i - x_i^T\hat{\beta}}{\sigma})^2 \sim \sigma^2 \chi^2_{N-p-1}
 $$
 
-And the two estimations $\hat{sigma}$ and $\hat{\beta}$ are statistically independent.
+Note that the two estimations $\hat{sigma}$ and $\hat{\beta}$ are statistically independent and thus we can construct the $Z-score$ to test the hypothesis that a particular coefficient $\beta_j = 0$
+
+$$
+z_j  = \frac{\hat{\beta}_j}{\hat{\sigma}\sqrt{(\mathbf{X}^T\mathbf{X})_{jj}^{-1}}} = \frac{\hat{\beta}_j}{\sqrt{(\mathbf{X}^T\mathbf{X})_{jj}^{-1}\sigma^2\frac{\hat{\sigma}^2}{(N-p-1)\sigma^2}}} = \frac{(\hat{\beta}_j)/(\sqrt{(\mathbf{X}^T\mathbf{X})_{jj}^{-1}\sigma^2})}{\sqrt{\frac{\hat{\sigma}^2}{(N-p-1)\sigma^2}}} 
+$$
+
+Thus under the null hypothesis $\beta_j = 0$,
+
+- $z_j$ is distributed as $t_{N - p - 1}$.(If it can be zero, we can exclude this feature) 
+- A large value of $\hat{\beta_j}$ would reject the null hypothesis. 
+- If we use the true variance $\sigma$ instead of the $\hat{\sigma}$, this would turn into a standard normal distribution.
+- As $N$ increases, the quantiles of a t-distribution approaches $N(0, 1)$.
+
+To test the significance of a group of coefficients simultaneously, e.g. a group of dummy variables generated from a single categorical variable, we need to test whether it is ok to set the coefficients of all these features to zero. *Here we use F statistic*,
+
+$$
+F = \frac{(RSS_0 - RSS_1)/(p_1 - p_0)}{RSS_1/(N - p_1 - 1)}
+$$
+
+where
+
+- $RSS_1$: the residual sum of squares for the least squares fit with the tested features, $RSS_0$ for the same without tested features.
+- $p_1$: number of features with tested features, $p_0$ is the number without tested features.
+
+> The F statistic measures the change in residual sum-of-squares per additional parameter in the bigger model, and it is normalized by an esti- mate of $\sigma^2$
+
+With the Gaussian assumption and the null hypothesis that the model with less coefficients is correct,
+
+- $F \sim F_{p_1 - p_0, N-p_1-1}$.
+- For dropping single coefficient, $z_j$ is equivalent to $F$ statistic.
+- For large $N$, the quantiles of $F_{p_1-p_0, N-p_1 - 1}$ approaches $\chi^2_{p_1 - p_0}/(p_1 - p_0)$.
+
+
+*In summary, we use Z-score to see if a feature is significant and F-stat to see if a group of features are significant.*
+
+**Problem:** If two features are very correlated, then inclusion of one will make the other not significant. As a result, we may exclude both of them if we purely follow the independently computed $Z-score$.
+
+### The Gauss-Markove Theorem
+
+The *least squares estimates* $\hat{\beta}$ of $\beta$ have the *smallest* variance among all *linear unbiased estimates*.
+
+However, unbiased assumption may be unnecessary, we could sacrifice some bias for even lower variance, which results in a lower expected generalization error.
+
+Now we try to prove that it is a unbised estimates and has the lowest variance
+
+**Unbiased estimates**
+
+Consider the case that we are estimating the linear combinations of the parameters $\theta = \alpha^T\beta$, then the least squares estimates of $\alpha^T\beta$ is
+
+$$
+\theta = \alpha \hat{\beta} = 
+$$
 
 
 
+
+## 3.3 Subset Selection
+
+Two problems with least squares estimates:
+
+- Prediction accuracy: low bias, but high variance. We may trade some bias for less variance.
+- Interpretation: When faced with numerous features, we would like to see the "big picture" of what is important.
+
+In subset selection, we only keep a subset of the variables in the model. *Least squares regression* is used to estimate the coefficients of the remained inputs.
+
+### 3.3.1 Bes-subset selection
+
+
+>Best subset regression finds for each $k \in \{0, 1, 2, . . . , p\}$ the subset of size $k$ that gives smallest residual sum of squares.
+
+The problem of choosing $k$ involves the tradeoff between bias and variance, and the way we do that is to measure the expected prediction error with the help of cross validation.
+
+Some algorithms, such as leaps and bounds, can solve this problem up to $p = 30 or 40$.
+
+### 3.3.2 Forward and Backward-Stepwise Selection
+
+Instead of searching all possible subsets, we can seek a good path through them.
+
+*Forward and Backward-Stepwise Selection* 

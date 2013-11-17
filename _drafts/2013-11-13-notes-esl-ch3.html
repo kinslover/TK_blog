@@ -1,12 +1,3 @@
----
-layout: post
-title: [notes][ESL] Chapter 2: Overview of Supervised Learning
-comments: true
-published: false
-
----
-
-
 <!DOCTYPE html>
 <!-- saved from url=(0014)about:internet -->
 <html>
@@ -155,6 +146,15 @@ hr {
 </head>
 
 <body>
+<hr/>
+
+<p>layout: post
+title: [notes][ESL] Chapter 3: Overview of Supervised Learning
+comments: true
+published: false</p>
+
+<hr/>
+
 <h1>Linear method for regression</h1>
 
 <h1>3.1 Introduction</h1>
@@ -316,7 +316,92 @@ Var(\hat{\beta}) = (\mathbf{X}^T\mathbf{X})^{-1}\sigma^2
 (N-p-1)\hat{\sigma}^2 =\sum_{i = 1}^N(y_i - \hat{y_i})^2 = \sigma^2\sum_{i = 1}^N(\frac{y_i - x_i^T\hat{\beta}}{\sigma})^2 \sim \sigma^2 \chi^2_{N-p-1}
  \]</p>
 
-<p>And the two estimations \( \hat{sigma} \) and \( \hat{\beta} \) are statistically independent.</p>
+<p>Note that the two estimations \( \hat{sigma} \) and \( \hat{\beta} \) are statistically independent and thus we can construct the \( Z-score \) to test the hypothesis that a particular coefficient \( \beta_j = 0 \)</p>
+
+<p>\[ 
+z_j  = \frac{\hat{\beta}_j}{\hat{\sigma}\sqrt{(\mathbf{X}^T\mathbf{X})_{jj}^{-1}}} = \frac{\hat{\beta}_j}{\sqrt{(\mathbf{X}^T\mathbf{X})_{jj}^{-1}\sigma^2\frac{\hat{\sigma}^2}{(N-p-1)\sigma^2}}} = \frac{(\hat{\beta}_j)/(\sqrt{(\mathbf{X}^T\mathbf{X})_{jj}^{-1}\sigma^2})}{\sqrt{\frac{\hat{\sigma}^2}{(N-p-1)\sigma^2}}} 
+ \]</p>
+
+<p>Thus under the null hypothesis \( \beta_j = 0 \),</p>
+
+<ul>
+<li>\( z_j \) is distributed as \( t_{N - p - 1} \).(If it can be zero, we can exclude this feature) </li>
+<li>A large value of \( \hat{\beta_j} \) would reject the null hypothesis. </li>
+<li>If we use the true variance \( \sigma \) instead of the \( \hat{\sigma} \), this would turn into a standard normal distribution.</li>
+<li>As \( N \) increases, the quantiles of a t-distribution approaches \( N(0, 1) \).</li>
+</ul>
+
+<p>To test the significance of a group of coefficients simultaneously, e.g. a group of dummy variables generated from a single categorical variable, we need to test whether it is ok to set the coefficients of all these features to zero. <em>Here we use F statistic</em>,</p>
+
+<p>\[ 
+F = \frac{(RSS_0 - RSS_1)/(p_1 - p_0)}{RSS_1/(N - p_1 - 1)}
+ \]</p>
+
+<p>where</p>
+
+<ul>
+<li>\( RSS_1 \): the residual sum of squares for the least squares fit with the tested features, \( RSS_0 \) for the same without tested features.</li>
+<li>\( p_1 \): number of features with tested features, \( p_0 \) is the number without tested features.</li>
+</ul>
+
+<blockquote>
+<p>The F statistic measures the change in residual sum-of-squares per additional parameter in the bigger model, and it is normalized by an esti- mate of \( \sigma^2 \)</p>
+</blockquote>
+
+<p>With the Gaussian assumption and the null hypothesis that the model with less coefficients is correct,</p>
+
+<ul>
+<li>\( F \sim F_{p_1 - p_0, N-p_1-1} \).</li>
+<li>For dropping single coefficient, \( z_j \) is equivalent to \( F \) statistic.</li>
+<li>For large \( N \), the quantiles of \( F_{p_1-p_0, N-p_1 - 1} \) approaches \( \chi^2_{p_1 - p_0}/(p_1 - p_0) \).</li>
+</ul>
+
+<p><em>In summary, we use Z-score to see if a feature is significant and F-stat to see if a group of features are significant.</em></p>
+
+<p><strong>Problem:</strong> If two features are very correlated, then inclusion of one will make the other not significant. As a result, we may exclude both of them if we purely follow the independently computed \( Z-score \).</p>
+
+<h3>The Gauss-Markove Theorem</h3>
+
+<p>The <em>least squares estimates</em> \( \hat{\beta} \) of \( \beta \) have the <em>smallest</em> variance among all <em>linear unbiased estimates</em>.</p>
+
+<p>However, unbiased assumption may be unnecessary, we could sacrifice some bias for even lower variance, which results in a lower expected generalization error.</p>
+
+<p>Now we try to prove that it is a unbised estimates and has the lowest variance</p>
+
+<p><strong>Unbiased estimates</strong></p>
+
+<p>Consider the case that we are estimating the linear combinations of the parameters \( \theta = \alpha^T\beta \), then the least squares estimates of \( \alpha^T\beta \) is</p>
+
+<p>\[ 
+\theta = \alpha \hat{\beta} = 
+ \]</p>
+
+<h2>3.3 Subset Selection</h2>
+
+<p>Two problems with least squares estimates:</p>
+
+<ul>
+<li>Prediction accuracy: low bias, but high variance. We may trade some bias for less variance.</li>
+<li>Interpretation: When faced with numerous features, we would like to see the &ldquo;big picture&rdquo; of what is important.</li>
+</ul>
+
+<p>In subset selection, we only keep a subset of the variables in the model. <em>Least squares regression</em> is used to estimate the coefficients of the remained inputs.</p>
+
+<h3>3.3.1 Bes-subset selection</h3>
+
+<blockquote>
+<p>Best subset regression finds for each \( k \in \{0, 1, 2, . . . , p\} \) the subset of size \( k \) that gives smallest residual sum of squares.</p>
+</blockquote>
+
+<p>The problem of choosing \( k \) involves the tradeoff between bias and variance, and the way we do that is to measure the expected prediction error with the help of cross validation.</p>
+
+<p>Some algorithms, such as leaps and bounds, can solve this problem up to \( p = 30 or 40 \).</p>
+
+<h3>3.3.2 Forward and Backward-Stepwise Selection</h3>
+
+<p>Instead of searching all possible subsets, we can seek a good path through them.</p>
+
+<p><em>Forward and Backward-Stepwise Selection</em> </p>
 
 </body>
 
