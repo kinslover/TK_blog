@@ -241,4 +241,53 @@ Some algorithms, such as leaps and bounds, can solve this problem up to $p = 30 
 
 Instead of searching all possible subsets, we can seek a good path through them.
 
-*Forward and Backward-Stepwise Selection* 
+*Forward and Backward-Stepwise Selection* builds a model sequentially, adding one variable at a time. At each step, it
+
+- identifies the best variable to include in the *active set*
+- then updates the least squares fit to include all the active variables
+
+
+### 3.3.3 Stagewise regression
+
+- start with fit vector $\mathbf{u} = 0$
+- Build the correlation vector $\mathbf{c} = \mathbf{X}^T(\mathbf{y} - \mathbf{u})$, where $\mathbf{c}_j = \mathbf{x}^T_j (\mathbf{y} - \mathbf{u})\$, i.e. the correlation of $\mathbf{x}_j$ and the residual error
+- Choose $k = argmax_{j} |\mathbf{c_j}|$
+- $u = u + \alpha \cdot sign(\mathbf{c}_k) \mathbf{x}_k$
+
+
+
+
+### 3.4.4 Least Angle Regression
+
+-----
+
+**Least Angle Regression**
+
+**Initialization:**
+
+- Standardize the predictors to have $\bar{\mathbf{x}}_j = 0$ and $|\mathbf{x}_j| = 0, \forall j$. Initialize the residual 
+$$\mathbf{r} = \mathbf{y} - \bar{\mathbf{y}},\beta_j = 0, \forall j$$
+- Find the $\mathbf{x}_{k = 1}= argmax_{x_j} \mathbf{x}_j \mathbf{r}$, and put $\mathbf{x}_{k=1}$ into the *active set* $A_1$ at time $k = 1$
+
+**Main procedure**
+
+- At time $k>1$, Move the coefficients $\beta_{A_k}$ of $A_k$ in the direction $\delta_k$, 
+$$
+\beta_{A_k}(\alpha) = \beta_{A_k} + \alpha \cdot \delta_k
+$$
+*untill some predictor $\mathbf{x}_k$ has as much correlation with the current residual as $\mathbf{x}_j$ in $A_k$ (all $x_j$ in $A_k$ share the same correlation)*. Then repeat this procedure. Here 
+$$
+\delta_k = (\mathbf{X}_{A_k}^T\mathbf{X}_{A_k})^{-1} \mathbf{X}_{A_k}^T \mathbf{r_k}
+$$
+where residual $\mathbf{r_k} = \mathbf{y} - \mathbf{X}_{A_k}\beta_{A_k}$.
+As we change the $\alpha$, we are also improving the fit as 
+$$\hat{f}_k(\alpha) = \hat{f_k} + \alpha \cdot \mathbf{u}_k,$$
+where $\hat{f}_k(\alpha)$ is the fit at the beginning of time $k$ and $\mathbf{u}_k = \mathbf{X}_{A_k}\delta_k$ is the corresoinding moving direction of the fit.
+
+It is called *least angle regression*, because the direction of fit's increase $\mathbf{u}_k$ has the same angle with all $x_j \in A_k$, and this is also why all $x_j \in A_k$ share the same correlation with the residual.
+
+And actually, we don't need to search for the $\alpha$ that get us the $x_j$ with the same correlation. We can compute it.
+
+### Lasso modification of LARS
+
+When we change $\alpha$, when a non-zero coefficient hits zero, then drop its variable from the active set $A$ and recompute the current joint least squares direction $\delta$ and $\mathbf{u}$.
