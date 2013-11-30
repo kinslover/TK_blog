@@ -14,16 +14,17 @@ html, body { height: 100%; }
 
 body {
   background-color: #FFF;
-  font: 13.34px Helvetica, Arial, sans-serif;
-  font-size: small;
+  font: 13.34px Times, Helvetica, Arial, sans-serif;
+  font-size: medium;
   text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%; }
 
-h1 { margin-bottom: 1em; }
-p { margin: 1em 0; }
+h1 { margin-bottom: 0.2em; margin-top: 0.3em }
+h1 { font-size: larger; color: #00a}
+p { margin: 0.2em; margin-left: 0.5em}
 
 a         { color: #00a; }
 a:hover   { color: #000; }
@@ -63,10 +64,10 @@ a:visited { color: #a0a; }
 /*****************************************************************************/
 
 .site {
-  font-size: 115%;
+  font-size: 100%;
   text-align: justify;
-  /*width: 42em;*/
-  width: 56em;
+  width: 54em;
+  /*width: 56em;*/
   margin: 3em auto 2em;
   line-height: 1.5em;
 }
