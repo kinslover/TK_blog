@@ -73,8 +73,10 @@ title: TK's Blog
 
 
         </p>
-        <h1>Blog Posts</h1>
+        <h1>Notes</h1>
+
         <ul class="posts">
+        <li> <span>19 Nov 2013</span> &raquo; <a href="http://kinslover.github.io/sparse_model_slides/">A Survey on Dimension Reduction and Sparse Methods [SLIDES]</a></li>
         {% for post in site.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}

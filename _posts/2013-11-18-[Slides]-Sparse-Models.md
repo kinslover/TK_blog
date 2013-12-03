@@ -2,7 +2,7 @@
 layout: post
 title:  Slides for sparse models
 date:   2013-11-18 09:47:35
-published: true
+published: false
 comments: true
 
 ---
