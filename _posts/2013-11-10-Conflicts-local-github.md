@@ -2,6 +2,8 @@
 layout: post
 title: Conflicts between viewing site on github and previewing it locally
 comments: true
+category: jekyll
+tag: jekyll, blog
 
 ---
 

@@ -5,10 +5,22 @@ title:  Notes
 
 <div id="blog_post">
 
-        <h1>Blog Posts</h1>
+        <h1>View by Time</h1>
         <ul class="posts">
         {% for post in site.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
         </ul>
+
+        <h1>View by Category</h1>
+		{% for category in site.categories %} 
+		<h2 id="{{ category[0] }}-ref">{{ category[0] | capitalize }}</h2>
+		<ul class="posts">
+		  {% for post in category[1] %} 
+		        <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+		  {% endfor %}
+		</ul>
+		<p><a href="#{{ category[0] }}-ref">&#8617;</a></p>
+		{% endfor %}       
+
 </div>
