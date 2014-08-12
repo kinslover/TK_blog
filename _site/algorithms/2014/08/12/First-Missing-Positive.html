@@ -87,7 +87,7 @@
 
 <p>In my algorithm, I use A[i] = -1 to mark the appearance of the positive number i+1, however, it is possible that some A[j] = -1 in the first place. Thus we preprocess A[] changing all navtive -1 into -3.</p>
 
-<p>Then in every loop $i$, we mark A[A[i]-1] = -1. One problem is that, maybe A[i]-1 is greater than i, which means A[A[i]-1] has not been visited yet, if we blindly change A[A[i]-1] to -1 to mark the appearance of A[i], we will lose the information about A[A[i]-1].</p>
+<p>Then in every loop <script type="math/tex">i</script>, we mark A[A[i]-1] = -1. One problem is that, maybe A[i]-1 is greater than i, which means A[A[i]-1] has not been visited yet, if we blindly change A[A[i]-1] to -1 to mark the appearance of A[i], we will lose the information about A[A[i]-1].</p>
 
 <p>Therefore, I use a while loop to up at line 12 to solve this problem. Whenever we meet a A[i], where A[i]-1 &gt; i, we cache tp = A[A[i]-1] and change A[A[i]-1] to -1, then we do the same thing to the cached tp, until we find tp &lt;= i or tp is not legal (negative or above n).</p>
 
