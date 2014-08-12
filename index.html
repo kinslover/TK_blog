@@ -78,7 +78,7 @@ title: TK's Blog
             <li> 
                 <span>19 Nov 2013</span> &raquo; <a href="http://kinslover.github.io/sparse_model_slides/">A Survey on Dimension Reduction and Sparse Methods [SLIDES] <i>(for CMPUT466/551 Machine Learning)</i></a>
             </li>
-            {% for post in site.posts %}
+            {% for post in site.posts limit:5 %}
             <li>
                 <span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
             </li>
