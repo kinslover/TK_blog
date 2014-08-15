@@ -18,7 +18,7 @@ Another example is ")()())", where the longest valid parentheses substring is "(
 
 # Solution
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 class Solution {
 public:
     int longestValidParentheses(string s) {

@@ -5,7 +5,6 @@ published: true
 comments: true
 category: Economics
 tag: pricing, economics, conjoint analysis
-
 ---
 
 # Conjoint Analysis

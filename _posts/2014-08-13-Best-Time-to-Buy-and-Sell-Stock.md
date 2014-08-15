@@ -58,7 +58,7 @@ The implementations are slightly different from the algorithm descriptions out o
 
 ## Problem I
 
-{%highlight c++%}
+{%highlight c++ linenos %}
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
@@ -77,7 +77,7 @@ public:
 
 ## Problem II
 
-{%highlight c++%}
+{%highlight c++ linenos %}
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
@@ -92,7 +92,7 @@ public:
 
 ## Problem III
 
-{%highlight c++%}
+{%highlight c++ linenos %}
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
