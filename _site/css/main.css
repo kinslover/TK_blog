@@ -177,6 +177,9 @@ a:visited { color: #a0a; }
   background-color: #333;
 }
 
+.image_center {
+  float: center;
+}
 
 blockquote
 {
