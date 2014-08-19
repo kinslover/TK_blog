@@ -64,7 +64,7 @@ The key idea here is that in each outer loop, we take each bar as the minimum ba
 
 
 <p align="center">
-<img src="{{ site.url }}/images/LargestRectangleinHistogram1.png" alt="Example of left boundary and right boundary">
+<img src="{{ site.baseurl }}/images/LargestRectangleinHistogram1.png" alt="Example of left boundary and right boundary">
 </p>
 
 ## Solution 4
