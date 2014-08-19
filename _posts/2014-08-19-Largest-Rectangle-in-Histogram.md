@@ -151,7 +151,7 @@ Solution 5 still sticks on the key idea that we consider each bar as the minimum
 
 The detailed explanation can be found in http://www.geeksforgeeks.org/largest-rectangle-under-histogram/. There you will also find the solution 6, which is a $$O(nlogn)$$ divide-and-conquer solution.
 
-Below is my implementation of the $$O(n)$$ solution, where the comments may help you understand the algorithm. Bear in mind that the **key idea** used here will help you undertand it much faster.
+Below is my implementation of the $$O(n)$$ solution, where the comments may help you understand the algorithm. Bear in mind that the **key idea (we are tring to locate left and right boundary for each bar)** used here will help you undertand it much faster.
 
 
 {% highlight c++ linenos %}
