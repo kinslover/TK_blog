@@ -99,7 +99,7 @@ It is the same procedure to find the left boundary.
 
 I am not quite sure about the time complexity of this algorithm. The way I boost the speed is similar to the thought of path compression in Union-Find set. I tried to come up with some example to screw up this algorithm but failed. Anyway, the average time complexity will be way better than $$O(n^2)$$ solution. The running time of it in leetcode is 64ms, which is not a bad result.
 
-I strongly suspect this is a $$O(n)$$ solution. Solution 5, which will be discussed later is obviously a $$O(n)$$ solution. I run solution 4 and 5 on leetcode OJ for several times. The running time of S5 is usually higher than S4 (maybe it is because of the slow STL stack).
+I strongly suspect this is a $$O(n)$$ solution. Solution 5, which will be discussed later is obviously a $$O(n)$$ solution. I run solution 4 and 5 on leetcode OJ for several times. The running time of S5 is usually higher than S4 (maybe it is because of the slow STL stack). However, this is of course not a formal proof. I would appreciate it, if you have any idea about the time complexity of this solution and share it with me.
 
 {% highlight c++ linenos %}
 
