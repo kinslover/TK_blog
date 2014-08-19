@@ -59,7 +59,7 @@ for i = 0..n-1
 {% endhighlight %}
 
 
-The key idea here is that in each outer loop, we take each bar as the minimum bar in the rectangle and find the left boundary and right boundary of the maximum rectangle that takes this bar as the mimimum bar. Then we compute the area and update $$maxArea$$. 
+The key idea here is that in each outer loop, **we take each bar as the minimum bar in the rectangle and find the left boundary and right boundary of the maximum rectangle that takes this bar as the mimimum bar**. Then we compute the area and update $$maxArea$$. 
 
 
 
