@@ -99,6 +99,8 @@ It is the same procedure to find the left boundary.
 
 I am not quite sure about the time complexity of this algorithm. The way I boost the speed is similar to the thought of path compression in Union-Find set. I tried to come up with some example to screw up this algorithm but failed. Anyway, the average time complexity will be way better than $$O(n^2)$$ solution. The running time of it in leetcode is 64ms, which is not a bad result.
 
+I strongly suspect this is a $$O(n)$$ solution. Solution 5, which will be discussed later is obviously a $$O(n)$$ solution. I run solution 4 and 5 on leetcode OJ for several times. The running time of S5 is usually higher than S4 (maybe it is because of the slow STL stack).
+
 {% highlight c++ linenos %}
 
 class Solution {
@@ -136,5 +138,41 @@ public:
     }
 };
 {% endhighlight %}
+
+## Solution 5 & 6
+
+Solution 5 still sticks on the key idea that we consider each bar as the minimum bar in a rectangle and try to compute the corresponding area by locating its left boundary and right boundary, but this solution use some much trickier thought to do it. As a result, the time complexity is obviously $$O(n)$$.
+
+The detailed explanation can be found in http://www.geeksforgeeks.org/largest-rectangle-under-histogram/. There you will also find the solution 6, which is a $$O(nlogn)$$ divide-and-conquer solution.
+
+Below is my implementation of the $$O(n)$$ solution, where the comments may help you understand the algorithm. Bear in mind that the **key idea** used here will help you undertand it much faster.
+
+
+{% highlight c++ linenos %}
+class Solution {
+public:
+    int largestRectangleArea(vector<int> &height) {
+        stack<int>stk;
+        int maxArea = 0;        
+        height.push_back(0);
+        int n = height.size();
+        for (int i  = 0; i < n; ++ i){            
+            while (!stk.empty() && height[stk.top()] > height[i] ){
+                // the index of minimum bar in the rectangle that we currently consider
+                int curIdx = stk.top(); 
+                stk.pop();
+                int leftBoundary = (stk.empty())? 0 : stk.top()+1;
+                // the right boundary is obviously i-1
+                int curArea = (i - leftBoundary) * height[curIdx];
+                maxArea = max(maxArea, curArea);
+            }
+            stk.push(i);            
+        }           
+        
+        return maxArea;
+    }
+};
+{% endhighlight %}
+
 
 [pic1]: {{ site.url }}/images/LargestRectangleinHistogram1.png  "Example of left boundary and right boundary"
