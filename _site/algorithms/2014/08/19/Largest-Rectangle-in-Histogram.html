@@ -50,13 +50,9 @@
 
 <p>https://oj.leetcode.com/problems/largest-rectangle-in-histogram/</p>
 
-<h1 id="analysis">Analysis</h1>
-
-<p><strong>Key Observation</strong>: Given several consecutive bars, the bar with the mimimum height decides the area of the rectangle formed by those bars.</p>
-
 <h2 id="solution-1">Solution 1</h2>
 
-<p>The simplest method I can come up is that we enumerate each pair of start point and end point <script type="math/tex">[i, j]</script> and find the bar with minimum height in <script type="math/tex">[i, j]</script> and then compute the area. Next we update the <script type="math/tex">maxArea</script></p>
+<p>The simplest method I can come up is that we enumerate each pair of start point and end point <script type="math/tex">[i, j]</script> and compute the area of the rectangle between <script type="math/tex">i</script> and <script type="math/tex">j</script>. The area only <strong>depends on <script type="math/tex">j-i+1</script> and the minimum bar height</strong>.</p>
 
 <div class="highlight"><pre><code class="ruby"><span class="n">maxArea</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">.</span><span class="n">.n</span><span class="o">-</span><span class="mi">1</span>
@@ -66,6 +62,8 @@
 </code></pre></div>
 
 <p>Thus this is a naive <script type="math/tex">O(n^3)</script> solution.</p>
+
+<p><strong>Key Observation</strong>: Given several consecutive bars, the bar with the mimimum height decides the area of the rectangle formed by those bars. </p>
 
 <h2 id="solution-2">Solution 2</h2>
 
@@ -77,47 +75,86 @@
 
 <h2 id="solution-3">Solution 3</h2>
 
-<p>Still following the thought the minimum bar is the key bar that decides the area of a rectangle, here I introduce another way of computing the <script type="math/tex">maxArea</script>. This solution is still <script type="math/tex">O(n^2)</script>, but a further improvement will be based on this one in solution 4.</p>
+<p>Let us look at this problem in a slightly different way. Still following the thought the minimum bar is the key bar that decides the area of a rectangle, what is the maximum rectangle that has <script type="math/tex">i_{th}</script> bar as the minimum bar? </p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">maxArea</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">.</span><span class="n">.n</span><span class="o">-</span><span class="mi">1</span>
-	<span class="n">curArea</span> <span class="o">=</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
-	<span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">.</span><span class="n">.n</span><span class="o">-</span><span class="mi">1</span> <span class="o">//</span> <span class="n">find</span> <span class="n">right</span> <span class="n">boundary</span>
-		<span class="k">if</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">height</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
-			<span class="n">curArea</span> <span class="o">+=</span> <span class="n">height</span><span class="o">[</span><span class="n">j</span><span class="o">]</span><span class="p">;</span>
-		<span class="k">else</span> <span class="k">break</span>
-	<span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">0</span>  <span class="o">//</span> <span class="n">find</span> <span class="n">left</span> <span class="n">boundary</span>
-		<span class="k">if</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">height</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
-			<span class="n">curArea</span> <span class="o">+=</span> <span class="n">height</span><span class="o">[</span><span class="n">j</span><span class="o">]</span><span class="p">;</span>
-		<span class="k">else</span> <span class="k">break</span>
-	<span class="n">maxArea</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxArea</span><span class="p">,</span> <span class="n">curArea</span><span class="p">);</span>
-</code></pre></div>
-
-<p>The key idea here is that in each outer loop, we take each bar as the minimum bar in the rectangle and find the left boundary and right boundary of the maximum rectangle that takes this bar as the mimimum bar. Then we compute the area and update <script type="math/tex">maxArea</script>. </p>
+<p>The example below gives the answer</p>
 
 <p align="center">
-<img src="/images/LargestRectangleinHistogram1.png" alt="Example of left boundary and right boundary" />
+<img src="/images/LargestRectangleinHistogram2.png" height="260" />
+</p>
+
+<p>In this figure, all the bars on the left side (including) the <script type="math/tex">1st</script> bar cannot be in the rectangle, because the <script type="math/tex">1_{st}</script> bar is the first bar on the left side of <script type="math/tex">i_{th}</script> bar <script type="math/tex">% <![CDATA[
+s.t. height[j] < height[i] %]]></script>. Similarly, all the bars on the right side (including) the <script type="math/tex">4_{th}</script> bar cannot be in the rectangle.</p>
+
+<p>This is <strong>how to locate the left and right boundaries of a rectangle taking <script type="math/tex">i_{th}</script> bar as the shortest one</strong>.</p>
+
+<p>Then it is trivial to compute the area of the rectangle taking <script type="math/tex">i_{th}</script> bar as the shortest one</p>
+
+<script type="math/tex; mode=display">area[i] = (right[i] - left[i] + 1) \times height[i]</script>
+
+<p>and </p>
+
+<script type="math/tex; mode=display">maxArea = \max_i area[i]</script>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">maxArea</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">.</span><span class="n">.n</span><span class="o">-</span><span class="mi">1</span>	
+	<span class="k">for</span> <span class="n">right</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">.n</span><span class="o">-</span><span class="mi">1</span> <span class="o">//</span> <span class="n">find</span> <span class="n">right</span> <span class="n">boundary</span>
+		<span class="k">if</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">height</span><span class="o">[</span><span class="n">right</span><span class="o">]</span>			
+		  <span class="k">break</span>
+	<span class="k">for</span> <span class="n">left</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">.</span><span class="mi">0</span>  <span class="o">//</span> <span class="n">find</span> <span class="n">left</span> <span class="n">boundary</span>
+		<span class="k">if</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">height</span><span class="o">[</span><span class="n">left</span><span class="o">]</span>			
+		  <span class="k">break</span>
+	<span class="n">right</span> <span class="o">--</span><span class="p">;</span> <span class="n">left</span> <span class="o">++</span><span class="p">;</span>
+	<span class="n">maxArea</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxArea</span><span class="p">,</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">));</span>
+</code></pre></div>
+
+<p>The key idea here is that in each outer loop, <strong>we take each bar as the shortest bar in the rectangle and find the left boundary and right boundary of the maximum rectangle that takes this bar as the shortest bar</strong>. Then we compute the area and update <script type="math/tex">maxArea</script>. </p>
+
+<p><strong>NOTE: The following two more efficient algorithms are also doing the same thing, but in a smarter way.</strong></p>
+
+<p align="center">
+<img src="/images/LargestRectangleinHistogram1.png" height="260" />
 </p>
 
 <h2 id="solution-4">Solution 4</h2>
 
-<p>Here is an example</p>
+<p>We start from an example to show how to speed up solution 3</p>
 
 <pre><code>bar height: 0, 1, 2, 3, 4, e.g. height[i] = i
 </code></pre>
 
-<p>In solution 3, when we compute the right boundary of <script type="math/tex">height[1]</script>, we have to iterate from 2 to 4. However an easy observation is that <script type="math/tex">right[1] >= right[2]</script>, as <script type="math/tex">height[2] >= height[1]</script>. In summary,</p>
+<p>In solution 3, when we compute the right boundary of <script type="math/tex">height[1]</script>, we have to iterate from 2 to 4. However an easy observation is that as <script type="math/tex">height[2] >= height[1]</script>, <script type="math/tex">right[1] >= right[2]</script>. </p>
 
-<p><script type="math/tex">right[i] >= right[i+1]</script>, if and only if <script type="math/tex">% <![CDATA[
-height[i] <= height[i+1] %]]></script>.</p>
+<p>In summary,</p>
 
-<p>This observation will help us speed up the algorithm a lot.</p>
+<ul>
+  <li><script type="math/tex">right[i] >= right[i+1]</script>, if <script type="math/tex">% <![CDATA[
+height[i] <= height[i+1] %]]></script></li>
+  <li><script type="math/tex">right[i] = i, if </script>height[i] &lt;= height[i+1]$$</li>
+</ul>
 
-<p>Therefore once we find <script type="math/tex">% <![CDATA[
-height[i] <= height[i+1] %]]></script>, we know that <script type="math/tex">right[i] >= right[i+1]</script>. Then we check if <script type="math/tex">% <![CDATA[
-height[i] <= height[right[i+1]+1] %]]></script> or not. If so right[i] &gt;= right[right[i+1]+1]. So and so forth.</p>
+<p>However until now we only know <script type="math/tex">right[i] >= right[i+1]</script>, if <script type="math/tex">% <![CDATA[
+height[i] <= height[i+1] %]]></script>. What is exactly is <script type="math/tex">right[i]</script>?</p>
 
-<p>Here is an example</p>
+<p>Here comes the whole procedure of computing <script type="math/tex">right[i]</script> based on previous observation</p>
+
+<ul>
+  <li>Step1 initialize j = i + 1</li>
+  <li>Step2 check if <script type="math/tex">j >= n</script> or <script type="math/tex">height[i] > height[j]</script>,
+    <ul>
+      <li>2.1 if so, <script type="math/tex">right[i] = i</script> <strong>END</strong></li>
+      <li>2.2 if not, 
+        <ul>
+          <li>2.2.1 j = right[j] + 1</li>
+          <li>2.2.2 go back to Step2</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Step3 right[i] = j - 1</li>
+</ul>
+
+<p>We use an example to illustrate how the algorithm goes</p>
 
 <pre><code>bar height: 0, 1, 2, 3, 4, 2, 3
 right:      6, 6, 5, 4, 4, 6, 6
@@ -126,16 +163,12 @@ right:      6, 6, 5, 4, 4, 6, 6
 <p>Suppose that we are trying to compute <script type="math/tex">right[2]</script>, </p>
 
 <ul>
-  <li>Step1: we find that <script type="math/tex">height[3] >= height[2]</script>, then we go to <script type="math/tex">right[3]+1 = 5</script>. </li>
+  <li>Step1: we find that <script type="math/tex">height[3] >= height[2]</script>, then we go to <script type="math/tex">right[3] + 1 = 5</script>. </li>
   <li>Step2: We find that <script type="math/tex">height[5] >= height[2]</script>, then we got to <script type="math/tex">right[5] + 1 = 6</script>. </li>
   <li>Step3: As <script type="math/tex">height[6] >= height[2]</script> and 6 is the last element, 6 is the right boundary for 2, e.g. <script type="math/tex">right[2] = 6</script>.</li>
 </ul>
 
-<p>It is the same procedure to find the left boundary.</p>
-
-<h3 id="time-complextiy">Time complextiy</h3>
-
-<p>I am not quite sure about the time complexity of this algorithm. The way I boost the speed is similar to the thought of path compression in Union-Find set. I tried to come up with some example to screw up this algorithm but failed. Anyway, the average time complexity will be way better than <script type="math/tex">O(n^2)</script> solution. The running time of it in leetcode is 64ms, which is not a bad result.</p>
+<p>It is the same procedure to find the left boundary and here is the code.</p>
 
 <div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="lineno"> 2</span> <span class="nl">public:</span>
@@ -173,6 +206,77 @@ right:      6, 6, 5, 4, 4, 6, 6
 <span class="lineno">34</span> <span class="p">};</span>
 </code></pre></div>
 
+<h3 id="time-complextiy">Time complextiy</h3>
+
+<p>It is a little bit complicated (but not hard) to prove the time complexity is <script type="math/tex">O(n)</script>. I may try to write a formal proof later. Here is a simple example of how redundant computation is avoided and may give you some intuition.</p>
+
+<p align="center">
+<img src="/images/LargestRectangleinHistogram3.png" height="260" />
+</p>
+
+<p>In this example, it is pretty painful to compute <script type="math/tex">right[2]</script>, because we have to first go to 3, then 4, then 5, which is a <script type="math/tex">O(n)</script> procedure. However, when it comes to the computation of <script type="math/tex">right[1]</script> after <script type="math/tex">right[2] = 5</script> is computed, life is much easier</p>
+
+<ul>
+  <li>in (1), <script type="math/tex">% <![CDATA[
+height[1] <= height[2] %]]></script>, then only 1 operation is enough
+    <ul>
+      <li>we go to <script type="math/tex">right[2] + 1 = 6</script>, but find <script type="math/tex">6 == \#bars</script>, DONE.</li>
+    </ul>
+  </li>
+  <li>in (2), <script type="math/tex">height[1] > height[2]</script>
+    <ul>
+      <li><script type="math/tex">height[1] = 1</script>, DONE</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Actually, after we go through 3, 4, 5 during the computation of <script type="math/tex">right[2]</script> we will never have to go through 3, 4, 5 any more in our later computation of <script type="math/tex">% <![CDATA[
+right[<2] %]]></script>. As the total number of bars we can go through is <script type="math/tex">n</script>, the algorithm is an <script type="math/tex">O(n)</script> algorithm.</p>
+
+<h3 id="more-thoughts">More thoughts</h3>
+
+<p>The thought of solving this probelm is also kind of similar to Trapping Rain Water. In TRW, we consider about each bar and try to compute the number of units of the water this bar holds by locating the highest bar on both left side and right side respectively, while in this problem, for each bar, we are trying to locate left and right boundaries.</p>
+
+<h2 id="solution-5">Solution 5</h2>
+
+<p>Solution 5 still sticks on the key idea that we consider each bar as the minimum bar in a rectangle and try to compute the corresponding area by locating its left boundary and right boundary. It is easier to see the time complexity is <script type="math/tex">O(n)</script> for this solution.</p>
+
+<p>Solution 4 and 5 look very different from each other, but they are not.</p>
+
+<p>In solution 4, we enumerate each bar as <strong>the minimum bar</strong> in a rectangle, compute the area, and then update the <script type="math/tex">maxArea</script>.</p>
+
+<p>In solution 5, we enumerate each bar, and <strong>check if this bar can be a right boundary for any bar on the left side of it</strong>. If so, we go back to the stack to check which bars use this bar as right boundary. One brilliant thing about this solution is that we implictly save the information about their left boundaries of those bars in the stack. Then we can compute the area of maximum rectangle for each bar and find the maximum area.</p>
+
+<p>Please refer to my following implementations to figure out the details of this algorithm.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno"> 2</span> <span class="nl">public:</span>
+<span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">largestRectangleArea</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">height</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 4</span>         <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">stk</span><span class="p">;</span>
+<span class="lineno"> 5</span>         <span class="kt">int</span> <span class="n">maxArea</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        
+<span class="lineno"> 6</span>         <span class="n">height</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="lineno"> 7</span>         <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">height</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="lineno"> 8</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>            
+<span class="lineno"> 9</span>             <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">stk</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">height</span><span class="p">[</span><span class="n">stk</span><span class="p">.</span><span class="n">top</span><span class="p">()]</span> <span class="o">&gt;</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">){</span>
+<span class="lineno">10</span>                 <span class="c1">// the index of minimum bar in the rectangle that we currently consider</span>
+<span class="lineno">11</span>                 <span class="kt">int</span> <span class="n">curIdx</span> <span class="o">=</span> <span class="n">stk</span><span class="p">.</span><span class="n">top</span><span class="p">();</span> 
+<span class="lineno">12</span>                 <span class="n">stk</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+<span class="lineno">13</span>                 <span class="kt">int</span> <span class="n">leftBoundary</span> <span class="o">=</span> <span class="p">(</span><span class="n">stk</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">stk</span><span class="p">.</span><span class="n">top</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="lineno">14</span>                 <span class="c1">// the right boundary is obviously i-1</span>
+<span class="lineno">15</span>                 <span class="kt">int</span> <span class="n">curArea</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">leftBoundary</span><span class="p">)</span> <span class="o">*</span> <span class="n">height</span><span class="p">[</span><span class="n">curIdx</span><span class="p">];</span>
+<span class="lineno">16</span>                 <span class="n">maxArea</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxArea</span><span class="p">,</span> <span class="n">curArea</span><span class="p">);</span>
+<span class="lineno">17</span>             <span class="p">}</span>
+<span class="lineno">18</span>             <span class="n">stk</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>            
+<span class="lineno">19</span>         <span class="p">}</span>           
+<span class="lineno">20</span>         
+<span class="lineno">21</span>         <span class="k">return</span> <span class="n">maxArea</span><span class="p">;</span>
+<span class="lineno">22</span>     <span class="p">}</span>
+<span class="lineno">23</span> <span class="p">};</span>
+</code></pre></div>
+
+<h2 id="solution-6">Solution 6</h2>
+
+<p>Solution 6 is an <script type="math/tex">O(n log n)</script> divide-and-conquer algorithm, which can be found at http://www.geeksforgeeks.org/largest-rectangle-under-histogram/.</p>
 
 </div>
 
