@@ -17,9 +17,7 @@ For example, given s = "aab",
 
 Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.
 
-# Solution & Analysis
-
-## Analysis
+# Analysis
 
 The first solution is a $$O(n^3)$$ one which is almost the same with the standard solution to Matrix Multiplication. We use $$num[i][j]$$ to record the minimum number of cuts between $$i$$ and $$j$$, which can be calculated by
 
