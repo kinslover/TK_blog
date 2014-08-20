@@ -11,6 +11,9 @@ tag: algorithm, stack, leetcode
 
 https://oj.leetcode.com/problems/largest-rectangle-in-histogram/
 
+# Analysis & Solution
+
+This is a pretty interesting question. The best solution using stack looks very tricky at the first look. This post will give some analysis of what is the thought under that solution and a more straightfoward solution using exactly the same thought, the time complexity of which is also $$O(n)$$. This may help you know how to come up with that kind of solution for other problems.
 
 ## Solution 1 
 
@@ -46,9 +49,9 @@ The example below gives the answer
 <img src="{{ site.baseurl }}/images/LargestRectangleinHistogram2.png" height="260">
 </p>
 
-In this figure, all the bars on the left side (including) the $$1st$$ bar cannot be in the rectangle, because the $$1_{st}$$ bar is the first bar on the left side of $$i_{th}$$ bar $$s.t. height[j] < height[i]$$. Similarly, all the bars on the right side (including) the $$4_{th}$$ bar cannot be in the rectangle.
+In this figure, all the bars on the left side (including) the $$1st$$ bar cannot be in the rectangle, because the $$1_{st}$$ bar is the first bar on the left side of $$i_{th}$$ bar $$s.t. height[j] < height[i]$$. Similarly, all the bars on the right side (including) the $$5_{th}$$ bar cannot be in the rectangle.
 
-This is **how to locate the left and right boundaries of a rectangle taking $$i_{th}$$ bar as the shortest one**.
+This is exactly **how we locate the left and right boundaries of the rectangle taking $$i_{th}$$ bar as the shortest one**.
 
 Then it is trivial to compute the area of the rectangle taking $$i_{th}$$ bar as the shortest one
 
@@ -75,7 +78,7 @@ for i = 0..n-1
 
 The key idea here is that in each outer loop, **we take each bar as the shortest bar in the rectangle and find the left boundary and right boundary of the maximum rectangle that takes this bar as the shortest bar**. Then we compute the area and update $$maxArea$$. 
 
-**NOTE: The following two more efficient algorithms are also doing the same thing, but in a smarter way.**
+**NOTE: The following two more efficient algorithms are also doing the same thing (locate left and right boundaries), but in a smarter way.**
 
 <p align="center">
 <img src="{{ site.baseurl }}/images/LargestRectangleinHistogram1.png" height="260">
@@ -87,16 +90,16 @@ We start from an example to show how to speed up solution 3
 
 	bar height: 0, 1, 2, 3, 4, e.g. height[i] = i
 
-In solution 3, when we compute the right boundary of $$height[1]$$, we have to iterate from 2 to 4. However an easy observation is that as $$height[2] >= height[1]$$, $$right[1] >= right[2]$$. 
+In solution 3, when we compute the right boundary of $$height[1]$$, we have to iterate from 2 to 4. However an easy observation is that as $$height[1] <= height[2]$$, $$right[1] >= right[2]$$. 
 
 In summary,
 
 - $$right[i] >= right[i+1]$$, if $$height[i] <= height[i+1]$$
 - $$right[i] = i, if $$height[i] <= height[i+1]$$
 
-However until now we only know $$right[i] >= right[i+1]$$, if $$height[i] <= height[i+1]$$. What is exactly is $$right[i]$$?
+However until now we only know $$right[i] >= right[i+1]$$, if $$height[i] <= height[i+1]$$. What exactly is $$right[i]$$?
 
-Here comes the whole procedure of computing $$right[i]$$ based on previous observation
+The whole procedure of computing $$right[i]$$ goes here
 
 - Step1 initialize j = i + 1
 - Step2 check if $$j >= n$$ or $$height[i] > height[j]$$,
@@ -115,7 +118,8 @@ Suppose that we are trying to compute $$right[2]$$,
 
 - Step1: we find that $$height[3] >= height[2]$$, then we go to $$right[3] + 1 = 5$$. 
 - Step2: We find that $$height[5] >= height[2]$$, then we got to $$right[5] + 1 = 6$$. 
-- Step3: As $$height[6] >= height[2]$$ and 6 is the last element, 6 is the right boundary for 2, e.g. $$right[2] = 6$$.
+- Step3: As $$height[6] >= height[2]$$ then we got to $$right[6] + 1 = 7$$.
+- Step4, $$7 == \#bars$$, so $$right[2] = 7-1 = 6$$
 
 It is the same procedure to find the left boundary and here is the code.
 

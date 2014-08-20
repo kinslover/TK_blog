@@ -50,6 +50,10 @@
 
 <p>https://oj.leetcode.com/problems/largest-rectangle-in-histogram/</p>
 
+<h1 id="analysis--solution">Analysis &amp; Solution</h1>
+
+<p>This is a pretty interesting question. The best solution using stack looks very tricky at the first look. This post will give some analysis of what is the thought under that solution and a more straightfoward solution using exactly the same thought, the time complexity of which is also <script type="math/tex">O(n)</script>. This may help you know how to come up with that kind of solution for other problems.</p>
+
 <h2 id="solution-1">Solution 1</h2>
 
 <p>The simplest method I can come up is that we enumerate each pair of start point and end point <script type="math/tex">[i, j]</script> and compute the area of the rectangle between <script type="math/tex">i</script> and <script type="math/tex">j</script>. The area only <strong>depends on <script type="math/tex">j-i+1</script> and the minimum bar height</strong>.</p>
@@ -84,9 +88,9 @@
 </p>
 
 <p>In this figure, all the bars on the left side (including) the <script type="math/tex">1st</script> bar cannot be in the rectangle, because the <script type="math/tex">1_{st}</script> bar is the first bar on the left side of <script type="math/tex">i_{th}</script> bar <script type="math/tex">% <![CDATA[
-s.t. height[j] < height[i] %]]></script>. Similarly, all the bars on the right side (including) the <script type="math/tex">4_{th}</script> bar cannot be in the rectangle.</p>
+s.t. height[j] < height[i] %]]></script>. Similarly, all the bars on the right side (including) the <script type="math/tex">5_{th}</script> bar cannot be in the rectangle.</p>
 
-<p>This is <strong>how to locate the left and right boundaries of a rectangle taking <script type="math/tex">i_{th}</script> bar as the shortest one</strong>.</p>
+<p>This is exactly <strong>how we locate the left and right boundaries of the rectangle taking <script type="math/tex">i_{th}</script> bar as the shortest one</strong>.</p>
 
 <p>Then it is trivial to compute the area of the rectangle taking <script type="math/tex">i_{th}</script> bar as the shortest one</p>
 
@@ -110,7 +114,7 @@ s.t. height[j] < height[i] %]]></script>. Similarly, all the bars on the right s
 
 <p>The key idea here is that in each outer loop, <strong>we take each bar as the shortest bar in the rectangle and find the left boundary and right boundary of the maximum rectangle that takes this bar as the shortest bar</strong>. Then we compute the area and update <script type="math/tex">maxArea</script>. </p>
 
-<p><strong>NOTE: The following two more efficient algorithms are also doing the same thing, but in a smarter way.</strong></p>
+<p><strong>NOTE: The following two more efficient algorithms are also doing the same thing (locate left and right boundaries), but in a smarter way.</strong></p>
 
 <p align="center">
 <img src="/images/LargestRectangleinHistogram1.png" height="260" />
@@ -123,7 +127,8 @@ s.t. height[j] < height[i] %]]></script>. Similarly, all the bars on the right s
 <pre><code>bar height: 0, 1, 2, 3, 4, e.g. height[i] = i
 </code></pre>
 
-<p>In solution 3, when we compute the right boundary of <script type="math/tex">height[1]</script>, we have to iterate from 2 to 4. However an easy observation is that as <script type="math/tex">height[2] >= height[1]</script>, <script type="math/tex">right[1] >= right[2]</script>. </p>
+<p>In solution 3, when we compute the right boundary of <script type="math/tex">height[1]</script>, we have to iterate from 2 to 4. However an easy observation is that as <script type="math/tex">% <![CDATA[
+height[1] <= height[2] %]]></script>, <script type="math/tex">right[1] >= right[2]</script>. </p>
 
 <p>In summary,</p>
 
@@ -134,9 +139,9 @@ height[i] <= height[i+1] %]]></script></li>
 </ul>
 
 <p>However until now we only know <script type="math/tex">right[i] >= right[i+1]</script>, if <script type="math/tex">% <![CDATA[
-height[i] <= height[i+1] %]]></script>. What is exactly is <script type="math/tex">right[i]</script>?</p>
+height[i] <= height[i+1] %]]></script>. What exactly is <script type="math/tex">right[i]</script>?</p>
 
-<p>Here comes the whole procedure of computing <script type="math/tex">right[i]</script> based on previous observation</p>
+<p>The whole procedure of computing <script type="math/tex">right[i]</script> goes here</p>
 
 <ul>
   <li>Step1 initialize j = i + 1</li>
@@ -165,7 +170,8 @@ right:      6, 6, 5, 4, 4, 6, 6
 <ul>
   <li>Step1: we find that <script type="math/tex">height[3] >= height[2]</script>, then we go to <script type="math/tex">right[3] + 1 = 5</script>. </li>
   <li>Step2: We find that <script type="math/tex">height[5] >= height[2]</script>, then we got to <script type="math/tex">right[5] + 1 = 6</script>. </li>
-  <li>Step3: As <script type="math/tex">height[6] >= height[2]</script> and 6 is the last element, 6 is the right boundary for 2, e.g. <script type="math/tex">right[2] = 6</script>.</li>
+  <li>Step3: As <script type="math/tex">height[6] >= height[2]</script> then we got to <script type="math/tex">right[6] + 1 = 7</script>.</li>
+  <li>Step4, <script type="math/tex">7 == \#bars</script>, so <script type="math/tex">right[2] = 7-1 = 6</script></li>
 </ul>
 
 <p>It is the same procedure to find the left boundary and here is the code.</p>
