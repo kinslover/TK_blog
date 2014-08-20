@@ -117,8 +117,8 @@ We use an example to illustrate how the algorithm goes
 Suppose that we are trying to compute $$right[2]$$, 
 
 - Step1: we find that $$height[3] >= height[2]$$, then we go to $$right[3] + 1 = 5$$. 
-- Step2: We find that $$height[5] >= height[2]$$, then we got to $$right[5] + 1 = 6$$. 
-- Step3: As $$height[6] >= height[2]$$ then we got to $$right[6] + 1 = 7$$.
+- Step2: We find that $$height[5] >= height[2]$$, then we go to $$right[5] + 1 = 6$$. 
+- Step3: As $$height[6] >= height[2]$$ then we go to $$right[6] + 1 = 7$$.
 - Step4, $$7 == \#bars$$, so $$right[2] = 7-1 = 6$$
 
 It is the same procedure to find the left boundary and here is the code.
