@@ -38,7 +38,7 @@ then
 - $$minCut[i] = \min_{j \in D(i)} (minCut[j] + 1)$$, if $$str[0,i]$$ is NOT a palindrome
 - $$minCut[i] = 0$$, if $$str[0,i]$$ is a palindrome
 
-Below is the pseudo code of the algorithm. In this algorithm, $$is_palindrome[][]$$ can be precomputed in $$O(n^2)$$ time. Therefore, the total time complexity is $$O(n^2)$$.
+Below is the pseudo code of the algorithm. In this algorithm, $$is\_palindrome[][]$$ can be precomputed in $$O(n^2)$$ time. Therefore, the total time complexity is $$O(n^2)$$.
 
 {% highlight c++ linenos%}
 	//pseudo code in mixed C++-Python style
@@ -110,12 +110,11 @@ public:
 			isPal[i][i] = true, isPal[i][i+1] = (s[i] == s[i+1]);		
 		isPal[n-1][n-1] = true;			
 
-		for (int len = 3; len <= n; ++ len){
+		for (int len = 3; len <= n; ++ len)
 			for (int start = 0; start < n - len + 1; ++ start){
 				int end = start + len - 1;
 				isPal[start][end] = (s[start] == s[end]) && isPal[start+1][end-1];
 			}			
-		}
 		
 		//calculate minimum number of cut
 		int minCutArray[n];
