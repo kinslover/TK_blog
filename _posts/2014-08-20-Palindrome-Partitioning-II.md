@@ -7,17 +7,27 @@ category: algorithms
 tag: leetcode, DP, matrix multiplication
 ---
 
+# Description
+
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return the minimum cuts needed for a palindrome partitioning of s.
+
+For example, given s = "aab",
+
+Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.
+
 # Solution & Analysis
 
 ## Analysis
 
-The Solution 1 is a $$O(n^3)$$ solution which is almost the same with the standard solution of Matrix Multiplication. $$num[i][j]$$ records the minimum number of cuts between $$i$$ and $$j$$, which can be calculated by
+The first solution is a $$O(n^3)$$ one which is almost the same with the standard solution to Matrix Multiplication. We use $$num[i][j]$$ to record the minimum number of cuts between $$i$$ and $$j$$, which can be calculated by
 
 $$num[i][j] = \min_{k \in i,...j-1} (num[i][k] + num[k+1][j] + 1)$$.
 
-However, there are some redundant and unnecessary operations involved. Instead of computing $$num[i][j]$$ all possible pair $$(i, j)$$, can we find a solution that reduces the amount of computation? The answer is yes.
+However, there are some redundant and unnecessary operations involved. Instead of computing $$num[i][j]$$ for all possible pairs $$(i, j)$$, can we find a solution that reduces the amount of computation? The answer is yes.
 
-Let us define a new variable $$minCut[i] = num[0][i]$$. Now I am introducting Solution 2, which only computes $$minCut[i]$$, i.e. $$num[0][i]$$.
+Let us define a new variable $$minCut[i] = num[0][i]$$. In Solution 2, we only compute $$minCut[i]$$, i.e. $$num[0][i], \forall i$$.
 
 For the substring $$str[0...i]$$, we define $$D(i)$$ to be the set of indices less than $$i$$ $$s.t.$$
 
@@ -28,7 +38,7 @@ then
 - $$minCut[i] = \min_{j \in D(i)} (minCut[j] + 1)$$, if $$str[0,i]$$ is NOT a palindrome
 - $$minCut[i] = 0$$, if $$str[0,i]$$ is a palindrome
 
-Below is the pseudo code of the algorithm. In this algorithm, $$is_palindrome[][]$$ can be precomputed in $$O(n^2)$$ time. Therefore, it is a $$O(n^2)$$ solution.
+Below is the pseudo code of the algorithm. In this algorithm, $$is_palindrome[][]$$ can be precomputed in $$O(n^2)$$ time. Therefore, the total time complexity is $$O(n^2)$$.
 
 {% highlight c++ linenos%}
 	//pseudo code in mixed C++-Python style
@@ -50,7 +60,7 @@ Below is the pseudo code of the algorithm. In this algorithm, $$is_palindrome[][
 
 If you run this code in leetcode OJ, you will get runtime error, as there is a test case where the length of the string is more than 1400. Allocating a 2-D int array with $$1400 \times 1400$$ elements leads to runtime error.
 
-You can replace ``int num[n][n]`` with ``unsigned char num[n][n]``, but it is still a nasty solution.
+You can replace ``int num[n][n]`` with ``unsigned char num[n][n]``, but it is still a nasty solution and will get you a TLE.
 
 {% highlight c++ linenos%}
 class Solution {
