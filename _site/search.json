@@ -1,51 +1,163 @@
 [
 	
 		{
-		  "title"      : "Why Jekyll?",
-		  "category"   : "webdevelopment",
-		  "url"        : "/Notepad/webdevelopment/why-jekyll",
-		  "date"       : "2014-07-23 00:00:00 +0600",
-		  "shortdate"  : "July 23, 2014"
+		  "title"      : "Survival Analysis Material",
+		  "category"   : "Survival Analysis",
+		  "url"        : "/survival%20analysis/Survival-Analysis-Material",
+		  "date"       : "2014-08-22 00:00:00 +0600",
+		  "shortdate"  : "August 22, 2014"
 		} ,
 	
 		{
-		  "title"      : "Introducing Notepad",
-		  "category"   : "personal",
-		  "url"        : "/Notepad/personal/introducing-notepad",
-		  "date"       : "2014-07-19 00:00:00 +0600",
-		  "shortdate"  : "July 19, 2014"
+		  "title"      : "Palindrome Partitioning II",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Palindrome-Partitioning-II",
+		  "date"       : "2014-08-20 00:00:00 +0600",
+		  "shortdate"  : "August 20, 2014"
 		} ,
 	
 		{
-		  "title"      : "Documentation",
-		  "category"   : "theme",
-		  "url"        : "/Notepad/theme/documentation",
-		  "date"       : "2014-06-19 00:00:00 +0600",
-		  "shortdate"  : "June 19, 2014"
+		  "title"      : "Maximal Rectangle",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Maximum-Rectangle",
+		  "date"       : "2014-08-19 00:00:00 +0600",
+		  "shortdate"  : "August 19, 2014"
 		} ,
 	
 		{
-		  "title"      : "Post with Cover Image and Text",
-		  "category"   : "theme",
-		  "url"        : "/Notepad/theme/readability-feature-post",
-		  "date"       : "2013-05-23 00:00:00 +0600",
-		  "shortdate"  : "May 23, 2013"
+		  "title"      : "Largest Rectangle in Histogram",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Largest-Rectangle-in-Histogram",
+		  "date"       : "2014-08-19 00:00:00 +0600",
+		  "shortdate"  : "August 19, 2014"
 		} ,
 	
 		{
-		  "title"      : "Testing Readability with a Bunch of Text",
-		  "category"   : "articles",
-		  "url"        : "/Notepad/articles/readability-post",
-		  "date"       : "2012-05-22 00:00:00 +0600",
-		  "shortdate"  : "May 22, 2012"
+		  "title"      : "Interleaving String",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Interleaving-String",
+		  "date"       : "2014-08-19 00:00:00 +0600",
+		  "shortdate"  : "August 19, 2014"
 		} ,
 	
 		{
-		  "title"      : "Theme Elements",
-		  "category"   : "articles",
-		  "url"        : "/Notepad/articles/theme-elements",
-		  "date"       : "2011-03-10 00:00:00 +0600",
-		  "shortdate"  : "March 10, 2011"
+		  "title"      : "Distinct Subsequences",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Distinct-Subsequences",
+		  "date"       : "2014-08-18 00:00:00 +0600",
+		  "shortdate"  : "August 18, 2014"
+		} ,
+	
+		{
+		  "title"      : "Survey Desigin Tips",
+		  "category"   : "economics",
+		  "url"        : "/economics/Survey-Design-Tips",
+		  "date"       : "2014-08-17 00:00:00 +0600",
+		  "shortdate"  : "August 17, 2014"
+		} ,
+	
+		{
+		  "title"      : "Sort List",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Sort-List",
+		  "date"       : "2014-08-15 00:00:00 +0600",
+		  "shortdate"  : "August 15, 2014"
+		} ,
+	
+		{
+		  "title"      : "Merge Interval",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Merge-Interval",
+		  "date"       : "2014-08-14 00:00:00 +0600",
+		  "shortdate"  : "August 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "Insert Interval",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Insert-Interval",
+		  "date"       : "2014-08-14 00:00:00 +0600",
+		  "shortdate"  : "August 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "Implement strStr()",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Implement-strStr",
+		  "date"       : "2014-08-14 00:00:00 +0600",
+		  "shortdate"  : "August 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "Notes on Reservation Price as a Range An Incentive Compatible Measurement Approach",
+		  "category"   : "Economics",
+		  "url"        : "/economics/Reservation-Price-as-a-Range-An-Incentive-Compatible-Measurement-Approach",
+		  "date"       : "2014-08-13 00:00:00 +0600",
+		  "shortdate"  : "August 13, 2014"
+		} ,
+	
+		{
+		  "title"      : "Best Time to Buy and Sell Stock I, II and III",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Best-Time-to-Buy-and-Sell-Stock",
+		  "date"       : "2014-08-13 00:00:00 +0600",
+		  "shortdate"  : "August 13, 2014"
+		} ,
+	
+		{
+		  "title"      : "Scramble String",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Scramble-String",
+		  "date"       : "2014-08-12 00:00:00 +0600",
+		  "shortdate"  : "August 12, 2014"
+		} ,
+	
+		{
+		  "title"      : "First Missing Positive",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/First-Missing-Positive",
+		  "date"       : "2014-08-12 00:00:00 +0600",
+		  "shortdate"  : "August 12, 2014"
+		} ,
+	
+		{
+		  "title"      : "Conjoint Analysis",
+		  "category"   : "Economics",
+		  "url"        : "/economics/conjoint-analysis",
+		  "date"       : "2014-08-10 00:00:00 +0600",
+		  "shortdate"  : "August 10, 2014"
+		} ,
+	
+		{
+		  "title"      : "Longest Valid Parentheses",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Longest-Valid-Parentheses",
+		  "date"       : "2014-08-09 00:00:00 +0600",
+		  "shortdate"  : "August 09, 2014"
+		} ,
+	
+		{
+		  "title"      : "Notes on Chapter 2 of ESL",
+		  "category"   : "",
+		  "url"        : "/notes-esl-ch2",
+		  "date"       : "2013-11-18 09:47:35 UTC",
+		  "shortdate"  : "November 18, 2013"
+		} ,
+	
+		{
+		  "title"      : "Bias-Variance",
+		  "category"   : "machine learning",
+		  "url"        : "/machine%20learning/bias-var",
+		  "date"       : "2013-11-13 00:00:00 +0600",
+		  "shortdate"  : "November 13, 2013"
+		} ,
+	
+		{
+		  "title"      : "Conflicts between viewing site on github and previewing it locally",
+		  "category"   : "jekyll",
+		  "url"        : "/jekyll/Conflicts-local-github",
+		  "date"       : "2013-11-10 00:00:00 +0600",
+		  "shortdate"  : "November 10, 2013"
 		} 
 	
 ]

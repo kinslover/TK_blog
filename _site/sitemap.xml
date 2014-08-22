@@ -1,78 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>/Notepad</loc>
+        <loc></loc>
     </url>
     
     
     <url>
-        <loc>/Notepad/404.html</loc>
+        <loc>/404.html</loc>
     </url>
     
     <url>
-        <loc>/Notepad/about/index.html</loc>
+        <loc>/about/index.html</loc>
     </url>
     
     <url>
-        <loc>/Notepad/categories/index.html</loc>
+        <loc>/categories/index.html</loc>
     </url>
     
     <url>
-        <loc>/Notepad/featured/</loc>
+        <loc>/featured/</loc>
     </url>
     
     <url>
-        <loc>/Notepad/feed.xml</loc>
+        <loc>/feed.xml</loc>
     </url>
     
     <url>
-        <loc>/Notepad/index.html</loc>
+        <loc>/index.html</loc>
     </url>
     
     <url>
-        <loc>/Notepad/links.jsonp</loc>
+        <loc>/links.jsonp</loc>
     </url>
     
     <url>
-        <loc>/Notepad/search.json</loc>
+        <loc>/search.json</loc>
     </url>
     
     <url>
-        <loc>/Notepad/sitemap.xml</loc>
+        <loc>/sitemap.xml</loc>
     </url>
     
     <url>
-        <loc>/Notepad/tags/index.html</loc>
+        <loc>/tags/index.html</loc>
     </url>
     
     <url>
-        <loc>/Notepad/page2/index.html</loc>
+        <loc>/page2/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page3/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page4/index.html</loc>
     </url>
     
 
     
     <url>
-        <loc>/Notepad/webdevelopment/why-jekyll</loc>
+        <loc>/survival%20analysis/Survival-Analysis-Material</loc>
     </url>
     
     <url>
-        <loc>/Notepad/personal/introducing-notepad</loc>
+        <loc>/algorithms/Palindrome-Partitioning-II</loc>
     </url>
     
     <url>
-        <loc>/Notepad/theme/documentation</loc>
+        <loc>/algorithms/Maximum-Rectangle</loc>
     </url>
     
     <url>
-        <loc>/Notepad/theme/readability-feature-post</loc>
+        <loc>/algorithms/Largest-Rectangle-in-Histogram</loc>
     </url>
     
     <url>
-        <loc>/Notepad/articles/readability-post</loc>
+        <loc>/algorithms/Interleaving-String</loc>
     </url>
     
     <url>
-        <loc>/Notepad/articles/theme-elements</loc>
+        <loc>/algorithms/Distinct-Subsequences</loc>
+    </url>
+    
+    <url>
+        <loc>/economics/Survey-Design-Tips</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Sort-List</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Merge-Interval</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Insert-Interval</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Implement-strStr</loc>
+    </url>
+    
+    <url>
+        <loc>/economics/Reservation-Price-as-a-Range-An-Incentive-Compatible-Measurement-Approach</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Best-Time-to-Buy-and-Sell-Stock</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Scramble-String</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/First-Missing-Positive</loc>
+    </url>
+    
+    <url>
+        <loc>/economics/conjoint-analysis</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Longest-Valid-Parentheses</loc>
+    </url>
+    
+    <url>
+        <loc>/notes-esl-ch2</loc>
+    </url>
+    
+    <url>
+        <loc>/machine%20learning/bias-var</loc>
+    </url>
+    
+    <url>
+        <loc>/jekyll/Conflicts-local-github</loc>
     </url>
     
 </urlset>

@@ -1,33 +1,103 @@
 callback([
 
   {
-    "text": "Theme Elements",
-    "href": "/Notepad/articles/theme-elements"
+    "text": "Conflicts between viewing site on github and previewing it locally",
+    "href": "/jekyll/Conflicts-local-github"
   } ,
 
   {
-    "text": "Testing Readability with a Bunch of Text",
-    "href": "/Notepad/articles/readability-post"
+    "text": "Bias-Variance",
+    "href": "/machine%20learning/bias-var"
   } ,
 
   {
-    "text": "Post with Cover Image and Text",
-    "href": "/Notepad/theme/readability-feature-post"
+    "text": "Notes on Chapter 2 of ESL",
+    "href": "/notes-esl-ch2"
   } ,
 
   {
-    "text": "Documentation",
-    "href": "/Notepad/theme/documentation"
+    "text": "Longest Valid Parentheses",
+    "href": "/algorithms/Longest-Valid-Parentheses"
   } ,
 
   {
-    "text": "Introducing Notepad",
-    "href": "/Notepad/personal/introducing-notepad"
+    "text": "Conjoint Analysis",
+    "href": "/economics/conjoint-analysis"
   } ,
 
   {
-    "text": "Why Jekyll?",
-    "href": "/Notepad/webdevelopment/why-jekyll"
+    "text": "First Missing Positive",
+    "href": "/algorithms/First-Missing-Positive"
+  } ,
+
+  {
+    "text": "Scramble String",
+    "href": "/algorithms/Scramble-String"
+  } ,
+
+  {
+    "text": "Best Time to Buy and Sell Stock I, II and III",
+    "href": "/algorithms/Best-Time-to-Buy-and-Sell-Stock"
+  } ,
+
+  {
+    "text": "Notes on Reservation Price as a Range An Incentive Compatible Measurement Approach",
+    "href": "/economics/Reservation-Price-as-a-Range-An-Incentive-Compatible-Measurement-Approach"
+  } ,
+
+  {
+    "text": "Implement strStr()",
+    "href": "/algorithms/Implement-strStr"
+  } ,
+
+  {
+    "text": "Insert Interval",
+    "href": "/algorithms/Insert-Interval"
+  } ,
+
+  {
+    "text": "Merge Interval",
+    "href": "/algorithms/Merge-Interval"
+  } ,
+
+  {
+    "text": "Sort List",
+    "href": "/algorithms/Sort-List"
+  } ,
+
+  {
+    "text": "Survey Desigin Tips",
+    "href": "/economics/Survey-Design-Tips"
+  } ,
+
+  {
+    "text": "Distinct Subsequences",
+    "href": "/algorithms/Distinct-Subsequences"
+  } ,
+
+  {
+    "text": "Interleaving String",
+    "href": "/algorithms/Interleaving-String"
+  } ,
+
+  {
+    "text": "Largest Rectangle in Histogram",
+    "href": "/algorithms/Largest-Rectangle-in-Histogram"
+  } ,
+
+  {
+    "text": "Maximal Rectangle",
+    "href": "/algorithms/Maximum-Rectangle"
+  } ,
+
+  {
+    "text": "Palindrome Partitioning II",
+    "href": "/algorithms/Palindrome-Partitioning-II"
+  } ,
+
+  {
+    "text": "Survival Analysis Material",
+    "href": "/survival%20analysis/Survival-Analysis-Material"
   } 
 
 ])
