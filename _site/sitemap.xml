@@ -57,7 +57,15 @@
         <loc>/page4/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page5/index.html</loc>
+    </url>
+    
 
+    
+    <url>
+        <loc>/algorithms/Wildcard-Matching</loc>
+    </url>
     
     <url>
         <loc>/survival%20analysis/Survival-Analysis-Material</loc>

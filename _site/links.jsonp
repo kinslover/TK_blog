@@ -98,6 +98,11 @@ callback([
   {
     "text": "Survival Analysis Material",
     "href": "/survival%20analysis/Survival-Analysis-Material"
+  } ,
+
+  {
+    "text": "Wildcard Matching",
+    "href": "/algorithms/Wildcard-Matching"
   } 
 
 ])

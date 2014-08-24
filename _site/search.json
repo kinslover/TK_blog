@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Wildcard Matching",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Wildcard-Matching",
+		  "date"       : "2014-08-22 00:00:00 +0600",
+		  "shortdate"  : "August 22, 2014"
+		} ,
+	
+		{
 		  "title"      : "Survival Analysis Material",
 		  "category"   : "Survival Analysis",
 		  "url"        : "/survival%20analysis/Survival-Analysis-Material",
