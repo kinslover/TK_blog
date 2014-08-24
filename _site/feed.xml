@@ -9,13 +9,111 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="/" />
-<updated>2014-08-24T06:42:08+06:00</updated>
+<updated>2014-08-24T13:56:30+06:00</updated>
 <id>/</id>
 <author>
   <name>Ping Jin</name>
   <uri>/</uri>
   <email>pjin1@ualberta.ca</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Minimum Window Substring]]></title>
+  <link rel="alternate" type="text/html" href="/algorithms/Minimum-Window-Substring"/>
+  <id>/algorithms/Minimum-Window-Substring</id>
+  <published>2014-08-23T00:00:00+06:00</published>
+  <updated>2014-08-23T00:00:00+06:00</updated>
+  <author>
+    <name>Ping Jin</name>
+    <uri></uri>
+    <email>pjin1@ualberta.ca</email>
+  </author>
+  <category scheme="/tags/#algorithm,%20leetcode" term="algorithm, leetcode" />
+  <content type="html">
+  
+    &lt;h1 id=&quot;description&quot;&gt;Description&lt;/h1&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;The time complexity of the naive solution is &lt;script type=&quot;math/tex&quot;&gt;O(n^2)&lt;/script&gt;. We take each position as the start left boundary, do the line search to find the right boundary between which the sub string contains all the chars in &lt;code&gt;T&lt;/code&gt; and record the minimum window.&lt;/p&gt;
+
+&lt;p&gt;A better solution is that we keep a left pointer &lt;code&gt;left&lt;/code&gt; and right pointer &lt;code&gt;right&lt;/code&gt;, both initialized to 0. &lt;code&gt;minWindow&lt;/code&gt; is initialzed to &lt;code&gt;MAX_INT&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;First, we increase the &lt;code&gt;right&lt;/code&gt; pointer until &lt;code&gt;S[left, right-1]&lt;/code&gt; contains all the chars in &lt;code&gt;T&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Second, check if (right - left) &amp;lt; minWindow
+    &lt;ul&gt;
+      &lt;li&gt;If so, record &lt;code&gt;left&lt;/code&gt; and &lt;code&gt;right&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Third, we increase the &lt;code&gt;left&lt;/code&gt; pointer by 1&lt;/li&gt;
+  &lt;li&gt;Forth, check if &lt;code&gt;S[left, right-1]&lt;/code&gt; fails to contain all the chars in &lt;code&gt;T&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;If so, 
+        &lt;ul&gt;
+          &lt;li&gt;If &lt;code&gt;right == S.size()&lt;/code&gt;: END&lt;/li&gt;
+          &lt;li&gt;Else go to First Step&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Else, go to Second step&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;p&gt;Running time on Leetcode OJ: 304 ms&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c++&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;     &lt;span class=&quot;n&quot;&gt;unordered_map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;     &lt;span class=&quot;n&quot;&gt;unordered_map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;char2pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt;     	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt;     		&lt;span class=&quot;n&quot;&gt;char2pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;     		&lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;     	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;     	&lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;     
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nSpan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;        
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2100000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lBound&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rBound&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;     &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;     	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nSpan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt;     		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;     			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;char2pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;     				&lt;span class=&quot;n&quot;&gt;nSpan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt;     			&lt;span class=&quot;n&quot;&gt;char2pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt;     		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt;     		&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;    		
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;     	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt; 		
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt;     	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nSpan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;     		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;     			&lt;span class=&quot;n&quot;&gt;minWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt;     			&lt;span class=&quot;n&quot;&gt;lBound&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt;     			&lt;span class=&quot;n&quot;&gt;rBound&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt;     		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt;     		
+&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt;     		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;35&lt;/span&gt;     			&lt;span class=&quot;n&quot;&gt;char2pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;36&lt;/span&gt;     			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;char2pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;37&lt;/span&gt;     				&lt;span class=&quot;n&quot;&gt;nSpan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;38&lt;/span&gt;     		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;39&lt;/span&gt;     		&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;40&lt;/span&gt;     	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;        	
+&lt;span class=&quot;lineno&quot;&gt;41&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;42&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;43&lt;/span&gt;     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lBound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rBound&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lBound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;44&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  
+  &lt;p&gt;&lt;a href=&quot;/algorithms/Minimum-Window-Substring&quot;&gt;Minimum Window Substring&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 23, 2014.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -168,9 +266,12 @@
   &lt;li&gt;Every time a mismatch happens, one character in &lt;code&gt;s&lt;/code&gt; will be absorbed by the the nearest asterik. &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The conditions for failure of match is
-- if no asterik has been spotted before a mismatch happens
-- if we find there is no chars left in &lt;code&gt;s&lt;/code&gt;, while we still have patterns (chars except asterisk) left in &lt;code&gt;p&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The conditions for failure of match is&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;if no asterik has been spotted before a mismatch happens&lt;/li&gt;
+  &lt;li&gt;if we find there is no chars left in &lt;code&gt;s&lt;/code&gt;, while we still have patterns (chars except asterisk) left in &lt;code&gt;p&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;The description above is too abstract, let me use a GIF to illustrate how this greedy algorithm works.&lt;/p&gt;
 
@@ -2026,255 +2127,6 @@ f(x) = E(Y| X = x) \approx x^T\beta
 
   
   &lt;p&gt;&lt;a href=&quot;/notes-esl-ch2&quot;&gt;Notes on Chapter 2 of ESL&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on November 18, 2013.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Bias-Variance]]></title>
-  <link rel="alternate" type="text/html" href="/machine%20learning/bias-var"/>
-  <id>/machine%20learning/bias-var</id>
-  <published>2013-11-13T00:00:00+06:00</published>
-  <updated>2013-11-13T00:00:00+06:00</updated>
-  <author>
-    <name>Ping Jin</name>
-    <uri></uri>
-    <email>pjin1@ualberta.ca</email>
-  </author>
-  <category scheme="/tags/#bias-variance%20tradeoff,%20blog" term="bias-variance tradeoff, blog" />
-  <content type="html">
-  
-    &lt;p&gt;Bias-variance tradeoff is a very basic and important topic in machine learning. It basically tells us what makes up the generalization error of a hypothesis or even a leaner and the involved tradeoff between the bias and variance. By knowing this, we can better choose the learner and hypothesis that achieves low generalization errors.&lt;/p&gt;
-
-&lt;h1 id=&quot;assumptions&quot;&gt;1. Assumptions&lt;/h1&gt;
-
-&lt;p&gt;All examples are &lt;script type=&quot;math/tex&quot;&gt;i.i.d&lt;/script&gt;, from the joint distribution &lt;script type=&quot;math/tex&quot;&gt;P(X, Y)&lt;/script&gt;. In this article, uppercase letters represent the random variables, while lowercase letters represent constant values.&lt;/p&gt;
-
-&lt;h1 id=&quot;three-levels&quot;&gt;2. Three levels&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Prediction&lt;/strong&gt;: Given a dataset &lt;script type=&quot;math/tex&quot;&gt;d&lt;/script&gt;, the hypothesis learned from this dataset, and the value of &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt;. The prediction &lt;script type=&quot;math/tex&quot;&gt;h(x)&lt;/script&gt; can be evaluated by the error . &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-E_{Y}[err(h(x|d), Y)]
-&lt;/script&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Hypothesis&lt;/strong&gt;: A hypothesis maps &lt;em&gt;X&lt;/em&gt; to &lt;em&gt;Y&lt;/em&gt;. It can be evaluated by the quality of predictions. It means that we want to measure the expected error of the hypothesis learned from some training set &lt;script type=&quot;math/tex&quot;&gt;d&lt;/script&gt; over the distribution &lt;script type=&quot;math/tex&quot;&gt;P(X, Y)&lt;/script&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-E_{X,Y}[err(h(X|d), Y)]
-&lt;/script&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Learner&lt;/strong&gt;: A learner maps &lt;em&gt;dataset D&lt;/em&gt; to &lt;em&gt;hypothesis h&lt;/em&gt;. It can be evaluated by the quality of hypothesis. It means that we want to measure the expectation of the performance of the hypotheses over different training datasets &lt;script type=&quot;math/tex&quot;&gt;D&lt;/script&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-E_{D}[E_{X,Y}[err(h(X|D), Y)]]
-&lt;/script&gt;
-
-&lt;h1 id=&quot;error-function&quot;&gt;3. Error function&lt;/h1&gt;
-
-&lt;p&gt;So let us focus on the case with &lt;script type=&quot;math/tex&quot;&gt;L2&lt;/script&gt; error function. &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
-	err(h(x|d), Y) = (h(x|d) - Y)^2
-\end{equation}&lt;/script&gt;
-
-&lt;h1 id=&quot;analysis-for-evaluation-of-predictions&quot;&gt;4. Analysis for evaluation of predictions&lt;/h1&gt;
-
-&lt;p&gt;For a given &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;h(x)&lt;/script&gt;, we measure our prediction over the distribution &lt;script type=&quot;math/tex&quot;&gt;P(Y\vert x)&lt;/script&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{equation}
-	\begin{split}
-		 E_{Y|x}[err(h(x), Y)] &amp;= E_{Y|x}[(h(x) - Y)^2]\\
-		&amp;= E_{Y|x}[(h(x) -E[Y|x]+E[Y|x] - Y)^2]\\
-		&amp;= E_{Y|x}[(h(x) -E[Y|x])^2] + E_{Y|x}[(E[Y|x] - Y)^2] \\
-		&amp;+ 2 E_{Y|x}[(h(x)-E[Y|x])(E[Y|x] - Y)]\\
-		&amp;= (h(x) -E[Y|x])^2 + E_{Y|x}[(E[Y|x] - Y)^2] \\		
-	\end{split}
-\end{equation} %]]&gt;&lt;/script&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Fisrt term&lt;/strong&gt;: the square of the bias&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Second term&lt;/strong&gt;: the variance of the variable &lt;script type=&quot;math/tex&quot;&gt;Y\vert x&lt;/script&gt;, which is a property of the distribution and thus totally out of our control.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And from the above derivation, we know that the hypothesis that minimizes the expected error of our prediction is&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-h^{opt}(x) = E[Y|x].
-&lt;/script&gt;
-
-&lt;h1 id=&quot;analysis-for-evaluation-of-hypotheses&quot;&gt;5. Analysis for evaluation of hypotheses&lt;/h1&gt;
-
-&lt;p&gt;Given the training set &lt;script type=&quot;math/tex&quot;&gt;d&lt;/script&gt;, we measure the hypothesis learned from this set with the expected error of its predictions over the distribution of all possible sample pair &lt;script type=&quot;math/tex&quot;&gt;P(X, Y)&lt;/script&gt;.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{equation}
-	\begin{split}
-		 E_{X, Y}[err(h(X|d), Y)] &amp;= E_{X, Y}[(h(X|d) - Y)^2]\\
-		&amp;= E_{X}\{E_{Y|X}[(h(X|d) -E_{Y|X}[Y])^2] + E_{Y|X}[(E_{Y|X}[Y] - Y)^2]\}
-	\end{split}
-\end{equation} %]]&gt;&lt;/script&gt;
-
-&lt;h1 id=&quot;analysis-for-evaluation-of-learner&quot;&gt;6. Analysis for evaluation of learner&lt;/h1&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{equation}
-	\begin{split}
-		 E_{D}\{E_{X, Y}[err(h(X|D), Y)]\} &amp;= E_{D}\{E_{X, Y}[(h(X|D) - Y)^2]\}\\
-		 &amp;= E_{D}\{E_{X,Y}[(h(X|D) -E_{Y|X}[Y])^2 + E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\}\\
-		&amp;= E_{X,Y} \{ E_{D}[(h(X|D) -E_{D}[h(X|D)])^2 + E_{D}[(E_{D}[h(X|D)] - E_{Y|X}[Y])^2]] \\
-		&amp; + 2 E_{D}[(h(X|D) -E_{D}[h(X|D)])(E_{D}[h(X|D)] - E_{Y|X}[Y]) \} \\
-		&amp;+ E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\\
-		&amp;= E_{X,Y} \{ E_{D}[(h(X|D) -E_{D}[h(X|D)])^2]\} \\&amp;
-		+ E_{X,Y} \{(E_{D}[h(X|D)] - E_{Y|X}[Y])^2 \}+ E_{X,Y}[(E_{Y|X}[Y] - Y)^2]\\		
-	\end{split}
-\end{equation} %]]&gt;&lt;/script&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The first two terms make the &lt;strong&gt;approximation error&lt;/strong&gt; together. 
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;First term&lt;/strong&gt;: the variance of our prediction over different training sets &lt;script type=&quot;math/tex&quot;&gt;D&lt;/script&gt;. &lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Second term&lt;/strong&gt;: the bias, i.e., how well our prediction approximates the true &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt;. &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Third term: the expected variance of $$Y&lt;/td&gt;
-          &lt;td&gt;X&lt;script type=&quot;math/tex&quot;&gt; over the distribution of &lt;/script&gt;P(X)$$, i.e. the random noise.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;furthe-analysis&quot;&gt;7. Furthe analysis&lt;/h1&gt;
-
-&lt;p&gt;Let &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\hat{E}_{X, Y}[err(f(X), Y)] = \frac{1}{t} \sum^{t}_{i = 1} err(f(x_i), y_i),
-&lt;/script&gt;
-
-&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;(x_i,y_i) \in D&lt;/script&gt;, be the error of a certain hypothesis on training set.&lt;/p&gt;
-
-&lt;p&gt;Now suppose we have a hypothesis space &lt;script type=&quot;math/tex&quot;&gt;H&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\hat{h}(X\vert D)&lt;/script&gt; is the hypothesis &lt;script type=&quot;math/tex&quot;&gt;\in H&lt;/script&gt; that minimizes the &lt;script type=&quot;math/tex&quot;&gt;MSE&lt;/script&gt; on training dataset &lt;script type=&quot;math/tex&quot;&gt;D&lt;/script&gt;, i.e.,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\hat{h}(X|D) = argmin_{h \in H} \hat{E}_{X,Y}[(h(X) - Y)^2]
-&lt;/script&gt;
-
-&lt;p&gt;and &lt;script type=&quot;math/tex&quot;&gt;h^*(X)&lt;/script&gt; is the hypothesis &lt;script type=&quot;math/tex&quot;&gt;\in H&lt;/script&gt; that minimizes the expected &lt;script type=&quot;math/tex&quot;&gt;MSE&lt;/script&gt; over &lt;script type=&quot;math/tex&quot;&gt;P(X, Y)&lt;/script&gt;,i.e. &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-h^*(X) = argmin_{h \in H} E_{X,Y}[(h(X) - Y)^2]
-&lt;/script&gt;
-
-&lt;p&gt;It is easy to see that &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-E_{D}[\hat{h}(X|D)] = h^*(X)
-&lt;/script&gt;
-
-&lt;p&gt;Then we consider about the expected error of this learner&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{equation}
-	\begin{split}
-		 E_{D}\{E_{X, Y}[err(\hat{h}(X|D), Y)]\} &amp;= E_{D}\{E_{X, Y}[(\hat{h}(X|d) - Y)^2]\}\\
-		&amp;= E_{X,Y} \{ E_{D}[(\hat{h}(X|D) - h^*(X))^2 + E_{D}[(h^*(X) - Y)^2]]\\
-		&amp; + 2 E_{D}[(\hat{h}(X|D) -h^*(X))](h(X) - Y) \}\\
-		&amp;= E_{X} \{ E_{D}[(\hat{h}(X|D) - h^*(X))^2]\} + E_{X,Y}\{(h^*(X) - Y)^2\}\\
-	\end{split}
-\end{equation} %]]&gt;&lt;/script&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;First term&lt;/strong&gt;: the variance of our learner, as &lt;script type=&quot;math/tex&quot;&gt;E_{D}[\hat{h}(X \vert D)] = h^*(X)&lt;/script&gt;. &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Second term&lt;/strong&gt;: the combination of the bias and noise and also reppresent the lowest possible MSE on future sample, as &lt;script type=&quot;math/tex&quot;&gt;h^*(X) = argmin_{h \in H} E_{X,Y}[(h(X) - Y)^2]&lt;/script&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As &lt;script type=&quot;math/tex&quot;&gt;h_*(X)&lt;/script&gt; is &lt;strong&gt;does not depend on training dataset D&lt;/strong&gt;, we have &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-E_{X, Y}[(h^*(X) - Y)^2] = E_{D}\hat{E}_{X, Y}[(h^*(X) - Y)^2]
-&lt;/script&gt;
-
-&lt;p&gt;which means that the training error of &lt;script type=&quot;math/tex&quot;&gt;h^*&lt;/script&gt; is an &lt;strong&gt;unbiased estimate&lt;/strong&gt; of its test error.&lt;/p&gt;
-
-&lt;p&gt;Then for &lt;script type=&quot;math/tex&quot;&gt;\hat{E}_{X, Y}[(h^*(X) - Y)^2]&lt;/script&gt;, we have &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{equation}
-	\begin{split}
-\hat{E}_{X, Y}[(h^*(X) - Y)^2] 
-		&amp;= \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D) + \hat{h}(X|D) - Y)^2]\\
-		&amp;= \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D))^2] + \hat{E}_{X, Y}[(\hat{h}(X|D) - Y)^2]\\
-		&amp; + 2 \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D))(\hat{h}(X|D) - Y)]\\
-		&amp;= \hat{E}_{X, Y}[(h^*(X) - \hat{h}(X|D))^2] + \hat{E}_{X, Y}[(\hat{h}(X|D) - Y)^2]
-	\end{split}
-\end{equation} %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;So we have &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{equation}
-	\begin{split}
-		 E_{D}\{E_{X, Y}[err(\hat{h}(X|D), Y)]\} 
-		 &amp;=  E_{D}E_{X,Y}[(\hat{h}(X|D) - h^*(X))^2] + E_{X, Y}[(h^*(X) - Y)^2]\\
-		 &amp;= E_{D}E_{X,Y}[(\hat{h}(X|D) - h^*(X))^2] + E_{D}\hat{E}_{X, Y}[(h^*(X) - Y)^2]\\
-		 &amp;= E_{D} E_{X}[(\hat{h}(X|D) - h^*(X))^2] + E_{D}[\hat{E}_{X}[(\hat{h}(X|D)-h^*(X))^2]]\\ 
-		 &amp;+ E_{D}[\hat{E}_{X, Y}[(\hat{h}(X|D) - Y)^2]]\\
-	\end{split}
-\end{equation} %]]&gt;&lt;/script&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;First term&lt;/strong&gt;: variance of the leaner for future sample, as said above; &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Second term&lt;/strong&gt;: the variance of the learner on training dataset;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Third term&lt;/strong&gt;: the leaner’s &lt;script type=&quot;math/tex&quot;&gt;MSE&lt;/script&gt; on training set, i.e. the expected training error. So we can easily conclude that for a learner, &lt;strong&gt;the expected test error &lt;script type=&quot;math/tex&quot;&gt;\geq&lt;/script&gt; optimal test error &lt;script type=&quot;math/tex&quot;&gt;\geq&lt;/script&gt; expected training error&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;the-tradeoff&quot;&gt;8. The Tradeoff&lt;/h1&gt;
-
-&lt;h2 id=&quot;increase-the-size-of-training-set-t--vert-d-vert&quot;&gt;Increase the size of training set &lt;script type=&quot;math/tex&quot;&gt;t = \vert D \vert&lt;/script&gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the optimal test error &lt;script type=&quot;math/tex&quot;&gt;E_{X, Y}[(h^*(X) - Y)^2]&lt;/script&gt; does not change
-    &lt;ul&gt;
-      &lt;li&gt;the expected training error increases&lt;/li&gt;
-      &lt;li&gt;the training variance decreases&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;the variance on future samples decreases&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Thus the overall expected test error decreases. There is no tradeoff in this part.&lt;/p&gt;
-
-&lt;h2 id=&quot;increase-the-repressiveness-of-the-hypothesis-space&quot;&gt;Increase the repressiveness of the hypothesis space&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the optimal test error &lt;script type=&quot;math/tex&quot;&gt;E_{X, Y}[(h^*(X) - Y)^2]&lt;/script&gt; decreases
-    &lt;ul&gt;
-      &lt;li&gt;the expected training error decreases&lt;/li&gt;
-      &lt;li&gt;the training variance increases&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;the variance on future samples increases&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We don’t know if the whole thing decreases or increases. It is a trade-off.&lt;/p&gt;
-
-&lt;h1 id=&quot;reference&quot;&gt;9. Reference&lt;/h1&gt;
-&lt;p&gt;[1] Prof. Schuurmans’s notes on Bias-Variance &lt;/p&gt;
-
-  
-  &lt;p&gt;&lt;a href=&quot;/machine%20learning/bias-var&quot;&gt;Bias-Variance&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on November 13, 2013.&lt;/p&gt;</content>
 </entry>
 
 </feed>

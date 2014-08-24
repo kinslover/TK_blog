@@ -139,6 +139,7 @@ The key thoughts of this greedy solution are
 - Every time a mismatch happens, one character in ``s`` will be absorbed by the the nearest asterik. 
 
 The conditions for failure of match is
+
 - if no asterik has been spotted before a mismatch happens
 - if we find there is no chars left in ``s``, while we still have patterns (chars except asterisk) left in ``p``
 

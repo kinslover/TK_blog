@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Minimum Window Substring",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Minimum-Window-Substring",
+		  "date"       : "2014-08-23 00:00:00 +0600",
+		  "shortdate"  : "August 23, 2014"
+		} ,
+	
+		{
 		  "title"      : "Wildcard Matching",
 		  "category"   : "algorithms",
 		  "url"        : "/algorithms/Wildcard-Matching",

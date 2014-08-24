@@ -103,6 +103,11 @@ callback([
   {
     "text": "Wildcard Matching",
     "href": "/algorithms/Wildcard-Matching"
+  } ,
+
+  {
+    "text": "Minimum Window Substring",
+    "href": "/algorithms/Minimum-Window-Substring"
   } 
 
 ])

@@ -267,9 +267,12 @@ Description: Awesome dude, awesome life
   <li>Every time a mismatch happens, one character in <code>s</code> will be absorbed by the the nearest asterik. </li>
 </ul>
 
-<p>The conditions for failure of match is
-- if no asterik has been spotted before a mismatch happens
-- if we find there is no chars left in <code>s</code>, while we still have patterns (chars except asterisk) left in <code>p</code></p>
+<p>The conditions for failure of match is</p>
+
+<ul>
+  <li>if no asterik has been spotted before a mismatch happens</li>
+  <li>if we find there is no chars left in <code>s</code>, while we still have patterns (chars except asterisk) left in <code>p</code></li>
+</ul>
 
 <p>The description above is too abstract, let me use a GIF to illustrate how this greedy algorithm works.</p>
 
