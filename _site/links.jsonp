@@ -108,6 +108,31 @@ callback([
   {
     "text": "Minimum Window Substring",
     "href": "/algorithms/Minimum-Window-Substring"
+  } ,
+
+  {
+    "text": "Simplify Path",
+    "href": "/algorithms/Simplify-Path"
+  } ,
+
+  {
+    "text": "Substring with Concatenation of All Words",
+    "href": "/algorithms/Substring-with-Concatenation-of-All-Words"
+  } ,
+
+  {
+    "text": "Introduction to Survival Analysis (Ch1 & Ch2)",
+    "href": "/survival%20analysis/Introduction-to-Survival-Analysis_p1"
+  } ,
+
+  {
+    "text": "Introduction to Survival Analysis (Ch3)",
+    "href": "/survival%20analysis/Introduction-to-Survival-Analysis_p2"
+  } ,
+
+  {
+    "text": "Introduction to Survival Analysis (Ch4)",
+    "href": "/survival%20analysis/Introduction-to-Survival-Analysis_p3"
   } 
 
 ])

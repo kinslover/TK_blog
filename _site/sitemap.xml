@@ -61,7 +61,31 @@
         <loc>/page5/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page6/index.html</loc>
+    </url>
+    
 
+    
+    <url>
+        <loc>/survival%20analysis/Introduction-to-Survival-Analysis_p3</loc>
+    </url>
+    
+    <url>
+        <loc>/survival%20analysis/Introduction-to-Survival-Analysis_p2</loc>
+    </url>
+    
+    <url>
+        <loc>/survival%20analysis/Introduction-to-Survival-Analysis_p1</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Substring-with-Concatenation-of-All-Words</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Simplify-Path</loc>
+    </url>
     
     <url>
         <loc>/algorithms/Minimum-Window-Substring</loc>

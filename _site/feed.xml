@@ -9,13 +9,825 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="/" />
-<updated>2014-08-24T13:56:30+06:00</updated>
+<updated>2014-08-26T03:39:09+06:00</updated>
 <id>/</id>
 <author>
   <name>Ping Jin</name>
   <uri>/</uri>
   <email>pjin1@ualberta.ca</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Introduction to Survival Analysis (Ch4)]]></title>
+  <link rel="alternate" type="text/html" href="/survival%20analysis/Introduction-to-Survival-Analysis_p3"/>
+  <id>/survival%20analysis/Introduction-to-Survival-Analysis_p3</id>
+  <published>2014-08-25T00:00:00+06:00</published>
+  <updated>2014-08-25T00:00:00+06:00</updated>
+  <author>
+    <name>Ping Jin</name>
+    <uri></uri>
+    <email>pjin1@ualberta.ca</email>
+  </author>
+  <category scheme="/tags/#Survival%20Analysis" term="Survival Analysis" />
+  <content type="html">
+  
+    &lt;h1 id=&quot;chapter-4-estimiating-the-survival-or-hazard-function-non-parametric&quot;&gt;Chapter 4: Estimiating the Survival or Hazard Function (Non-Parametric)&lt;/h1&gt;
+
+&lt;p&gt;If there is no censoring data, the empirical estimate of survival distribution is simply&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\hat{S}(t) = \frac{\text{ # People dying no earlier than } t}{ \text{# all people} }
+&lt;/script&gt;
+
+&lt;p&gt;In practice, most software packages usually count individuals with &lt;script type=&quot;math/tex&quot;&gt;T &gt; t&lt;/script&gt;. We represent it as &lt;script type=&quot;math/tex&quot;&gt;S(t^+) = Pr(T &gt; t)&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are three common non-parametric models to estimate survival function &lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;(1) Kaplan-Meier&lt;/li&gt;
+  &lt;li&gt;(2) Life-table (Actuarial Estimator)&lt;/li&gt;
+  &lt;li&gt;(3) via Cumulative harzard estimator&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-kaplan-meier-estimator&quot;&gt;The Kaplan-Meier Estimator&lt;/h2&gt;
+
+&lt;p&gt;Most popular, most famous one, which can be justified from three perspectives:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Product limit estimator (conditional probability)&lt;/li&gt;
+  &lt;li&gt;maximum likelihood&lt;/li&gt;
+  &lt;li&gt;redistribute to the right estimator&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As stated in previous section, if there is no censoring, calculating the empirical survival proportion is enough.&lt;/p&gt;
+
+&lt;p&gt;What about censoring data? Let us start from the conditional probability perspective.&lt;/p&gt;
+
+&lt;h3 id=&quot;perspective1-conditional-probability&quot;&gt;Perspective1: Conditional Probability&lt;/h3&gt;
+
+&lt;p&gt;In previous section, we have shown the relationship between &lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\lambda(t)&lt;/script&gt; for discrete r.v. case, using conditional probability.&lt;/p&gt;
+
+&lt;p&gt;Suppose &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+a_k &lt; t \leq a_{k+1} %]]&gt;&lt;/script&gt;, then &lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+\begin{split}
+S(t) 	&amp;=  Pr(T \geq a_{k+1})\\
+		&amp;=  Pr(T \geq a_{1}) Pr(T \geq a_{2}\vert T \geq a_{1})...Pr(T \geq a_{k+1}\vert T \geq a_{k}) \\
+	 	&amp;= 1 \times \prod_{j=1}^k (1 - \lambda_j)
+\end{split}
+ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;Therefore,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+\begin{split}
+\hat{S}(t) 	&amp;= \prod_{j=1}^k (1 - \frac{d_j}{r_j})\\
+			&amp;= \prod_{\{j:a_j &lt; t\}} (1 - \frac{d_j}{r_j})
+\end{split}
+ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;d_j&lt;/script&gt; is the number of deaths at tiem &lt;script type=&quot;math/tex&quot;&gt;a_j&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;r_j&lt;/script&gt; is the number of individuals alive right before time &lt;script type=&quot;math/tex&quot;&gt;a_j&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For censoring people, we remove them from &lt;script type=&quot;math/tex&quot;&gt;r_{j}&lt;/script&gt;&lt;/strong&gt;, if he/she is censored before &lt;script type=&quot;math/tex&quot;&gt;a_j&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;For example, if a patient is censored between &lt;script type=&quot;math/tex&quot;&gt;[a_j, a_{j+1})&lt;/script&gt;, then&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;this patient is one member of &lt;script type=&quot;math/tex&quot;&gt;r_j&lt;/script&gt;, as his/her survival time is &lt;strong&gt;NOT&lt;/strong&gt; earlier than &lt;script type=&quot;math/tex&quot;&gt;a_j&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;this patient is &lt;strong&gt;NOT&lt;/strong&gt; one member of &lt;script type=&quot;math/tex&quot;&gt;r_{j+1}&lt;/script&gt;, as his/her survival time is earlier than &lt;script type=&quot;math/tex&quot;&gt;a_{j+1}&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;formal-description-os-kaplan-meier-estimator&quot;&gt;Formal Description os Kaplan-Meier estimator&lt;/h3&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+\begin{split}
+\hat{S} 	&amp;= \prod_{j:\tau_j &lt; t} \frac{r_j - d_j}{r_j}
+			&amp;= \prod_{j:\tau_j &lt; t} (1 - \frac{d_j}{r_j})
+\end{split}
+ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;where &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\tau_1,...,\tau_K&lt;/script&gt; is the set of &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; distinct death times observed in sample&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;d_j&lt;/script&gt;: number of deaths observed at time &lt;script type=&quot;math/tex&quot;&gt;\tau_j&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;r_j&lt;/script&gt;: number of individuals alive right before time &lt;script type=&quot;math/tex&quot;&gt;\tau_j&lt;/script&gt; (i.e. every one died or censored after &lt;script type=&quot;math/tex&quot;&gt;\tau_j&lt;/script&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;c_j&lt;/script&gt; is the number of censored observations between &lt;script type=&quot;math/tex&quot;&gt;[\tau_j, \tau_{j+1})&lt;/script&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Two useful formulas&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;r_{j+1} = r_{j} - (d_{j} + c_{j})&lt;/script&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;r_{j+1} = \sum_{i = j+1}^K (d_{i} + c_{i})&lt;/script&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some interesting facts&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\hat{S}(t^+)&lt;/script&gt; only changes at death times&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\hat{S}(t^+)&lt;/script&gt; is 1 until the first death happens&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\hat{S}(t^+)&lt;/script&gt; goes to 0 if the last event is a death&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;perspective-2-maximum-likelihood&quot;&gt;Perspective 2: Maximum Likelihood&lt;/h3&gt;
+
+&lt;p&gt;For a discrete failure time variable, define&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;d_j&lt;/script&gt;: number of failures at &lt;script type=&quot;math/tex&quot;&gt;a_j&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;r_j&lt;/script&gt;: number of individuals alive right before &lt;script type=&quot;math/tex&quot;&gt;a_j&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\lambda_j&lt;/script&gt;: probability of dying in &lt;script type=&quot;math/tex&quot;&gt;[a_j, a_{j+1})&lt;/script&gt;, given the fact alive before &lt;script type=&quot;math/tex&quot;&gt;a_j&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Supposed that there are &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; distinct time points, then the likelihood of observing &lt;script type=&quot;math/tex&quot;&gt;d_j, r_j, j = 1...K&lt;/script&gt; is&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+L(\lambda) = \prod_{j = 1}^K \lambda_j^{d_j} (1 - \lambda_j)^{r_j - d_j}
+&lt;/script&gt;
+
+&lt;p&gt;which are just &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; independent bernoulli trials.&lt;/p&gt;
+
+&lt;p&gt;Then it is pretty obvisous that the maximum likelihood estimator of &lt;script type=&quot;math/tex&quot;&gt;\lambda_j&lt;/script&gt; is&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{\lambda_j} = \frac{d_j}{r_j}&lt;/script&gt;
+
+&lt;h3 id=&quot;perspective-3-redistribute-to-the-right-estimator&quot;&gt;Perspective 3: Redistribute to the Right Estimator&lt;/h3&gt;
+
+&lt;p&gt;Please refer to p57-58 in the tutorial.&lt;/p&gt;
+
+&lt;h3 id=&quot;properties-of-km-estimator&quot;&gt;Properties of KM estimator&lt;/h3&gt;
+
+&lt;p&gt;If there is no censoring&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{S}(t) = \frac{\text{# of deaths at or greater than } t}{n}&lt;/script&gt;
+
+&lt;p&gt;This is like an estimated probability from a bionomial distribution, thus we know&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\hat{S}(t) \simeq \mathcal{N}(S(t), \frac{S(t)(1-S(t))}{n})
+&lt;/script&gt;
+
+&lt;p&gt;and we know the &lt;strong&gt;approximated variance&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\simeq&lt;/script&gt; means &lt;a href=&quot;http://access2science.com/latex/Binary.html&quot;&gt;“asymptotically equal”&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;How does censoring affect this?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\hat{S}(t)&lt;/script&gt; is still approximately normal&lt;/li&gt;
+  &lt;li&gt;The mean of &lt;script type=&quot;math/tex&quot;&gt;\hat{S}(t)&lt;/script&gt; converges to the true &lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;The variance is a bit more complicated&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once we get the variance, then we can construct  &lt;strong&gt;(pointwise) &lt;script type=&quot;math/tex&quot;&gt;(1-\alpha)\%&lt;/script&gt; confidence intervals&lt;/strong&gt; (not bands) about &lt;script type=&quot;math/tex&quot;&gt;\hat{S}(t)&lt;/script&gt;, by&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\hat{S}(t) \pm z_{1-\frac{\alpha}{2}} se[\hat{S}(t)]
+&lt;/script&gt;
+
+&lt;p&gt;(More about pointwise confidence interval: to be continued..)&lt;/p&gt;
+
+  
+  &lt;p&gt;&lt;a href=&quot;/survival%20analysis/Introduction-to-Survival-Analysis_p3&quot;&gt;Introduction to Survival Analysis (Ch4)&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 25, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Introduction to Survival Analysis (Ch3)]]></title>
+  <link rel="alternate" type="text/html" href="/survival%20analysis/Introduction-to-Survival-Analysis_p2"/>
+  <id>/survival%20analysis/Introduction-to-Survival-Analysis_p2</id>
+  <published>2014-08-25T00:00:00+06:00</published>
+  <updated>2014-08-25T00:00:00+06:00</updated>
+  <author>
+    <name>Ping Jin</name>
+    <uri></uri>
+    <email>pjin1@ualberta.ca</email>
+  </author>
+  <category scheme="/tags/#Survival%20Analysis" term="Survival Analysis" />
+  <content type="html">
+  
+    &lt;p&gt;This summarizes some very basic concepts in survival analysis from this amazing &lt;a href=&quot;http://www.amstat.org/chapters/northeasternillinois/pastevents/presentations/summer05_Ibrahim_J.pdf&quot;&gt;tutorial&lt;/a&gt;, which helps me a lot.&lt;/p&gt;
+
+&lt;h1 id=&quot;chapter-3-estimiating-the-survival-or-hazard-function-parametric&quot;&gt;Chapter 3: Estimiating the Survival or Hazard Function (Parametric)&lt;/h1&gt;
+
+&lt;p&gt;There are two ways of estimating survival/hazard functions&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;parametric model for &lt;script type=&quot;math/tex&quot;&gt;\lambda(t)&lt;/script&gt; based on a particular density function&lt;/li&gt;
+  &lt;li&gt;empirical estimate of survival function (non-parametric)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If without censoring, the emperical &lt;script type=&quot;math/tex&quot;&gt;\hat{S}(t)&lt;/script&gt; is simply the proportion of people dying no earlier that time &lt;script type=&quot;math/tex&quot;&gt;t&lt;/script&gt;. It is censoring patients that complicates this problem.&lt;/p&gt;
+
+&lt;h2 id=&quot;some-parametric-survival-distribution-continuos&quot;&gt;Some Parametric Survival Distribution (Continuos)&lt;/h2&gt;
+
+&lt;h3 id=&quot;the-exponential-distribution&quot;&gt;The &lt;strong&gt;exponential&lt;/strong&gt; distribution&lt;/h3&gt;
+
+&lt;p&gt;This is a constant hazard model, with only one parameter.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;f(t) = \lambda e^{-\lambda t} \text{ for } t \geq 0&lt;/script&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;S(t) = e^{-\lambda  t}&lt;/script&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;\lambda(t) = \lambda&lt;/script&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;\Lambda(t) = \lambda t&lt;/script&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-weibull-distribution&quot;&gt;The &lt;strong&gt;Weibull&lt;/strong&gt; distribution&lt;/h3&gt;
+
+&lt;p&gt;It is a generalization of exponential model&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;S(t) = e^{-\lambda  t^\mathcal{k}}&lt;/script&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;f(t) = \mathcal{k} \lambda t^{\mathcal{k}  -1} e^{-\lambda t^{\mathcal{k}}}&lt;/script&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;\lambda(t) = \mathcal{k} \lambda t^{\mathcal{k} - 1}&lt;/script&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;script type=&quot;math/tex; mode=display&quot;&gt;\Lambda(t) = \lambda t^\mathcal{k}&lt;/script&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;\lambda&lt;/script&gt; os the &lt;strong&gt;scale&lt;/strong&gt; parameter and &lt;script type=&quot;math/tex&quot;&gt;\mathcal{k}&lt;/script&gt; is the &lt;strong&gt;shape&lt;/strong&gt; parameter.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\mathcal{k} = 1&lt;/script&gt;: constant hazard&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+ 0 &lt; \mathcal{k} &lt; 1 %]]&gt;&lt;/script&gt;: decreasing hazard&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt; \mathcal{k} &gt; 1&lt;/script&gt;: increasing hazard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-rayleigh-distribution&quot;&gt;The &lt;strong&gt;Rayleigh&lt;/strong&gt; distribution&lt;/h3&gt;
+
+&lt;p&gt;Another 2-parameter generalization of exponential.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\lambda(t) = \lambda_0 + \lambda_1 t&lt;/script&gt;
+
+&lt;h3 id=&quot;other-models&quot;&gt;Other models&lt;/h3&gt;
+
+&lt;p&gt;Compound exponential, log-normal, log-logistic&lt;/p&gt;
+
+&lt;h3 id=&quot;summary-of-parametric-model&quot;&gt;Summary of Parametric Model&lt;/h3&gt;
+
+&lt;p&gt;Good sides of parametric model&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;easy to estimate and inference&lt;/li&gt;
+  &lt;li&gt;simple forms of &lt;script type=&quot;math/tex&quot;&gt;f(t)&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt;, and &lt;script type=&quot;math/tex&quot;&gt;\lambda(t)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;qualitative shape of hazard function&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Other tips&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;With adequacy of fit to a dataset, one can usually distinguish one-parameter and two-parameter models&lt;/li&gt;
+  &lt;li&gt;Without a lot of data, hard to distinguish between the fits of 2-par models&lt;/li&gt;
+&lt;/ul&gt;
+
+
+  
+  &lt;p&gt;&lt;a href=&quot;/survival%20analysis/Introduction-to-Survival-Analysis_p2&quot;&gt;Introduction to Survival Analysis (Ch3)&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 25, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Introduction to Survival Analysis (Ch1 & Ch2)]]></title>
+  <link rel="alternate" type="text/html" href="/survival%20analysis/Introduction-to-Survival-Analysis_p1"/>
+  <id>/survival%20analysis/Introduction-to-Survival-Analysis_p1</id>
+  <published>2014-08-25T00:00:00+06:00</published>
+  <updated>2014-08-25T00:00:00+06:00</updated>
+  <author>
+    <name>Ping Jin</name>
+    <uri></uri>
+    <email>pjin1@ualberta.ca</email>
+  </author>
+  <category scheme="/tags/#Survival%20Analysis" term="Survival Analysis" />
+  <content type="html">
+  
+    &lt;p&gt;This summarizes some very basic concepts in survival analysis from this amazing &lt;a href=&quot;http://www.amstat.org/chapters/northeasternillinois/pastevents/presentations/summer05_Ibrahim_J.pdf&quot;&gt;tutorial&lt;/a&gt;, which helps me a lot.&lt;/p&gt;
+
+&lt;h1 id=&quot;chapter-1-basic-knowledge-and-survival-data&quot;&gt;Chapter 1: Basic Knowledge and Survival Data&lt;/h1&gt;
+
+&lt;h2 id=&quot;basic-definitions&quot;&gt;Basic Definitions&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Failure/Event time random variables&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;T &gt; 0&lt;/script&gt;. T can be both &lt;strong&gt;discrete&lt;/strong&gt; or &lt;strong&gt;continuos&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Censored random variables&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;U&lt;/script&gt; is a non-negative variable indicating the censored time.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Censored failure/event time random variable&lt;/strong&gt;  &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; is defined as &lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;X = \min(T, U)&lt;/script&gt;
+
+&lt;h2 id=&quot;issues-with-survival-data&quot;&gt;Issues with Survival Data&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;staggered entry&lt;/strong&gt;: 
+    &lt;ul&gt;
+      &lt;li&gt;people do not attend the study at the same time&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;censoring&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;people may experience no event until the end of study&lt;/li&gt;
+      &lt;li&gt;people may drop out in the middle of the study&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Censoring is the main problem we care about.&lt;/p&gt;
+
+&lt;h2 id=&quot;tyeps-of-censoring&quot;&gt;Tyeps of Censoring&lt;/h2&gt;
+
+&lt;p&gt;There are two ways of categorizing censoring.&lt;/p&gt;
+
+&lt;p&gt;The first way is&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Right censoring&lt;/li&gt;
+  &lt;li&gt;Left censoring&lt;/li&gt;
+  &lt;li&gt;Interval censoring&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The second way is&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Independent censoring&lt;/li&gt;
+  &lt;li&gt;Informative censoring&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;right-censoring&quot;&gt;Right Censoring&lt;/h3&gt;
+
+&lt;p&gt;This is the most common type of censorng.&lt;/p&gt;
+
+&lt;p&gt;Only &lt;script type=&quot;math/tex&quot;&gt;X_i = \min(T_i, U_i)&lt;/script&gt; is observed.&lt;/p&gt;
+
+&lt;p&gt;In addition the &lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt;, we also know the &lt;strong&gt;failure indicator&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;\delta_i&lt;/script&gt; &lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+    \delta_i = 
+\begin{cases}
+    1,&amp; \text{if } T_i\leq U_i \text{ failure }\\
+    0,       &amp; \text{if } T_i &gt; U_i \text{ censored }
+\end{cases}
+ %]]&gt;&lt;/script&gt;
+
+&lt;h3 id=&quot;left-censoring&quot;&gt;Left Censoring&lt;/h3&gt;
+
+&lt;p&gt;Only &lt;script type=&quot;math/tex&quot;&gt;X_i = \max(T_i, U_i)&lt;/script&gt; is observed and the failure indicater is defined as&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+    \delta_i = 
+\begin{cases}
+    1,&amp; \text{if } U_i \leq T_i \text{ failure }\\
+    0,       &amp; \text{if } U_i &gt; T_i \text{ censored }
+\end{cases}
+ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;That is, we know the event happens before a certain time point, but have no idea of the exact event time.&lt;/p&gt;
+
+&lt;h3 id=&quot;interval-censoring&quot;&gt;Interval Censoring&lt;/h3&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;(L_i, R_i)&lt;/script&gt; is observed, where &lt;script type=&quot;math/tex&quot;&gt;T_i \in (L_i, R_i)&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;independent-censoring&quot;&gt;Independent Censoring&lt;/h3&gt;
+
+&lt;p&gt;Censoring is independent if &lt;strong&gt;&lt;script type=&quot;math/tex&quot;&gt;U_i&lt;/script&gt; is independent o &lt;script type=&quot;math/tex&quot;&gt;T_i&lt;/script&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;informative-censoring&quot;&gt;Informative Censoring&lt;/h3&gt;
+
+&lt;p&gt;Distrobution of &lt;script type=&quot;math/tex&quot;&gt;U_i&lt;/script&gt; caontains information about the parameters characterizing the distribution of &lt;script type=&quot;math/tex&quot;&gt;T_i&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;chapter-2-survival-distribution&quot;&gt;Chapter 2 Survival Distribution&lt;/h1&gt;
+
+&lt;h2 id=&quot;definitions&quot;&gt;Definitions&lt;/h2&gt;
+
+&lt;p&gt;These four terms below are the keys in survival analysis.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;density function: &lt;script type=&quot;math/tex&quot;&gt;f(t)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;survival function: &lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;hazard function: &lt;script type=&quot;math/tex&quot;&gt;\lambda(t)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;cumulative hazard function: &lt;script type=&quot;math/tex&quot;&gt;\Lambda(t)&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;density-function-ft&quot;&gt;Density Function &lt;script type=&quot;math/tex&quot;&gt;f(t)&lt;/script&gt;&lt;/h3&gt;
+
+&lt;h4 id=&quot;for-discrete-rv&quot;&gt;For Discrete R.V.&lt;/h4&gt;
+
+&lt;p&gt;Suppose &lt;script type=&quot;math/tex&quot;&gt;T \in \{a_1, a_2,...,a_n\}&lt;/script&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+f(t) = Pr(T=t) = 
+\begin{cases}
+    f_j,&amp; \text{if } t = a_j, j = 1,2,..,n \\
+    0,&amp; \text{if } t \neq a_j, j = 1,2,..,n \\
+\end{cases}
+ %]]&gt;&lt;/script&gt;
+
+&lt;h4 id=&quot;for-continuos-rv&quot;&gt;For Continuos R.V.&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt; f(t) = \lim_{t\rightarrow0} \frac{Pr(t \leq T \leq t + \Delta t)}{\Delta t} &lt;/script&gt;
+
+&lt;h3 id=&quot;survival-function-st&quot;&gt;Survival Function &lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;S(t) = Pr(T \geq t) = 1 - F(t)&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;for-discrete-rv-1&quot;&gt;For Discrete R.V.&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt; S(t) = \int_{t}^{\infty} f(u) du &lt;/script&gt;
+
+&lt;h4 id=&quot;for-continuos-rv-1&quot;&gt;For Continuos R.V.&lt;/h4&gt;
+
+&lt;p&gt;We have&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt; S(t) = \sum_{\{j\vert a_j \geq t\}} f_j &lt;/script&gt;
+
+&lt;h3 id=&quot;hazard-function-deltat&quot;&gt;Hazard Function &lt;script type=&quot;math/tex&quot;&gt;\delta(t)&lt;/script&gt;&lt;/h3&gt;
+
+&lt;p&gt;Hazard function is sometimes called &lt;a href=&quot;http://en.wikipedia.org/wiki/Failure_rate&quot;&gt;instantaneous failure rate&lt;/a&gt;. &lt;strong&gt;It represents the probability of some event’s happening right now, given the fact that the event has not happened yet&lt;/strong&gt;. The hazard function is restricted to be &lt;strong&gt;non-negative&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;\delta(t) \geq 0&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;It is define as&lt;/p&gt;
+
+&lt;h4 id=&quot;for-continuos-rv-2&quot;&gt;For Continuos R.V.&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+\begin{split}
+\lambda(t) &amp; = \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} Pr(t \leq T &lt; t + Delta t \vert T \geq t) \\
+&amp; = \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \frac{Pr(t \leq T &lt; t + Delta t \cap T \geq t)}{Pr(T \geq t)} \\
+&amp; = \frac{f(t)}{S(t)}
+\end{split}
+ %]]&gt;&lt;/script&gt;
+
+&lt;h4 id=&quot;for-discrete-rv-2&quot;&gt;For Discrete R.V.&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+\begin{split}
+\lambda(a_j) &amp; = Pr(T = a_j|T \geq a_j) \\
+&amp; = \frac{Pr(T = a_j)}{T \geq a_j} \\
+&amp; = \frac{f(a_j)}{S(a_j)}
+\end{split}
+ %]]&gt;&lt;/script&gt;
+
+&lt;h4 id=&quot;some-example-hazard-shapes&quot;&gt;Some example hazard shapes&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Increasing: age after 65&lt;/li&gt;
+  &lt;li&gt;Decreasing: after effective treatment&lt;/li&gt;
+  &lt;li&gt;Bathtub: age-specific mortality&lt;/li&gt;
+  &lt;li&gt;Constant: patients with advanced chronic disease&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;cumulative-hazard-function-deltat&quot;&gt;Cumulative Hazard Function &lt;script type=&quot;math/tex&quot;&gt;\Delta(t)&lt;/script&gt;&lt;/h3&gt;
+
+&lt;p&gt;As time &lt;script type=&quot;math/tex&quot;&gt;t \rightarrow&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\Delta(t) \rightarrow \infty&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;for-continuos-rv-3&quot;&gt;For Continuos R.V.&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Lambda(t) = \int_{0}^t \lambda(u) du&lt;/script&gt;
+
+&lt;h4 id=&quot;for-discrete-rv-3&quot;&gt;For Discrete R.V.&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Lambda(t) = \sum_{\{j \vert a_j \leq t\}} \lambda_j &lt;/script&gt;
+
+&lt;h2 id=&quot;relationship-st-lambdat-and-st-lambdat&quot;&gt;Relationship: &lt;script type=&quot;math/tex&quot;&gt;(S(t), \lambda(t))&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;(S(t), \Lambda(t))&lt;/script&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;st-and-lambdat&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\lambda(t)&lt;/script&gt;&lt;/h3&gt;
+
+&lt;p&gt;For continuos r.v., We know that &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\lambda(t) = \frac{f(t)}{S(t)}&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;for left-continuos survival function &lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;f(t) = - S&#39;(t)&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then it is easy to show that&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+- \frac{d (log S(t)) }{d t}  = \frac{f(t)}{S(t)} = \lambda{t}
+&lt;/script&gt;
+
+&lt;p&gt;That is, 
+$$
+\lambda{t} = - \frac{d (log S(t)) }{d t}&lt;br /&gt;
+$$ &lt;/p&gt;
+
+&lt;p&gt;For discrete r.v., &lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\lambda_j = \frac{f(a_j)}{S(a_j)} = \frac{S(a_j) - S(a_{j+1})}{S(a_j)}&lt;/script&gt;
+
+&lt;h3 id=&quot;st-and-lambdat-1&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;S(t)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\Lambda(t)&lt;/script&gt;&lt;/h3&gt;
+
+&lt;h4 id=&quot;continuous-case&quot;&gt;Continuous case&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+\begin{split}
+\Lambda(t) 	&amp; = \int_{0}^t \lambda(u) du\\
+			&amp; = \int_{0}^t \frac{f(u)}{S(u)} du\\
+			&amp; = \int_{0}^t - \frac{d(log S(u))}{du} du \\
+			&amp; = -log S(t) + log S(0) \\
+			&amp; = -log S(t)
+\end{split}
+ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;That is &lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;S(t) = e^{-\Lambda(t)}&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Remember that we require that &lt;script type=&quot;math/tex&quot;&gt;\Lambda(t \rightarrow \infty) = \infty&lt;/script&gt;, then we can guanrantee that &lt;script type=&quot;math/tex&quot;&gt;S(t \rightarrow \infty) = e^{-\Lambda(t \rightarrow \infty)} \rightarrow 0&lt;/script&gt;. This makes lots of sense, as people cannot live forever.&lt;/p&gt;
+
+&lt;p&gt;In summary, &lt;strong&gt;More hazard cumulative, less chance of survival&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;discrete-case&quot;&gt;Discrete case&lt;/h4&gt;
+
+&lt;p&gt;Suppose that &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+a_j &lt; t \leq a_{j+1} %]]&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+
+\begin{split}
+S(t)	&amp; = Pr(T \geq a_{j+1}) \\
+		&amp; = Pr(T \geq a_{1}, T \geq a_{2}... T \geq a_{j+1}) \\
+		&amp; = Pr(T \geq a_{1}) Pr(T \geq a_{2}\vert \geq a_{1})... Pr(T \geq a_{j+1} \vert \geq a_{j}) \\
+		&amp; = 1 \times \prod_{k=1...j} (1 - \lambda_{k})\\
+		&amp; = \prod_{\{k\vert a_k &lt; t \}} (1 - \lambda_{k})
+\end{split}
+ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;The equations for discrete case and continuos case here are different. Therefore, instead of using the definition that &lt;script type=&quot;math/tex&quot;&gt;\Lambda(t) = \sum_{\{j \vert a_j \leq t\}} \lambda_j&lt;/script&gt;, Cox defines that &lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\Lambda(t) = \sum_{\{j\vert a_j &lt; t\}} log(1-\lambda_k) %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;so that &lt;script type=&quot;math/tex&quot;&gt;S(t) = e^{-\Lambda(t)}&lt;/script&gt; holds for discrete case too.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;[1] http://www.amstat.org/chapters/northeasternillinois/pastevents/presentations/summer05_Ibrahim_J.pdf
+[2] http://en.wikipedia.org/wiki/Failure_rate&lt;/p&gt;
+
+
+  
+  &lt;p&gt;&lt;a href=&quot;/survival%20analysis/Introduction-to-Survival-Analysis_p1&quot;&gt;Introduction to Survival Analysis (Ch1 & Ch2)&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 25, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Substring with Concatenation of All Words]]></title>
+  <link rel="alternate" type="text/html" href="/algorithms/Substring-with-Concatenation-of-All-Words"/>
+  <id>/algorithms/Substring-with-Concatenation-of-All-Words</id>
+  <published>2014-08-24T00:00:00+06:00</published>
+  <updated>2014-08-24T00:00:00+06:00</updated>
+  <author>
+    <name>Ping Jin</name>
+    <uri></uri>
+    <email>pjin1@ualberta.ca</email>
+  </author>
+  <category scheme="/tags/#algorithm,%20leetcode" term="algorithm, leetcode" />
+  <content type="html">
+  
+    &lt;h1 id=&quot;description&quot;&gt;Description&lt;/h1&gt;
+
+&lt;p&gt;You are given a string, S, and a list of words, L, that are all of the same length. Find all starting indices of substring(s) in S that is a concatenation of each word in L exactly once and without any intervening characters.&lt;/p&gt;
+
+&lt;p&gt;For example, given:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;S: &quot;barfoothefoobarman&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;L: [&quot;foo&quot;, &quot;bar&quot;]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You should return the indices: &lt;code&gt;[0,9]&lt;/code&gt;.
+(order does not matter).&lt;/p&gt;
+
+&lt;h1 id=&quot;solution&quot;&gt;Solution&lt;/h1&gt;
+
+&lt;p&gt;This is an another window-moving problem that can be solved in linear time (not very exactly), which is similar to &lt;a href=&quot;/algorithms/Minimum-Window-Substring/&quot;&gt;Minimum Window Substring&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We keep two pointers &lt;code&gt;left&lt;/code&gt; and &lt;code&gt;right&lt;/code&gt; and &lt;code&gt;lLen&lt;/code&gt; is the length of the word in &lt;code&gt;L&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Step1: We keep increasing &lt;code&gt;right += lLen&lt;/code&gt; and check if we find a valid Concatenation until we find
+    &lt;ul&gt;
+      &lt;li&gt;CASE1: &lt;code&gt;right&lt;/code&gt; exceeds the length of &lt;code&gt;S&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;CASE2: [Partial Overflow] for some string &lt;code&gt;str&lt;/code&gt; in &lt;code&gt;L&lt;/code&gt; we have spotted more than expected number of &lt;code&gt;str&lt;/code&gt; in &lt;code&gt;S[left, right+lLen-1]&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;CASE3: we find &lt;code&gt;S[right, right+len-1]&lt;/code&gt; is not a word in &lt;code&gt;L&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Step2: 
+    &lt;ul&gt;
+      &lt;li&gt;For CASE1 and CASE2, go to step 3&lt;/li&gt;
+      &lt;li&gt;For CASE3
+        &lt;ul&gt;
+          &lt;li&gt;move &lt;code&gt;left = right+len&lt;/code&gt; and  &lt;code&gt;right = right+len&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Step3: We keep increasing &lt;code&gt;left += lLen&lt;/code&gt;, until we find
+    &lt;ul&gt;
+      &lt;li&gt;CASE1: left == right&lt;/li&gt;
+      &lt;li&gt;CASE2: no Partial OVERFLOW exists in S[left, right+len-1] anymore&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Go back to Step 1, if &lt;code&gt;right&lt;/code&gt; does not reach the end&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We have to repeat the above procedure for &lt;code&gt;lLen&lt;/code&gt; times by initializing &lt;code&gt;left = right = i, i = 0...lLen-1&lt;/code&gt;. As we increase &lt;code&gt;left, right&lt;/code&gt; by &lt;code&gt;lLen&lt;/code&gt; in each iteration, the total time complexity is still &lt;script type=&quot;math/tex&quot;&gt;O(sLen)&lt;/script&gt;, where &lt;script type=&quot;math/tex&quot;&gt;sLen&lt;/script&gt; is the length of &lt;code&gt;S&lt;/code&gt;. Rigorously speaking, we have to extract a substring whose length is &lt;code&gt;lLen&lt;/code&gt; in each iteration, thus the time complexity is &lt;script type=&quot;math/tex&quot;&gt;O(sLen \times lLen)&lt;/script&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
+
+&lt;p&gt;Running Time: 968ms&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c++&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;public:&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;     &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findSubstring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;         &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;             &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt;         &lt;span class=&quot;n&quot;&gt;unordered_map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;             &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;    
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;                 
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_start&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;             &lt;span class=&quot;n&quot;&gt;subLeft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;         
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;                 
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subLeft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unordered_map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt;         &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;         &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lLen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;         &lt;span class=&quot;n&quot;&gt;unordered_map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt;             &lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt;         
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;         &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lLen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt;             &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// increas pointer right until OVERFLOW.&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;             &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lLen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;            
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt;                 
+&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()){&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// not a word&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt;                     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unordered_map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iterator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;35&lt;/span&gt;                         &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                    
+&lt;span class=&quot;lineno&quot;&gt;36&lt;/span&gt;                     &lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                    
+&lt;span class=&quot;lineno&quot;&gt;37&lt;/span&gt;                     &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;38&lt;/span&gt;                 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;39&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// a legal word&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;40&lt;/span&gt;                     &lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;41&lt;/span&gt;                     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// overflow&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;42&lt;/span&gt;                         &lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;43&lt;/span&gt;                         &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;44&lt;/span&gt;                     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;45&lt;/span&gt;                     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]){&lt;/span&gt;                     
+&lt;span class=&quot;lineno&quot;&gt;46&lt;/span&gt;                         &lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                     
+&lt;span class=&quot;lineno&quot;&gt;47&lt;/span&gt;                         &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;48&lt;/span&gt;                             &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;                        
+&lt;span class=&quot;lineno&quot;&gt;49&lt;/span&gt;                     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;                    
+&lt;span class=&quot;lineno&quot;&gt;50&lt;/span&gt;                 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;                                               
+&lt;span class=&quot;lineno&quot;&gt;51&lt;/span&gt;             &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;52&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// increas pointer left until OVERFLOW disappears.&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;53&lt;/span&gt;             &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;54&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;                
+&lt;span class=&quot;lineno&quot;&gt;55&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;56&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;57&lt;/span&gt;                 &lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;58&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]){&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// overflow disappears&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;59&lt;/span&gt;                     &lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;60&lt;/span&gt;                     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;61&lt;/span&gt;                         &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;62&lt;/span&gt;                     &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;63&lt;/span&gt;                 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;64&lt;/span&gt;                 &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;realCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;65&lt;/span&gt;                     &lt;span class=&quot;n&quot;&gt;nSat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                                
+&lt;span class=&quot;lineno&quot;&gt;66&lt;/span&gt;             &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;67&lt;/span&gt;         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;68&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;69&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  
+  &lt;p&gt;&lt;a href=&quot;/algorithms/Substring-with-Concatenation-of-All-Words&quot;&gt;Substring with Concatenation of All Words&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 24, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Simplify Path]]></title>
+  <link rel="alternate" type="text/html" href="/algorithms/Simplify-Path"/>
+  <id>/algorithms/Simplify-Path</id>
+  <published>2014-08-24T00:00:00+06:00</published>
+  <updated>2014-08-24T00:00:00+06:00</updated>
+  <author>
+    <name>Ping Jin</name>
+    <uri></uri>
+    <email>pjin1@ualberta.ca</email>
+  </author>
+  <category scheme="/tags/#algorithm,%20leetcode" term="algorithm, leetcode" />
+  <content type="html">
+  
+    &lt;h1 id=&quot;description&quot;&gt;Description&lt;/h1&gt;
+
+&lt;p&gt;Simplify Path Total Accepted: 10702 Total Submissions: 53877 My Submissions
+Given an absolute path for a file (Unix-style), simplify it.&lt;/p&gt;
+
+&lt;p&gt;For example,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;path = “/home/”, =&amp;gt; “/home”&lt;/li&gt;
+  &lt;li&gt;path = “/a/./b/../../c/”, =&amp;gt; “/c”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Corner Cases:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Did you consider the case where path = “/../”?
+    &lt;ul&gt;
+      &lt;li&gt;In this case, you should return “/”.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Another corner case is the path might contain multiple slashes ‘/’ together, such as “/home//foo/”.
+    &lt;ul&gt;
+      &lt;li&gt;In this case, you should ignore redundant slashes and return “/home/foo”.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;solution&quot;&gt;Solution&lt;/h1&gt;
+
+&lt;p&gt;The code with comments is quite self-explainable.&lt;/p&gt;
+
+&lt;p&gt;One thing worth noticing is that the “folder/file name” can have dot “.”, e.g.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;\home\my.file\...&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
+
+&lt;p&gt;Running Time: 72 ms&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c++&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;simplifyPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; 	&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; 	&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; 	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; 		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; 	&lt;span class=&quot;c1&quot;&gt;// slash&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; 			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; 				&lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;				
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; 			&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;.&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; 				&lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;			
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; 			&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; 		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; 		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;						&lt;span class=&quot;c1&quot;&gt;// letter or dot&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; 			&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt; 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; 	
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt; 	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt; 		&lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt; 	&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;.&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt; 		&lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt; 	&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt; 	
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt; 	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt; 		&lt;span class=&quot;n&quot;&gt;result_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt; 	&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt; 	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result_vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt; 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  
+  &lt;p&gt;&lt;a href=&quot;/algorithms/Simplify-Path&quot;&gt;Simplify Path&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 24, 2014.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -44,7 +856,7 @@
   &lt;li&gt;First, we increase the &lt;code&gt;right&lt;/code&gt; pointer until &lt;code&gt;S[left, right-1]&lt;/code&gt; contains all the chars in &lt;code&gt;T&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;Second, check if (right - left) &amp;lt; minWindow
     &lt;ul&gt;
-      &lt;li&gt;If so, record &lt;code&gt;left&lt;/code&gt; and &lt;code&gt;right&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;If so, record &lt;code&gt;left&lt;/code&gt; and &lt;code&gt;right&lt;/code&gt; and update &lt;code&gt;minWindow&lt;/code&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Third, we increase the &lt;code&gt;left&lt;/code&gt; pointer by 1&lt;/li&gt;
@@ -1469,664 +2281,6 @@ s2 = &quot;dbbca&quot;,
 
   
   &lt;p&gt;&lt;a href=&quot;/algorithms/Best-Time-to-Buy-and-Sell-Stock&quot;&gt;Best Time to Buy and Sell Stock I, II and III&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 13, 2014.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Scramble String]]></title>
-  <link rel="alternate" type="text/html" href="/algorithms/Scramble-String"/>
-  <id>/algorithms/Scramble-String</id>
-  <published>2014-08-12T00:00:00+06:00</published>
-  <updated>2014-08-12T00:00:00+06:00</updated>
-  <author>
-    <name>Ping Jin</name>
-    <uri></uri>
-    <email>pjin1@ualberta.ca</email>
-  </author>
-  <category scheme="/tags/#leetcode,%20recursive" term="leetcode, recursive" />
-  <content type="html">
-  
-    &lt;h1 id=&quot;description&quot;&gt;Description&lt;/h1&gt;
-
-&lt;p&gt;Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.&lt;/p&gt;
-
-&lt;p&gt;Below is one possible representation of s1 = “great”:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;    &lt;span class=&quot;n&quot;&gt;great&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;gr&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;eat&lt;/span&gt;
- &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;
-           &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;To scramble the string, we may choose any non-leaf node and swap its two children.&lt;/p&gt;
-
-&lt;p&gt;For example, if we choose the node “gr” and swap its two children, it produces a scrambled string “rgeat”.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;    &lt;span class=&quot;n&quot;&gt;rgeat&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rg&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;eat&lt;/span&gt;
- &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;
-           &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;We say that “rgeat” is a scrambled string of “great”.&lt;/p&gt;
-
-&lt;p&gt;Similarly, if we continue to swap the children of nodes “eat” and “at”, it produces a scrambled string “rgtae”.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;    &lt;span class=&quot;n&quot;&gt;rgtae&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rg&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;tae&lt;/span&gt;
- &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;ta&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
-       &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;We say that “rgtae” is a scrambled string of “great”.&lt;/p&gt;
-
-&lt;p&gt;Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1.&lt;/p&gt;
-
-&lt;h1 id=&quot;solution&quot;&gt;Solution&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c++&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;public:&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isScramble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;   			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;revserse_equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt;   			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; 		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;   		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;   		&lt;span class=&quot;n&quot;&gt;memset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;   			&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;   			&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;   		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;   		&lt;span class=&quot;c1&quot;&gt;// check if the frequency of letters are the same in s1 and s2&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt;   			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;   				&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;   				
-&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt;   			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  				
-&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;   		&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// select the partition point&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt;   			&lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;judge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;   			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;   				&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt;   		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  		
-&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;judge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt;         &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;35&lt;/span&gt;   		&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isScramble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; \
-&lt;span class=&quot;lineno&quot;&gt;36&lt;/span&gt;   		&lt;span class=&quot;n&quot;&gt;isScramble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;37&lt;/span&gt;   		&lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isScramble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;\
-&lt;span class=&quot;lineno&quot;&gt;38&lt;/span&gt;   		 &lt;span class=&quot;n&quot;&gt;isScramble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;39&lt;/span&gt;   		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;40&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;41&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;revserse_equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;42&lt;/span&gt;     	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;43&lt;/span&gt;     		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;44&lt;/span&gt;     			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;45&lt;/span&gt;     	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;46&lt;/span&gt;     	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;47&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;48&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;analysis&quot;&gt;Analysis&lt;/h1&gt;
-
-&lt;p&gt;This is a recursive solution. We iteratively select a partition point at each level and divide each string into two substrings. As we can swap the children of any non-leaf node, we have to judge recursively if&lt;/p&gt;
-
-&lt;p&gt;1.(Children not swapped) s1[0, par-1] == s2[0, par-1] AND s1[par, end] == s2[par, end]&lt;br /&gt;
-2.(Children swapped) s1[0, par-1] == s2[len - par, end] AND s1[par, end] == s2[0, par-1]&lt;/p&gt;
-
-&lt;p&gt;S1 would be a SS of S2 if either of (1) and (2) is satisfied.&lt;/p&gt;
-
-&lt;p&gt;There also exists DP solution to this problem.&lt;/p&gt;
-
-
-  
-  &lt;p&gt;&lt;a href=&quot;/algorithms/Scramble-String&quot;&gt;Scramble String&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 12, 2014.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[First Missing Positive]]></title>
-  <link rel="alternate" type="text/html" href="/algorithms/First-Missing-Positive"/>
-  <id>/algorithms/First-Missing-Positive</id>
-  <published>2014-08-12T00:00:00+06:00</published>
-  <updated>2014-08-12T00:00:00+06:00</updated>
-  <author>
-    <name>Ping Jin</name>
-    <uri></uri>
-    <email>pjin1@ualberta.ca</email>
-  </author>
-  <category scheme="/tags/#leetcode,%20recursive" term="leetcode, recursive" />
-  <content type="html">
-  
-    &lt;h1 id=&quot;description&quot;&gt;Description&lt;/h1&gt;
-
-&lt;p&gt;Link: https://oj.leetcode.com/problems/first-missing-positive/&lt;/p&gt;
-
-&lt;h1 id=&quot;solution&quot;&gt;Solution&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c++&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;public:&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstMissingPositive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;     	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;     		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;     			&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;         	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;        		
-&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;         		&lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;         	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;         	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;         		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;         		&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;         		&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;         	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;         	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;         		&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt;         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;        
-&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt;         	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt;         		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt;         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;analysis&quot;&gt;Analysis&lt;/h1&gt;
-
-&lt;p&gt;This problem requires using &lt;script type=&quot;math/tex&quot;&gt;O(n)&lt;/script&gt; time and &lt;script type=&quot;math/tex&quot;&gt;O(1)&lt;/script&gt; space. Thus we re-use the array A[] to record which positive number has appeared.&lt;/p&gt;
-
-&lt;p&gt;In my algorithm, I use A[i] = -1 to mark the appearance of the positive number i+1, however, it is possible that some A[j] = -1 in the first place. Thus we preprocess A[] changing all navtive -1 into -3.&lt;/p&gt;
-
-&lt;p&gt;Then in every loop &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt;, we mark A[A[i]-1] = -1. One problem is that, maybe A[i]-1 is greater than i, which means A[A[i]-1] has not been visited yet, if we blindly change A[A[i]-1] to -1 to mark the appearance of A[i], we will lose the information about A[A[i]-1].&lt;/p&gt;
-
-&lt;p&gt;Therefore, I use a while loop to up at line 12 to solve this problem. Whenever we meet a A[i], where A[i]-1 &amp;gt; i, we cache tp = A[A[i]-1] and change A[A[i]-1] to -1, then we do the same thing to the cached tp, until we find tp &amp;lt;= i or tp is not legal (negative or above n).&lt;/p&gt;
-
-&lt;h2 id=&quot;time-complextiy&quot;&gt;Time complextiy&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;In the preprocess step is &lt;script type=&quot;math/tex&quot;&gt;O(n)&lt;/script&gt;. &lt;/li&gt;
-  &lt;li&gt;In the loop part, A[j] will be visited if 
-    &lt;ul&gt;
-      &lt;li&gt;i = j&lt;/li&gt;
-      &lt;li&gt;or &lt;script type=&quot;math/tex&quot;&gt;\exists k, A[k]-1 = j&lt;/script&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So the total time of visits is at most &lt;script type=&quot;math/tex&quot;&gt;2n&lt;/script&gt;, which means the time complexity of this algorithm is &lt;script type=&quot;math/tex&quot;&gt;O(n)&lt;/script&gt;.&lt;/p&gt;
-
-  
-  &lt;p&gt;&lt;a href=&quot;/algorithms/First-Missing-Positive&quot;&gt;First Missing Positive&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 12, 2014.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Conjoint Analysis]]></title>
-  <link rel="alternate" type="text/html" href="/economics/conjoint-analysis"/>
-  <id>/economics/conjoint-analysis</id>
-  <published>2014-08-10T00:00:00+06:00</published>
-  <updated>2014-08-10T00:00:00+06:00</updated>
-  <author>
-    <name>Ping Jin</name>
-    <uri></uri>
-    <email>pjin1@ualberta.ca</email>
-  </author>
-  <category scheme="/tags/#pricing,%20economics,%20conjoint%20analysis" term="pricing, economics, conjoint analysis" />
-  <content type="html">
-  
-    &lt;h1 id=&quot;conjoint-analysis&quot;&gt;Conjoint Analysis&lt;/h1&gt;
-
-&lt;p&gt;It focuses on the features of the product or service.&lt;/p&gt;
-
-&lt;p&gt;Conjoint analysis is a statistical technique used in market research to determine who people value different features that make up an individual product or service.&lt;/p&gt;
-
-&lt;p&gt;The objective of conjoint analysis is to determine what combination of a limited number of attributes is most influential on respondent choice or decision making. &lt;/p&gt;
-
-&lt;h1 id=&quot;observations&quot;&gt;Observations&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;常见的CA中只能考虑物品属性，所以无法personalize（可能有personalize的变种）&lt;/li&gt;
-  &lt;li&gt;将product定义为物品属性集合&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;literature&quot;&gt;Literature&lt;/h1&gt;
-
-&lt;p&gt;http://www-bcf.usc.edu/~tellis/conjoint.pdf&lt;/p&gt;
-
-  
-  &lt;p&gt;&lt;a href=&quot;/economics/conjoint-analysis&quot;&gt;Conjoint Analysis&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 10, 2014.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Longest Valid Parentheses]]></title>
-  <link rel="alternate" type="text/html" href="/algorithms/Longest-Valid-Parentheses"/>
-  <id>/algorithms/Longest-Valid-Parentheses</id>
-  <published>2014-08-09T00:00:00+06:00</published>
-  <updated>2014-08-09T00:00:00+06:00</updated>
-  <author>
-    <name>Ping Jin</name>
-    <uri></uri>
-    <email>pjin1@ualberta.ca</email>
-  </author>
-  <category scheme="/tags/#algorithm,%20stack,%20leetcode" term="algorithm, stack, leetcode" />
-  <content type="html">
-  
-    &lt;h1 id=&quot;description&quot;&gt;Description&lt;/h1&gt;
-
-&lt;p&gt;Given a string containing just the characters ‘(‘ and ‘)’, find the length of the longest valid (well-formed) parentheses substring.&lt;/p&gt;
-
-&lt;p&gt;For “(()”, the longest valid parentheses substring is “()”, which has length = 2.&lt;/p&gt;
-
-&lt;p&gt;Another example is “)()())”, where the longest valid parentheses substring is “()()”, which has length = 4.&lt;/p&gt;
-
-&lt;h1 id=&quot;solution&quot;&gt;Solution&lt;/h1&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c++&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;public:&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;longestValidParentheses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; 		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; 		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; 		&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; 		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; 			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;(&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; 				&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; 			&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; 				&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; 					&lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; 				&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_push&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; 				&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; 					&lt;span class=&quot;n&quot;&gt;to_push&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt; 					&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; 				&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt; 				&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt; 					&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt; 					&lt;span class=&quot;n&quot;&gt;to_push&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt; 					&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt; 						&lt;span class=&quot;n&quot;&gt;to_push&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt; 						&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt; 					&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt; 					&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt; 					&lt;span class=&quot;n&quot;&gt;mx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt; 				&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; 			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;	
-&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt; 		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt; 		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt; 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;analysis&quot;&gt;Analysis&lt;/h1&gt;
-
-&lt;p&gt;We maintain a stack which contains some positive number and -1 (representing ‘(‘).&lt;/p&gt;
-
-&lt;p&gt;First, I will use the example “())(())” of how this algorithm works.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;S[0] = ‘(‘: pushing -1 into the stack  (stk = “(“ )&lt;/li&gt;
-  &lt;li&gt;S[1] = ‘)’: As stk is not empty and stk.top() = ‘(‘ we pop the top and then push 2 into the stack. the maximum variable is updated to 2. (stk = “2” )&lt;/li&gt;
-  &lt;li&gt;S[2] = ‘)’: As stk.top() == a number, we pop the number. Then the stk is empty. (stk = “” )&lt;/li&gt;
-  &lt;li&gt;S[3] = ‘(‘: pushing -1 into the stack  (stk = “(“ )&lt;/li&gt;
-  &lt;li&gt;S[4] = ‘(‘: pushing -1 into the stack  (stk = “((“ )&lt;/li&gt;
-  &lt;li&gt;S[5] = ‘)’: As stk.top() == ‘(‘, we pop the top and push 2. (stk = “(2” )&lt;/li&gt;
-  &lt;li&gt;S[6] = ‘)’: As stk.top() == a number, we pop the number 2. Then the stk is NOT empty and the current top is ‘(‘. So we pop ‘(‘ and push the sum (2+2=4) into the stk. (stk = “4” ) we update the maximum variable to be 4. (stk = “4” )&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;This procedure of stk’s changing shows the algorithm more clearly. Some of the states of the stack below will not appear during the real execution of the program, for example “)” will never be pushed into the stack, but to make things clear, I include these “hidden” steps here.&lt;/p&gt;
-
-&lt;p&gt;[”(“ =&amp;gt; “()” =&amp;gt; “2” =&amp;gt; “2)” =&amp;gt; “” =&amp;gt; “(“ =&amp;gt; “((“ =&amp;gt; “(()” =&amp;gt; “(2” =&amp;gt; “(2)” =&amp;gt; “4”  ]&lt;/p&gt;
-
-&lt;p&gt;In summary, if &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;S[i] = ‘(‘: we push -1 into the stk.&lt;/li&gt;
-  &lt;li&gt;S[i] = ‘)’: we check if the stk is empty. 
-    &lt;ul&gt;
-      &lt;li&gt;if not, we check the top element
-        &lt;ul&gt;
-          &lt;li&gt;if a number, we cache it and pop the top&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;then we check the top again, if a ‘(‘, we know we have got a valid pair and then pop the top
-        &lt;ul&gt;
-          &lt;li&gt;As it is possible that the second top now is also a number of valid length (ex. stk = “2()”), we check it and pop it if it is a number.&lt;/li&gt;
-          &lt;li&gt;we push the sum of the above three into the stk&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;about-time-complexity&quot;&gt;About time complexity,&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the number of times “-1” is pushed into the stack equals the number of “(“ in the string.&lt;/li&gt;
-  &lt;li&gt;The maximum number that can appear in the stack is less or equal to n (the length of the strings), thus the number of pushes when s[i] = ‘)’ must be less than n.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Thus it is a &lt;script type=&quot;math/tex&quot;&gt;O(n)&lt;/script&gt; solution.&lt;/p&gt;
-
-  
-  &lt;p&gt;&lt;a href=&quot;/algorithms/Longest-Valid-Parentheses&quot;&gt;Longest Valid Parentheses&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on August 09, 2014.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Notes on Chapter 2 of ESL]]></title>
-  <link rel="alternate" type="text/html" href="/notes-esl-ch2"/>
-  <id>/notes-esl-ch2</id>
-  <published>2013-11-18T09:47:35Z</published>
-  <updated>2013-11-18T09:47:35Z</updated>
-  <author>
-    <name>Ping Jin</name>
-    <uri></uri>
-    <email>pjin1@ualberta.ca</email>
-  </author>
-  
-  <content type="html">
-  
-    &lt;h1 id=&quot;instroduction&quot;&gt;2.1 Instroduction&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Supervised Learning&lt;/strong&gt;: predict output values from input values.&lt;/p&gt;
-
-&lt;p&gt;Some equivalent terminologies:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Input: predictors, independent variables, features&lt;/li&gt;
-  &lt;li&gt;Ouput: responses, dependent variables&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;variable-types-and-terminology&quot;&gt;2.2 Variable Types and Terminology&lt;/h1&gt;
-
-&lt;h2 id=&quot;three-variable-types&quot;&gt;Three variable types&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Quantitative (continuos)
-    &lt;ul&gt;
-      &lt;li&gt;ratio defined&lt;/li&gt;
-      &lt;li&gt;ratio not defined&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Qualitative (discrete, categorical, factors)&lt;/li&gt;
-  &lt;li&gt;Ordered categorical&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We usually do some coding to the qualitative variables&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;target: for binary varibles, we use 0-1 or (-1)-(+1) coding&lt;/li&gt;
-  &lt;li&gt;dummy variables: for a variable with &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; possible values, we use &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; binary variables to code it&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;notations&quot;&gt;Notations:&lt;/h2&gt;
-&lt;p&gt;Generally, upper case letters represent the random variables, while lower case ones indicate some observed values, which are regarded as fixed or constant.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;: input variable or vector, &lt;script type=&quot;math/tex&quot;&gt;j_{th}&lt;/script&gt; component of which is written as &lt;script type=&quot;math/tex&quot;&gt;X_j&lt;/script&gt;, while &lt;script type=&quot;math/tex&quot;&gt;i_{th}&lt;/script&gt; observed value of &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; is &lt;script type=&quot;math/tex&quot;&gt;x_i&lt;/script&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;Y, G&lt;/script&gt;: output varible. &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; for quantative and &lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt; for qualitative &lt;/li&gt;
-  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\mathbf{X}&lt;/script&gt;: &lt;script type=&quot;math/tex&quot;&gt;N \times p&lt;/script&gt; matrix, training data, consist of &lt;script type=&quot;math/tex&quot;&gt;x_i^T&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;i = 1,...N&lt;/script&gt;. The &lt;script type=&quot;math/tex&quot;&gt;j_{th}&lt;/script&gt; component is &lt;script type=&quot;math/tex&quot;&gt;\mathbf{x}_j&lt;/script&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;learning-task&quot;&gt;learning task&lt;/h2&gt;
-&lt;p&gt;Given the value of an input vector &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;, make a good prediction of the output &lt;script type=&quot;math/tex&quot;&gt;Y/G&lt;/script&gt;, denoted by &lt;script type=&quot;math/tex&quot;&gt;\hat{Y}/\hat{G}&lt;/script&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;least-squares-and-nearest-neighbors&quot;&gt;Least Squares and Nearest Neighbors&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Linear model
-    &lt;ul&gt;
-      &lt;li&gt;huge assumptions about the structure &lt;/li&gt;
-      &lt;li&gt;stable but maybe not very accurate predictions&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt;-nearest neighbor
-    &lt;ul&gt;
-      &lt;li&gt;few assumptions, if any, about the structure &lt;/li&gt;
-      &lt;li&gt;accurate but not stable predictions (sensitive to small changes in training dataset)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;linear-models-and-least-squares&quot;&gt;Linear Models and Least Squares&lt;/h2&gt;
-
-&lt;h3 id=&quot;linear-models&quot;&gt;Linear Models&lt;/h3&gt;
-&lt;p&gt;Generally, we use “hat” over something to represent an estimate of it, such as, using &lt;script type=&quot;math/tex&quot;&gt;\hat{X}&lt;/script&gt; to estimate &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;.&lt;/p&gt;
-
-&lt;p&gt;Given a input vector &lt;script type=&quot;math/tex&quot;&gt;X^T = (X_1,X_2,...,X_p)&lt;/script&gt;, we predict the output &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; via the model,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt; \hat{Y} = \hat{\beta}_0 + \sum^p_{j = 1}X_j \hat{\beta_j}&lt;/script&gt;
-
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\beta_0&lt;/script&gt; is known as intercept or bias. If we include &lt;script type=&quot;math/tex&quot;&gt;\mathbf{1}&lt;/script&gt; as a feature, then &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt; \hat{Y} = X^T\hat{\beta}&lt;/script&gt;
-
-&lt;p&gt;if the output &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; is scaler, then the dimension of &lt;script type=&quot;math/tex&quot;&gt;\hat{\beta}&lt;/script&gt; is &lt;script type=&quot;math/tex&quot;&gt;1\times p&lt;/script&gt;. Generally, the output can be &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt;-vector, then the dimension of &lt;script type=&quot;math/tex&quot;&gt;\hat{\beta}&lt;/script&gt; should be &lt;script type=&quot;math/tex&quot;&gt;K \times p&lt;/script&gt;.&lt;/p&gt;
-
-&lt;p&gt;In the &lt;script type=&quot;math/tex&quot;&gt;p+1&lt;/script&gt; dimensional space, &lt;script type=&quot;math/tex&quot;&gt;(X, \hat{Y})&lt;/script&gt; is a hyperplane. If &lt;script type=&quot;math/tex&quot;&gt;\mathbf{1}&lt;/script&gt; is included, the hyperplane includes the origin and thus is a subspace.&lt;/p&gt;
-
-&lt;h3 id=&quot;least-squares&quot;&gt;Least Squares&lt;/h3&gt;
-
-&lt;p&gt;We write &lt;script type=&quot;math/tex&quot;&gt;\hat{\beta}&lt;/script&gt; instead of &lt;script type=&quot;math/tex&quot;&gt;\beta&lt;/script&gt;, because we assume that there is a “perfect” &lt;script type=&quot;math/tex&quot;&gt;\beta&lt;/script&gt;. Our task is to estimate the &lt;script type=&quot;math/tex&quot;&gt;\beta&lt;/script&gt; by fitting the data.&lt;/p&gt;
-
-&lt;p&gt;One way to do that is &lt;em&gt;least square fit&lt;/em&gt;. Define&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt; RSS(\beta) = \sum_{i = 1}^{N} (y_i - x_i^T \beta) = (\mathbf{X}\beta - \mathbf{y})^T(\mathbf{X}\beta - \mathbf{y}) &lt;/script&gt;
-
-&lt;p&gt;Then we do the fit as follows&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt; \hat{\beta} = argmin_{\beta} RSS(\beta). &lt;/script&gt;
-
-&lt;p&gt;To get the solution, we take derivative of &lt;script type=&quot;math/tex&quot;&gt;RSS(\beta)&lt;/script&gt; w.r.t. &lt;script type=&quot;math/tex&quot;&gt;\beta&lt;/script&gt; and get&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt; \mathbf{X}^T(\mathbf{y} - \mathbf{X}\beta) &lt;/script&gt;
-
-&lt;p&gt;Then we set the derivate to zero, and if &lt;script type=&quot;math/tex&quot;&gt;X^TX&lt;/script&gt; is nonsingular, we have &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt; \hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}&lt;/script&gt;
-
-&lt;p&gt;And then we have the fitte value &lt;script type=&quot;math/tex&quot;&gt;\mathbf{\hat{y}}&lt;/script&gt; to be&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt; \mathbf{\hat{y}} = \mathbf{X} \hat{\beta}&lt;/script&gt;
-
-&lt;p&gt;So the fitted surface &lt;script type=&quot;math/tex&quot;&gt;(X, \hat{y})&lt;/script&gt; is actually &lt;script type=&quot;math/tex&quot;&gt;(X, X \hat{\beta})&lt;/script&gt;, parameterized by &lt;script type=&quot;math/tex&quot;&gt;\hat{\beta}&lt;/script&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;simulation-experiment&quot;&gt;Simulation Experiment&lt;/h2&gt;
-&lt;p&gt;The input &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; is a two dimensional vector and the ouput variable &lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt; is a binary variable. We make prediction &lt;script type=&quot;math/tex&quot;&gt;\hat{G}&lt;/script&gt; as&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-
-\begin{equation}
-  \hat{G} = 
-  \left\{
-    \begin{array}{r@{\;=\;}l}
-    1 &amp; \hat{Y} &gt; 0.5\\
-    0 &amp; \hat{Y} \leq 0.5
-    \end{array}
-  \right.
-\end{equation}
- %]]&gt;&lt;/script&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;where &lt;script type=&quot;math/tex&quot;&gt;\hat{Y} = X \beta&lt;/script&gt; and the &lt;em&gt;decision boundary&lt;/em&gt; is $${x&lt;/td&gt;
-      &lt;td&gt;x\beta = 0.5}$$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Let us consider about how the data is generated&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Scenario 1&lt;/strong&gt;: The training data in each class were generated from bivariate Gaussian distributions with uncorrelated components and different means, i.e. several independent bivariate Gaussian distributions.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;[put a figure here]&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Scenario 2&lt;/strong&gt;: We have ten low-variance Gaussian distribution for each class respectively. Their means are distributed as Gaussian too. The way to generate a sample is to first select one Gaussian distribution out of the ten and then draw a point from that distribution.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For scenario 1, a linear boundary is the best we can do. For scenario 2, a nonlinear one is better.&lt;/p&gt;
-
-&lt;h2 id=&quot;nearest-neighbor-methods&quot;&gt;2.3.2 Nearest-Neighbor Methods&lt;/h2&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\hat{Y}(X) =\frac{1}{k} \sum_{x_i \in N_k(X)}(y_i)
-&lt;/script&gt;
-
-&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;N_k(X)&lt;/script&gt; is the set of &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt; training samples that are nearest to &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;If the output variable is categorical, we can still put a threshold (decision boundary) on &lt;script type=&quot;math/tex&quot;&gt;\hat{Y}&lt;/script&gt; to decide &lt;script type=&quot;math/tex&quot;&gt;\hat{G}&lt;/script&gt;. A majortiy vote is the case where the decision boundary is $${x&lt;/td&gt;
-      &lt;td&gt;\hat{Y}(x) = 0.5}&lt;script type=&quot;math/tex&quot;&gt;. Usually the decision boundary of &lt;/script&gt;k$$NN is irregular.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Though it seems we only have one parameter &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt; in &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt;NN instead of &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; in Linear model. Actually the effective number of parameter in &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt;NN is &lt;script type=&quot;math/tex&quot;&gt;\frac{N}{k}&lt;/script&gt;, which is generally greater than &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;from-least-squares-to-nearest-neighbors&quot;&gt;2.3.3 From Least Squares to Nearest Neighbors&lt;/h2&gt;
-
-&lt;p&gt;Least Squares method has stronly replied the linear assumption, which makes it a simple model. This simplicity makes it less sensitive to the change of training dataset and thus enjoy a low variance, but potentially a high bias. For &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt;NN, it hardly relies on any strict assumption, which makes it enjoy a low bias, but a high variance, i.e. quite sensitive to the change of training set (for small &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt;).&lt;/p&gt;
-
-&lt;p&gt;For senario 1, linear model is more appropriate, while &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt;NN works better for senario 2.&lt;/p&gt;
-
-&lt;p&gt;Many most popular techniques come from these two simple procedure. Below list some popular ways of enhancing these two methods:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;Kernel methods use &lt;strong&gt;weights that decrease smoothly to zero with distance&lt;/strong&gt; from the target point, rather than the effective 0/1 weights used by k-nearest neighbors.&lt;/li&gt;
-    &lt;li&gt;In high-dimensional spaces the distance kernels are modified to &lt;strong&gt;emphasize some variable&lt;/strong&gt; more than others.&lt;/li&gt;
-    &lt;li&gt;Local regression fits linear models by &lt;strong&gt;locally weighted least squares&lt;/strong&gt;, rather than fitting constants locally.&lt;/li&gt;
-    &lt;li&gt;Linear models fit to a &lt;strong&gt;basis expansion&lt;/strong&gt; of the original inputs allow arbitrarily complex models.&lt;/li&gt;
-    &lt;li&gt;Projection pursuit and neural network models consist of sums of &lt;strong&gt;non-linearly transformed&lt;/strong&gt; linear models.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;statistical-decision-theory&quot;&gt;2.4 Statistical Decision Theory&lt;/h1&gt;
-
-&lt;p&gt;Let &lt;script type=&quot;math/tex&quot;&gt;X \in \mathbb{R}^p&lt;/script&gt; be the input vector, with real valued variables and &lt;script type=&quot;math/tex&quot;&gt;Y\in \mathbb{R}&lt;/script&gt;. And the underlied joint distribution is &lt;script type=&quot;math/tex&quot;&gt;Pr(X, Y)&lt;/script&gt;. Then suppose that our loss function is &lt;script type=&quot;math/tex&quot;&gt;L(Y, f(X)) = (Y - f(x))^2&lt;/script&gt;, i.e. the squared loss. Then we have a measure for function &lt;script type=&quot;math/tex&quot;&gt;f&lt;/script&gt;, which we can use as a criterion to selecte &lt;script type=&quot;math/tex&quot;&gt;f&lt;/script&gt;,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-
-\begin{equation}
-  \begin{split}
-    EPE(f) &amp;= E(Y - f(X))^2\\
-    &amp;= \int [y - f(x)]^2 Pr(dx, dy)
-  \end{split}
-\end{equation}
- %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;Then we can condition it on &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-
-\begin{equation}
-  \begin{split}
-    EPE(f) &amp;= E_{X}E_{Y|X}[(Y - f(X))^2|X]\\
-  \end{split}
-\end{equation}
- %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;By minimizing it pointwisely, we get the solution&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-f(x) = E(Y| X = x)
-&lt;/script&gt;
-
-&lt;p&gt;This is also known as the &lt;em&gt;regression function&lt;/em&gt;. It is the best prediction of &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; at any point &lt;script type=&quot;math/tex&quot;&gt;X = x&lt;/script&gt;, given the perfect knowledge of &lt;script type=&quot;math/tex&quot;&gt;Pr(X, Y)&lt;/script&gt;, w.r.t. the averaged squared error.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Note if we change the loss function, the solution is different. For example, if we use $$L(Y) =&lt;/td&gt;
-      &lt;td&gt;Y-f(x)&lt;/td&gt;
-      &lt;td&gt;$$, the solution will be the conditional median instead of the conditional mean. This is actually more robust than least squares, as it is much less sensitive to the outlier than least square fit. However, as the derivate of it is not continuos at zero, which makes it hard to optimize and lose the closed form solution.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;nearest-neighbor&quot;&gt;Nearest-Neighbor&lt;/h3&gt;
-&lt;p&gt;The nearest-neighbor methods exactly follow this thought in an approximated way,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\hat{f}(x) = Ave(y_i| x_i \in N_k(x)),
-&lt;/script&gt;
-
-&lt;p&gt;And the two approximations used here are&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;expectation is approximated by averaging over &lt;strong&gt;sample data&lt;/strong&gt;;&lt;/li&gt;
-    &lt;li&gt;conditioning at a point is &lt;strong&gt;relaxed&lt;/strong&gt; to conditioning on some region
-“close” to the target point.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;It is easy to see that as &lt;script type=&quot;math/tex&quot;&gt;N,K \to \infty, s.t. k/N \to 0&lt;/script&gt;, we have $$\hat{f}(x) \to E[Y&lt;/td&gt;
-      &lt;td&gt;X = x]&lt;script type=&quot;math/tex&quot;&gt;. But the problem is that we usually don&#39;t have that much data, i.e the first approximation is bad. Another problem is that as &lt;/script&gt;p$$ increases, the data samples we have will be scattered very sparsely in the space, which leads to fail of using nearest neighbor as a surrorgate for conditioning, i.e. the second approximation is not good. And the &lt;em&gt;convergence rate&lt;/em&gt; also decreases.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;linear-regression&quot;&gt;Linear regression&lt;/h3&gt;
-
-&lt;p&gt;Linear regression is a &lt;em&gt;model-based&lt;/em&gt; approach. It means that we have the belief/assumption that the regression function is approximately linear in its arguments:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-f(x) = E(Y| X = x) \approx x^T\beta
-&lt;/script&gt;
-
-&lt;p&gt;If this assumption is satisfied, we have &lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-
-\begin{equation}
-  \begin{split}
-    EPE(f) &amp;= E[(Y - X^T\beta)^2]\\
-  \end{split}
-\end{equation}
- %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;Then by differentiating it w.r.t &lt;script type=&quot;math/tex&quot;&gt;\beta&lt;/script&gt; and set the gradient to zero, we can get the closed form solution&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;
-\beta = [E(XX^T)]^{-1}E(XY)
-&lt;/script&gt;
-
-&lt;p&gt;Thus actually both nearest-neighbor and linear model are trying to approximate the condtional expectations by averages.&lt;/p&gt;
-
-&lt;h1 id=&quot;local-methods-in-high-dimensions&quot;&gt;2.5 Local Methods in High Dimensions&lt;/h1&gt;
-
-
-  
-  &lt;p&gt;&lt;a href=&quot;/notes-esl-ch2&quot;&gt;Notes on Chapter 2 of ESL&lt;/a&gt; was originally published by Ping Jin at &lt;a href=&quot;&quot;&gt;TK_blog&lt;/a&gt; on November 18, 2013.&lt;/p&gt;</content>
 </entry>
 
 </feed>

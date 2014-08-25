@@ -1,6 +1,46 @@
 [
 	
 		{
+		  "title"      : "Introduction to Survival Analysis (Ch4)",
+		  "category"   : "Survival Analysis",
+		  "url"        : "/survival%20analysis/Introduction-to-Survival-Analysis_p3",
+		  "date"       : "2014-08-25 00:00:00 +0600",
+		  "shortdate"  : "August 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Introduction to Survival Analysis (Ch3)",
+		  "category"   : "Survival Analysis",
+		  "url"        : "/survival%20analysis/Introduction-to-Survival-Analysis_p2",
+		  "date"       : "2014-08-25 00:00:00 +0600",
+		  "shortdate"  : "August 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Introduction to Survival Analysis (Ch1 &amp; Ch2)",
+		  "category"   : "Survival Analysis",
+		  "url"        : "/survival%20analysis/Introduction-to-Survival-Analysis_p1",
+		  "date"       : "2014-08-25 00:00:00 +0600",
+		  "shortdate"  : "August 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Substring with Concatenation of All Words",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Substring-with-Concatenation-of-All-Words",
+		  "date"       : "2014-08-24 00:00:00 +0600",
+		  "shortdate"  : "August 24, 2014"
+		} ,
+	
+		{
+		  "title"      : "Simplify Path",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Simplify-Path",
+		  "date"       : "2014-08-24 00:00:00 +0600",
+		  "shortdate"  : "August 24, 2014"
+		} ,
+	
+		{
 		  "title"      : "Minimum Window Substring",
 		  "category"   : "Algorithms",
 		  "url"        : "/algorithms/Minimum-Window-Substring",

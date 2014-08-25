@@ -19,7 +19,7 @@ A better solution is that we keep a left pointer ``left`` and right pointer ``ri
 
 - First, we increase the ``right`` pointer until ``S[left, right-1]`` contains all the chars in ``T``
 - Second, check if (right - left) < minWindow
-    - If so, record ``left`` and ``right``
+    - If so, record ``left`` and ``right`` and update ``minWindow``
 - Third, we increase the ``left`` pointer by 1
 - Forth, check if ``S[left, right-1]`` fails to contain all the chars in ``T``
     - If so, 
