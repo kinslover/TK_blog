@@ -7,6 +7,18 @@ category: Algorithms
 tag: algorithm, stack, leetcode, tree, traversal
 ---
 
+# Description
+
+Traverse a binary tree in pre/in/post-order, with/out extra space.
+
+Difficulty: 
+
+- recursive solution: 0.5/5.0 star
+- pre/post-order without recursion with stack: 1.5/5.0 star
+- in-order without recursion with stack: 2.0/5.0 star
+- in-order without any extra space: 3.0/5.0
+
+
 # Definition of TreeNode
 
 {% highlight c++%}

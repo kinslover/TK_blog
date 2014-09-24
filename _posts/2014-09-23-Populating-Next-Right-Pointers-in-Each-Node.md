@@ -11,6 +11,8 @@ tag: algorithm, stack, leetcode, tree, traversal
 
 https://oj.leetcode.com/problems/populating-next-right-pointers-in-each-node/
 
+Difficulty: 2.5/5.0 stars
+
 # Analysis
 
 The first thought that came to my mind is BFS, as the ``next`` pointers are layer-wise pointers and here is a simple implementation. This solution does utilize the property that the tree is a perfect binary tree. A more general solution for any binary tree is that we can have an index on each node representing the position of it in a perfect tree. 
