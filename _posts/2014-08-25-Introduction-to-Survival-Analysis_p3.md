@@ -71,7 +71,7 @@ For example, if a patient is censored between $$[a_j, a_{j+1})$$, then
 - this patient is one member of $$r_j$$, as his/her survival time is **NOT** earlier than $$a_j$$
 - this patient is **NOT** one member of $$r_{j+1}$$, as his/her survival time is earlier than $$a_{j+1}$$
 
-### Formal Description os Kaplan-Meier estimator
+### Formal Description of Kaplan-Meier estimator
 
 $$
 \begin{split}

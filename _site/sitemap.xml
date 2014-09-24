@@ -65,7 +65,31 @@
         <loc>/page6/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page7/index.html</loc>
+    </url>
+    
 
+    
+    <url>
+        <loc>/programming/Binary-Tree-Traversal</loc>
+    </url>
+    
+    <url>
+        <loc>/programming/Numpy-Basics</loc>
+    </url>
+    
+    <url>
+        <loc>/economics/Tobit-Regression</loc>
+    </url>
+    
+    <url>
+        <loc>/economics/Tips-and-Tutorials-about-Qualtrics</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Questions-about-Survival-Analysis</loc>
+    </url>
     
     <url>
         <loc>/survival%20analysis/Introduction-to-Survival-Analysis_p3</loc>

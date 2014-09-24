@@ -21,18 +21,18 @@ Description: Awesome dude, awesome life
     </script> 
 
 <meta charset="utf-8">
-<title>INTRODUCTION TO SURVIVAL ANALYSIS (CH4) &vert; TK_BLOG</title>
+<title>NUMPY BASICS &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="Survival Analysis">
+<meta name="keywords" content="python, numpy">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Introduction to Survival Analysis (Ch4)">
+<meta property="og:title" content="Numpy Basics">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/survival%20analysis/Introduction-to-Survival-Analysis_p3">
+<meta property="og:url" content="/programming/Numpy-Basics">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/survival%20analysis/Introduction-to-Survival-Analysis_p3">
+<link rel="canonical" href="/programming/Numpy-Basics">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,195 +123,168 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>Introduction to Survival Analysis (Ch4)</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#Survival Analysis" data-toggle="tooltip" title="Posts tagged with Survival Analysis" rel="tag">Survival Analysis</a> <strong><time datetime="2014-08-25T00:00:00+06:00">25 Aug 2014</time></strong></p>
+                            <h1>Numpy Basics</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#python, numpy" data-toggle="tooltip" title="Posts tagged with python, numpy" rel="tag">python, numpy</a> <strong><time datetime="2014-09-03T00:00:00+06:00">03 Sep 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
             </header>
 
         <article class="summer-post-content post tag-simple">
-            <div><p>This summarizes some very basic concepts in survival analysis from this amazing <a href="http://www.amstat.org/chapters/northeasternillinois/pastevents/presentations/summer05_Ibrahim_J.pdf">tutorial</a>, which helps me a lot.</p>
+            <div><h1 id="array-creation">Array Creation</h1>
 
-<h1 id="chapter-4-estimiating-the-survival-or-hazard-function-non-parametric">Chapter 4: Estimiating the Survival or Hazard Function (Non-Parametric)</h1>
-
-<p>If there is no censoring data, the empirical estimate of survival distribution is simply</p>
-
-<script type="math/tex; mode=display">
-\hat{S}(t) = \frac{\text{ # People dying no earlier than } t}{ \text{# all people} }
-</script>
-
-<p>In practice, most software packages usually count individuals with <script type="math/tex">T > t</script>. We represent it as <script type="math/tex">S(t^+) = Pr(T > t)</script>.</p>
-
-<p>There are three common non-parametric models to estimate survival function <script type="math/tex">S(t)</script>.</p>
+<p>(1) Initialize an array from a list</p>
 
 <ul>
-  <li>(1) Kaplan-Meier</li>
-  <li>(2) Life-table (Actuarial Estimator)</li>
-  <li>(3) via Cumulative harzard estimator</li>
+  <li><code>numpy.array(list)</code></li>
 </ul>
 
-<h2 id="the-kaplan-meier-estimator">The Kaplan-Meier Estimator</h2>
-
-<p>Most popular, most famous one, which can be justified from three perspectives:</p>
+<p>(2) Initialize a <script type="math/tex">n \times m</script> array</p>
 
 <ul>
-  <li>Product limit estimator (conditional probability)</li>
-  <li>maximum likelihood</li>
-  <li>redistribute to the right estimator</li>
+  <li>all zeros: <code>numpy.zeros( (n, m) )</code></li>
+  <li>all ones: <code>numpy.ones( (n, m) )</code></li>
+  <li>“wild” random numbers (depends on memory)：<code>numpy.empty( (n, m) )</code>	</li>
+  <li>random numbers（[0,1]）:<code>numpy.random.random((2,3))</code></li>
+  <li>identity matrix: <code>eye(n)</code></li>
 </ul>
 
-<p>As stated in previous section, if there is no censoring, calculating the empirical survival proportion is enough.</p>
-
-<p>What about censoring data? Let us start from the conditional probability perspective.</p>
-
-<h3 id="perspective1-conditional-probability">Perspective1: Conditional Probability</h3>
-
-<p>In previous section, we have shown the relationship between <script type="math/tex">S(t)</script> and <script type="math/tex">\lambda(t)</script> for discrete r.v. case, using conditional probability.</p>
-
-<p>Suppose <script type="math/tex">% <![CDATA[
-a_k < t \leq a_{k+1} %]]></script>, then </p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-
-\begin{split}
-S(t) 	&=  Pr(T \geq a_{k+1})\\
-		&=  Pr(T \geq a_{1}) Pr(T \geq a_{2}\vert T \geq a_{1})...Pr(T \geq a_{k+1}\vert T \geq a_{k}) \\
-	 	&= 1 \times \prod_{j=1}^k (1 - \lambda_j)
-\end{split}
- %]]></script>
-
-<p>Therefore,</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-
-\begin{split}
-\hat{S}(t) 	&= \prod_{j=1}^k (1 - \frac{d_j}{r_j})\\
-			&= \prod_{\{j:a_j < t\}} (1 - \frac{d_j}{r_j})
-\end{split}
- %]]></script>
-
-<p>where <script type="math/tex">d_j</script> is the number of deaths at tiem <script type="math/tex">a_j</script> and <script type="math/tex">r_j</script> is the number of individuals alive right before time <script type="math/tex">a_j</script></p>
-
-<p><strong>For censoring people, we remove them from <script type="math/tex">r_{j}</script></strong>, if he/she is censored before <script type="math/tex">a_j</script>.</p>
-
-<p>For example, if a patient is censored between <script type="math/tex">[a_j, a_{j+1})</script>, then</p>
+<p>(3) Initialize a <script type="math/tex">n</script>-dim vector</p>
 
 <ul>
-  <li>this patient is one member of <script type="math/tex">r_j</script>, as his/her survival time is <strong>NOT</strong> earlier than <script type="math/tex">a_j</script></li>
-  <li>this patient is <strong>NOT</strong> one member of <script type="math/tex">r_{j+1}</script>, as his/her survival time is earlier than <script type="math/tex">a_{j+1}</script></li>
+  <li>just pass one parameter n into the functions zeros, ones,  </li>
 </ul>
 
-<h3 id="formal-description-of-kaplan-meier-estimator">Formal Description of Kaplan-Meier estimator</h3>
-
-<script type="math/tex; mode=display">% <![CDATA[
-
-\begin{split}
-\hat{S} 	&= \prod_{j:\tau_j < t} \frac{r_j - d_j}{r_j}
-			&= \prod_{j:\tau_j < t} (1 - \frac{d_j}{r_j})
-\end{split}
- %]]></script>
-
-<p>where </p>
+<p>(4) Initialize a ranged array</p>
 
 <ul>
-  <li><script type="math/tex">\tau_1,...,\tau_K</script> is the set of <script type="math/tex">K</script> distinct death times observed in sample</li>
-  <li><script type="math/tex">d_j</script>: number of deaths observed at time <script type="math/tex">\tau_j</script></li>
-  <li><script type="math/tex">r_j</script>: number of individuals alive right before time <script type="math/tex">\tau_j</script> (i.e. every one died or censored after <script type="math/tex">\tau_j</script>)</li>
-  <li><script type="math/tex">c_j</script> is the number of censored observations between <script type="math/tex">[\tau_j, \tau_{j+1})</script>.</li>
+  <li><code>arange(low, up, gap)</code>, gap can be float</li>
+  <li><code>linspace(low, up, n)</code></li>
 </ul>
 
-<p><strong>Two useful formulas</strong>:</p>
+<p>(5) Others</p>
 
 <ul>
-  <li>
-    <script type="math/tex; mode=display">r_{j+1} = r_{j} - (d_{j} + c_{j})</script>
-  </li>
-  <li>
-    <script type="math/tex; mode=display">r_{j+1} = \sum_{i = j+1}^K (d_{i} + c_{i})</script>
+  <li>arange, array, copy, empty, empty_like, eye, fromfile, fromfunction, identity, linspace, logspace, mgrid, ogrid, ones, ones_like, r , zeros, zeros_like</li>
+</ul>
+
+<h1 id="array-operation">Array Operation</h1>
+
+<p>(1) with dimensions</p>
+
+<ul>
+  <li>a.ravel: 展成一维向量</li>
+  <li>a.transpose：转置（或T）</li>
+  <li>a.reshape/resize：前者生成一个新矩阵，后者修改原矩阵
+    <ul>
+      <li>如果某个维度输入-1，则该维度自动计算</li>
+    </ul>
   </li>
 </ul>
 
-<p>Some interesting facts</p>
+<p>(2) linear algebra</p>
 
 <ul>
-  <li><script type="math/tex">\hat{S}(t^+)</script> only changes at death times</li>
-  <li><script type="math/tex">\hat{S}(t^+)</script> is 1 until the first death happens</li>
-  <li><script type="math/tex">\hat{S}(t^+)</script> goes to 0 if the last event is a death</li>
+  <li>matrix multiplication: <code>dot(a, b)</code></li>
+  <li>vector cross-product: <code>cross(a, b)</code></li>
+  <li>outer-product: <code>outer(a, b)</code></li>
+  <li><code>svd, trace, inv, eig</code></li>
 </ul>
 
-<h3 id="perspective-2-maximum-likelihood">Perspective 2: Maximum Likelihood</h3>
-
-<p>For a discrete failure time variable, define</p>
+<p>(3) Arithmetic</p>
 
 <ul>
-  <li><script type="math/tex">d_j</script>: number of failures at <script type="math/tex">a_j</script></li>
-  <li><script type="math/tex">r_j</script>: number of individuals alive right before <script type="math/tex">a_j</script></li>
-  <li><script type="math/tex">\lambda_j</script>: probability of dying in <script type="math/tex">[a_j, a_{j+1})</script>, given the fact alive before <script type="math/tex">a_j</script></li>
+  <li>Elementwise</li>
 </ul>
 
-<p>Supposed that there are <script type="math/tex">K</script> distinct time points, then the likelihood of observing <script type="math/tex">d_j, r_j, j = 1...K</script> is</p>
-
-<script type="math/tex; mode=display">
-L(\lambda) = \prod_{j = 1}^K \lambda_j^{d_j} (1 - \lambda_j)^{r_j - d_j}
-</script>
-
-<p>which are just <script type="math/tex">K</script> independent bernoulli trials.</p>
-
-<p>Then it is pretty obvisous that the maximum likelihood estimator of <script type="math/tex">\lambda_j</script> is</p>
-
-<script type="math/tex; mode=display">\hat{\lambda_j} = \frac{d_j}{r_j}</script>
-
-<h3 id="perspective-3-redistribute-to-the-right-estimator">Perspective 3: Redistribute to the Right Estimator</h3>
-
-<p>Please refer to p57-58 in the tutorial.</p>
-
-<h3 id="properties-of-km-estimator">Properties of KM estimator</h3>
-
-<p>If there is no censoring</p>
-
-<script type="math/tex; mode=display">\hat{S}(t) = \frac{\text{# of deaths at or greater than } t}{n}</script>
-
-<p>This is like an estimated probability from a bionomial distribution, thus we know</p>
-
-<script type="math/tex; mode=display">
-\hat{S}(t) \simeq \mathcal{N}(S(t), \frac{S(t)(1-S(t))}{n})
-</script>
-
-<p>and we know the <strong>approximated variance</strong>.</p>
-
-<p><script type="math/tex">\simeq</script> means <a href="http://access2science.com/latex/Binary.html">“asymptotically equal”</a>.</p>
-
-<p>How does censoring affect this?</p>
+<p>(4) Statistics</p>
 
 <ul>
-  <li><script type="math/tex">\hat{S}(t)</script> is still approximately normal</li>
-  <li>The mean of <script type="math/tex">\hat{S}(t)</script> converges to the true <script type="math/tex">S(t)</script></li>
-  <li>The variance is a bit more complicated</li>
+  <li>summation/product/min/max of the whole array： 
+    <ul>
+      <li><code>a.sum/prod/max/min()</code></li>
+    </ul>
+  </li>
+  <li>summation/product/min/max by column/row: 
+    <ul>
+      <li><code>a.sum/prod/max/min(axis=0/1)</code> </li>
+    </ul>
+  </li>
+  <li>cumulative summation/product：
+    <ul>
+      <li><code>a.cumsum/prod(axis =0/1)</code></li>
+    </ul>
+  </li>
+  <li>mean, median, var, std…</li>
 </ul>
 
-<p>Once we get the variance, then we can construct  <strong>(pointwise) <script type="math/tex">(1-\alpha)\%</script> confidence intervals</strong> (not bands) about <script type="math/tex">\hat{S}(t)</script>, by</p>
+<p>(5) Universial Function</p>
 
-<script type="math/tex; mode=display">
-\hat{S}(t) \pm z_{1-\frac{\alpha}{2}} se[\hat{S}(t)]
-</script>
+<ul>
+  <li>Elementwise operation</li>
+  <li><code>sin, cos, exp, sqrt, add, all, alltrue, any, apply along axis, argmax, argmin, argsort, average, bincount, ceil, clip, conj, conjugate, corrcoef, cov, cross, cumprod, cumsum, diff, dot, floor, inner, inv, lexsort, max, maximum, mean, median, min, minimum, nonzero, outer, prod, re, round, sometrue, sort, std, sum, trace, transpose, var, vdot, vectorize, where</code></li>
+</ul>
 
-<p>(More about pointwise confidence interval: to be continued..)</p>
+<p>(6) Array combination</p>
+
+<ul>
+  <li><code>vstack((a,b,c...))</code>: combined as rows</li>
+  <li><code>hstack((a,b,...))</code>: combined as columns</li>
+  <li><code>column/row_stack((a,b,c,...))</code>: can take 2-D array as parameter</li>
+</ul>
+
+<p>(7) Split Array</p>
+
+<ul>
+  <li><code>hsplit</code>:
+    <ul>
+      <li><code>hsplit(a, 3)</code>: divide <code>a</code> into 3 even parts horizontally</li>
+      <li><code>hsplit(a, (3,4))</code>: divide <code>a</code> horizontally with 3 and 4 being the split points</li>
+    </ul>
+  </li>
+  <li><code>vsplit</code></li>
+  <li><code>split</code></li>
+</ul>
+
+<p>(8) Others</p>
+
+<ul>
+  <li><code>numpy.random.xxx</code>
+    <ul>
+      <li><code>uniform(low=0, high =10,size = (2,3))</code></li>
+      <li><code>weibull(a = 1, size(2,3))</code></li>
+      <li><code>permutation(n)</code></li>
+      <li><code>binomial(n=100,p=0.5,size=(2,3))</code></li>
+      <li><code>poisson(lam=0.5, size=(2,3))</code> </li>
+      <li><code>random_integers(low, high, size = (a,b))</code></li>
+      <li><code>beta, gamma, geometric,...</code></li>
+    </ul>
+  </li>
+  <li><code>numpy.unique(a)</code></li>
+  <li><code>vectorize</code>: 将作用于单一数字的函数改为作用于vector</li>
+  <li><code>where()</code>: return the indices where a certain condition is satisfied</li>
+  <li><code>repeat()</code></li>
+  <li><code>sort()</code></li>
+</ul>
+
+<h1 id="examples">Examples</h1>
+
+<p>Please refer to http://wiki.scipy.org/Numpy_Example_List#fromfunction</p>
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Introduction to Survival Analysis (Ch4)&quot;%20/survival%20analysis/Introduction-to-Survival-Analysis_p3%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Numpy Basics&quot;%20/programming/Numpy-Basics%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/survival%20analysis/Introduction-to-Survival-Analysis_p3"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/programming/Numpy-Basics"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/survival%20analysis/Introduction-to-Survival-Analysis_p3"
+                <a class="google-icon" href="https://plus.google.com/share?url=/programming/Numpy-Basics"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

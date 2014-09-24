@@ -133,6 +133,31 @@ callback([
   {
     "text": "Introduction to Survival Analysis (Ch4)",
     "href": "/survival%20analysis/Introduction-to-Survival-Analysis_p3"
+  } ,
+
+  {
+    "text": "Survival Analysis Summary",
+    "href": "/algorithms/Questions-about-Survival-Analysis"
+  } ,
+
+  {
+    "text": "Tips and Tutorial about Qualtrics",
+    "href": "/economics/Tips-and-Tutorials-about-Qualtrics"
+  } ,
+
+  {
+    "text": "Tobit Regression",
+    "href": "/economics/Tobit-Regression"
+  } ,
+
+  {
+    "text": "Numpy Basics",
+    "href": "/programming/Numpy-Basics"
+  } ,
+
+  {
+    "text": "Binary Tree Traversal",
+    "href": "/programming/Binary-Tree-Traversal"
   } 
 
 ])
