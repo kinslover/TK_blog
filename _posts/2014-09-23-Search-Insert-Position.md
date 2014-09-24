@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Maximum Product Subarray
+title: Search Insert Position
 published: true
 comments: true
 category: Algorithms
-tag: algorithm, leetcode, greedy
+tag: algorithm, leetcode, binary search
 ---
 
 # Description

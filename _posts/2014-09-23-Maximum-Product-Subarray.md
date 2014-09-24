@@ -13,6 +13,8 @@ https://oj.leetcode.com/problems/maximum-product-subarray/
 
 Difficulty: 2.5/5.0 star
 
+Related: https://oj.leetcode.com/problems/maximum-subarray/
+
 
 # Analysis
 
