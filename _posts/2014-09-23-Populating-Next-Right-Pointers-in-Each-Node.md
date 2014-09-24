@@ -13,7 +13,7 @@ https://oj.leetcode.com/problems/populating-next-right-pointers-in-each-node/
 
 # Analysis
 
-The first thought that came to my mind is BFS, as the ``next`` pointers are layer-wise pointers and here is a simple implementation. This solution does not utilize the property that the tree is a perfect binary tree much. A more general solution for any binary tree is that we can have an index on each node representing the position of it in a perfect tree. 
+The first thought that came to my mind is BFS, as the ``next`` pointers are layer-wise pointers and here is a simple implementation. This solution does utilize the property that the tree is a perfect binary tree. A more general solution for any binary tree is that we can have an index on each node representing the position of it in a perfect tree. 
 
 {% highlight c++%}
 
@@ -82,23 +82,23 @@ public:
 			return;
 		root->next = NULL;
 		TreeLinkNode * curLevelHead = root;
-		while(curLevelHead != NULL){
+		while(curLevelHead){
 			TreeLinkNode * curNode = curLevelHead;
-			TreeLinkNode * curNextLevel = NULL;
-			while(curNode!=NULL){
+			TreeLinkNode * nextLevelHead = NULL;
+			while(curNode){
 				if (curNode->left){
 					curNode->left->next = curNode->right;
-					if (curNextLevel == NULL)
-						curNextLevel = curNode->left;
+					if (nextLevelHead == NULL)
+						nextLevelHead = curNode->left;
 				}
 				if (curNode->right){					
-					curNode->right = (curNode->next)? curNode->next->left : NULL;
-					if (curNextLevel == NULL)
-						curNextLevel = curNode->right;						
+					curNode->right->next = (curNode->next)? curNode->next->left : NULL;
+					if (nextLevelHead == NULL)
+						nextLevelHead = curNode->right;						
 				}
 				curNode = curNode->next;
 			}
-			curLevelHead = curNextLevel;
+			curLevelHead = nextLevelHead;
 		}
 	}
 };

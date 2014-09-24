@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Tobit Regression
-published: false
+published: falsew
 comments: true
 category: Economics
 tag: economics, tobit, regression, censoring

@@ -142,4 +142,7 @@ public:
 };
 {% endhighlight%}
 
+# More
+
+Morris traversal allows for $$O(1)$$ space complexity of traversal, but it may be not a good idea in reality as it makes modifications on the original tree.
 
