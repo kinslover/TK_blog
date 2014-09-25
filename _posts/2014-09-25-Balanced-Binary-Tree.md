@@ -16,7 +16,7 @@ Difficulty: 1.0/5.0 star
 # Solution
 
 
-{% hightlight c++%}
+{% highlight c++%}
 
 /**
  * Definition for binary tree
