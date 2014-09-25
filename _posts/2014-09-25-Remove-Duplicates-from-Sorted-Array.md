@@ -34,5 +34,5 @@ public:
 	
  	}
 };
-{% endhightlight%}
+{% endhighlight%}
 
