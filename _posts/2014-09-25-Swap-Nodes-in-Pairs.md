@@ -39,8 +39,8 @@ public:
 			pre->next = cur->next;
 			cur->next = cur->next->next;
 			pre->next->next = cur;
-            pre = cur;
-            cur = cur->next;
+			pre = cur;
+			cur = cur->next;
  		}
 		head = newHead->next;
 		delete newHead;
