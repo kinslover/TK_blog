@@ -26,7 +26,7 @@ Supposed that our target is ``(m, n)`` (coordinate starts from 0), then we know 
 
 I only included the combinatorial solution in this post. The BFS solution is fairly easy to implement.
 
-{% highlight c ++%}
+{% highlight c++%}
 class Solution {
 public:
     int uniquePaths(int m, int n) {
