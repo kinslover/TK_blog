@@ -21,7 +21,7 @@ http://en.wikipedia.org/wiki/Kadane%27s_Algorithm
 
 # Analysis
 
-This is actually a 1-D DP problem. Supposed that $$maxSum[i]$$ indicates the maximum summation you can get with $i_{th}$ element involved, the 
+This is actually a 1-D DP problem. Supposed that $$maxSum[i]$$ indicates the maximum summation you can get with $$i_{th}$$ element involved, the 
 
 ``maxSum[i] = max(A[i], maxSum[i] + A[i])``
 
