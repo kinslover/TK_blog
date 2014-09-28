@@ -14,6 +14,8 @@ https://oj.leetcode.com/problems/permutations/
 
 Difficulty: 0.5 or 3.0/5.0 star
 
+Related: https://oj.leetcode.com/problems/permutations-ii/
+
 
 
 # Analysis and solution
@@ -73,10 +75,12 @@ public:
         
         for(int i = start; i < num.size(); ++i)
         {
+        	if (i - start && num[i] == num[start])
+        		continue;
      
-            my_swap(i, start, num);
+            swap(num[i], num[start]);
             permute(num, start+1);
-            my_swap(i, start, num);
+            swap(num[i], num[start]);
         }
     }
 };
