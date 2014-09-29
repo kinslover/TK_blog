@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Permutations
+title: Permutations II
 published: true
 comments: true
 category: Algorithms

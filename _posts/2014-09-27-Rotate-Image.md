@@ -16,10 +16,10 @@ Difficulty: 1.5/5.0 star
 
 # Analysis and solution
 
-We enumerate each element in the pink area and swap the four elements following the arrows.
+We enumerate each block in the pink area and swap the four purple blocks following the arrows.
 
 <p align="center">
-<img src="{{ site.baseurl }}/images/rotate_image.png" height="230">
+<img src="{{ site.baseurl }}/images/rotate_image.png" height="200">
 </p>
 
 {% highlight c++ %}
