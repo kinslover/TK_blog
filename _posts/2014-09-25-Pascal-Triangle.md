@@ -12,9 +12,13 @@ tag: algorithm, leetcode, combinatorial, BFS
 
 https://oj.leetcode.com/submissions/detail/12004124/
 
-Difficulty: 1.0/5.0 star
+Difficulty: 2.0/5.0 star
+
+Related: https://oj.leetcode.com/problems/pascals-triangle-ii/
 
 # Solution
+
+Here we use pascals-triangle-ii as a subprocess which speeds up the compution. It finishes in 4ms in leetcode OJ.
 
 {% highlight c++ %}
 class Solution {
@@ -25,13 +29,10 @@ public:
 			return pascalTriangle;
 		vector<int>curLayer; curLayer.push_back(1);
 		pascalTriangle.push_back(curLayer);
-
-		for (int i = 1; i < numRows; ++ i){
-			curLayer.clear();
-			curLayer.push_back(1);
-			for (int j = 0; j < i - 1; ++ j)
-				curLayer.push_back(pascalTriangle[i-1][j] + pascalTriangle[i-1][j+1]);
-			curLayer.push_back(1);
+		for (int i = 1; i < numRows; ++ i){	  		
+	  		for (int j = i; j > 0; -- j)
+	  			curLayer[j] += curLayer[j-1];
+	  		curLayer.push_back(1);
 			pascalTriangle.push_back(curLayer);
 		}
 		return pascalTriangle;

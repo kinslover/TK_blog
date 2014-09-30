@@ -4,7 +4,7 @@ title: Best Time to Buy and Sell Stock I, II and III
 published: true
 comments: true
 category: algorithms
-tag: leetcode, recursive
+tag: leetcode, recursive, algorithm
 ---
 
 # Description
@@ -62,15 +62,13 @@ The implementations are slightly different from the algorithm descriptions out o
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
-      	if (!prices.size())
-        	return 0;
-  		int cur_lowest = prices[0];
-  		int max_profit = 0;
-  		for (int i = 1; i < prices.size(); ++ i){
-  			cur_lowest = min(cur_lowest, prices[i]);
-  			max_profit = max(max_profit, prices[i] - cur_lowest);
-  		}      
-  		return max_profit;
+      int minPrice = INT_MAX;
+      int maxProfit = 0;
+      for (int i = 0; i < prices.size(); ++ i){
+        minPrice = min(minPrice, prices[i]);
+        maxProfit = max(prices[i] - minPrice, maxProfit);
+      }
+      return maxProfit;
     }
 };
 {%endhighlight%}
@@ -96,30 +94,22 @@ public:
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
-        if (prices.size() <= 1)
-            return 0;
-
-        int n = prices.size();
-        int maxLeftProfit[n];
-
-        memset(maxLeftProfit, 0, sizeof(int) * n);
-        int currentLowest = prices[0];        
-        maxLeftProfit[0] = 0;
-        for (int i = 1; i < n; ++ i){
-            currentLowest = min(currentLowest, prices[i]);
-            maxLeftProfit[i] = max(maxLeftProfit[i-1], prices[i] - currentLowest);
+        int nPrice = prices.size();
+        int curMin = INT_MAX;
+        int maxProfitFromLeft[nPrice+1];
+        maxProfitFromLeft[0] = 0;
+        for (int i = 0; i < nPrice; ++ i){
+            curMin = min(prices[i], curMin);
+            maxProfitFromLeft[i] = max(prices[i] - curMin, maxProfitFromLeft[i]);
+            maxProfitFromLeft[i+1] = maxProfitFromLeft[i];
         }
-
-        int maxProfit = 0;
-        int currentHighest = 0;
-        for (int i = n - 1; i >= 0; -- i){
-            currentHighest = max(currentHighest, prices[i]);
-            int maxRightProfit = currentHighest - prices[i];
-            maxProfit = max(maxLeftProfit[i] + maxRightProfit, maxProfit);
+        int totalMaxProfit = 0;
+        int curMax = INT_MIN;
+        for (int i = nPrice-1; i >= 0; i --){
+            curMax = max(prices[i], curMax);
+            totalMaxProfit = max(maxProfitFromLeft[i] + curMax - prices[i], totalMaxProfit);                
         }
-
-        return maxProfit;
+        return totalMaxProfit;
     }
-
 };
 {%endhighlight%}
