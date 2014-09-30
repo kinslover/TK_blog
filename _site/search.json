@@ -1,9 +1,313 @@
 [
 	
 		{
+		  "title"      : "N-Queens i and ii",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/N-Queens-ii",
+		  "date"       : "2014-09-30 00:00:00 +0600",
+		  "shortdate"  : "September 30, 2014"
+		} ,
+	
+		{
+		  "title"      : "N Queens I And Ii",
+		  "category"   : "",
+		  "url"        : "/N-Queens-i-and-ii",
+		  "date"       : "2014-09-30 00:00:00 +0600",
+		  "shortdate"  : "September 30, 2014"
+		} ,
+	
+		{
+		  "title"      : "Spiral Matrix I and II",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Spiral-Matrix-i-ii",
+		  "date"       : "2014-09-29 00:00:00 +0600",
+		  "shortdate"  : "September 29, 2014"
+		} ,
+	
+		{
+		  "title"      : "Single Number ii",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Single-Number-ii",
+		  "date"       : "2014-09-29 00:00:00 +0600",
+		  "shortdate"  : "September 29, 2014"
+		} ,
+	
+		{
+		  "title"      : "Remove Duplicates from Sorted Array ii",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Remove-Duplicates-from-Sorted-Array-ii",
+		  "date"       : "2014-09-29 00:00:00 +0600",
+		  "shortdate"  : "September 29, 2014"
+		} ,
+	
+		{
+		  "title"      : "Path Sum",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Path-Sum",
+		  "date"       : "2014-09-29 00:00:00 +0600",
+		  "shortdate"  : "September 29, 2014"
+		} ,
+	
+		{
+		  "title"      : "Generate Parentheses",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Generate-Parentheses",
+		  "date"       : "2014-09-29 00:00:00 +0600",
+		  "shortdate"  : "September 29, 2014"
+		} ,
+	
+		{
+		  "title"      : "Best Time to Buy and Sell Stock I, II and III",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Combinations",
+		  "date"       : "2014-09-29 00:00:00 +0600",
+		  "shortdate"  : "September 29, 2014"
+		} ,
+	
+		{
+		  "title"      : "Set Matrix Zeros",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Set-Matrix-Zeros",
+		  "date"       : "2014-09-28 00:00:00 +0600",
+		  "shortdate"  : "September 28, 2014"
+		} ,
+	
+		{
+		  "title"      : "Search in Rotated Sorted Array ii",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Search-in-Rotated-Sorted-Array-ii",
+		  "date"       : "2014-09-28 00:00:00 +0600",
+		  "shortdate"  : "September 28, 2014"
+		} ,
+	
+		{
+		  "title"      : "Search in Rotated Sorted Array",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Search-in-Rotated-Sorted-Array",
+		  "date"       : "2014-09-28 00:00:00 +0600",
+		  "shortdate"  : "September 28, 2014"
+		} ,
+	
+		{
+		  "title"      : "Search a 2D Matrix",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Search-a-2D-Matrix",
+		  "date"       : "2014-09-28 00:00:00 +0600",
+		  "shortdate"  : "September 28, 2014"
+		} ,
+	
+		{
+		  "title"      : "Minimum Path Sum",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Minimum-Path-Sum",
+		  "date"       : "2014-09-28 00:00:00 +0600",
+		  "shortdate"  : "September 28, 2014"
+		} ,
+	
+		{
+		  "title"      : "Binary Tree Level Order Traversal II",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Binary-Tree-Level-Order+-Traversal-ii",
+		  "date"       : "2014-09-28 00:00:00 +0600",
+		  "shortdate"  : "September 28, 2014"
+		} ,
+	
+		{
+		  "title"      : "Rotate Image",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Rotate-Image",
+		  "date"       : "2014-09-27 00:00:00 +0600",
+		  "shortdate"  : "September 27, 2014"
+		} ,
+	
+		{
+		  "title"      : "Permutations II",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/PermutationsII",
+		  "date"       : "2014-09-27 00:00:00 +0600",
+		  "shortdate"  : "September 27, 2014"
+		} ,
+	
+		{
+		  "title"      : "Permutations",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Permutations",
+		  "date"       : "2014-09-27 00:00:00 +0600",
+		  "shortdate"  : "September 27, 2014"
+		} ,
+	
+		{
+		  "title"      : "Binary Tree Level Order Traversal",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Binary-Tree-Level-Order+-Traversal",
+		  "date"       : "2014-09-27 00:00:00 +0600",
+		  "shortdate"  : "September 27, 2014"
+		} ,
+	
+		{
+		  "title"      : "Unique Paths",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Unique-Paths",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Symmetric Tree",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Symmetric-Tree",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Balanced Binary Tree",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Swap-Nodes-in-Pairs",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Sort Colors",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Sort-Colors",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Remove Duplicates from Sorted Array",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Remove-Duplicates-from-Sorted-Array",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Plus One",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Plus-One",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Best Time to Buy and Sell Stock I, II and III",
+		  "category"   : "algorithms",
+		  "url"        : "/algorithms/Pascal-Triangle-ii",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Pascal&#39;s Triangle",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Pascal-Triangle",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Merge Sorted Array",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Merge-Sorted-Array",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Gray Code",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Gray-Code",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Balanced Binary Tree",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Balanced-Binary-Tree",
+		  "date"       : "2014-09-25 00:00:00 +0600",
+		  "shortdate"  : "September 25, 2014"
+		} ,
+	
+		{
+		  "title"      : "Remove Element",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Remove-Element",
+		  "date"       : "2014-09-24 00:00:00 +0600",
+		  "shortdate"  : "September 24, 2014"
+		} ,
+	
+		{
+		  "title"      : "Merge Two Sorted Lists",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Merge-Two-Sorted-Lists",
+		  "date"       : "2014-09-24 00:00:00 +0600",
+		  "shortdate"  : "September 24, 2014"
+		} ,
+	
+		{
+		  "title"      : "Maximum Subarray",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Maximum-Subarray",
+		  "date"       : "2014-09-24 00:00:00 +0600",
+		  "shortdate"  : "September 24, 2014"
+		} ,
+	
+		{
+		  "title"      : "Convert Sorted Array to Binary Search Tree",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Convert-Sorted-Array-to-Binary-Search-Tree",
+		  "date"       : "2014-09-24 00:00:00 +0600",
+		  "shortdate"  : "September 24, 2014"
+		} ,
+	
+		{
+		  "title"      : "Search Insert Position",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Search-Insert-Position",
+		  "date"       : "2014-09-23 00:00:00 +0600",
+		  "shortdate"  : "September 23, 2014"
+		} ,
+	
+		{
+		  "title"      : "Remove Duplicates from Sorted List",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Remove-Duplicates-From-Sorted-List",
+		  "date"       : "2014-09-23 00:00:00 +0600",
+		  "shortdate"  : "September 23, 2014"
+		} ,
+	
+		{
+		  "title"      : "Populating Next Right Pointers in Each Node i and ii",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Populating-Next-Right-Pointers-in-Each-Node",
+		  "date"       : "2014-09-23 00:00:00 +0600",
+		  "shortdate"  : "September 23, 2014"
+		} ,
+	
+		{
+		  "title"      : "Maximum Product Subarray",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Maximum-Product-Subarray",
+		  "date"       : "2014-09-23 00:00:00 +0600",
+		  "shortdate"  : "September 23, 2014"
+		} ,
+	
+		{
+		  "title"      : "Search Insert Position",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Climbing-Stairs",
+		  "date"       : "2014-09-23 00:00:00 +0600",
+		  "shortdate"  : "September 23, 2014"
+		} ,
+	
+		{
 		  "title"      : "Binary Tree Traversal",
-		  "category"   : "Programming",
-		  "url"        : "/programming/Binary-Tree-Traversal",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Binary-Tree-Traversal",
 		  "date"       : "2014-09-23 00:00:00 +0600",
 		  "shortdate"  : "September 23, 2014"
 		} ,
@@ -20,22 +324,6 @@
 		  "title"      : "Tobit Regression",
 		  "category"   : "Economics",
 		  "url"        : "/economics/Tobit-Regression",
-		  "date"       : "2014-08-26 00:00:00 +0600",
-		  "shortdate"  : "August 26, 2014"
-		} ,
-	
-		{
-		  "title"      : "Tips and Tutorial about Qualtrics",
-		  "category"   : "Economics",
-		  "url"        : "/economics/Tips-and-Tutorials-about-Qualtrics",
-		  "date"       : "2014-08-26 00:00:00 +0600",
-		  "shortdate"  : "August 26, 2014"
-		} ,
-	
-		{
-		  "title"      : "Survival Analysis Summary",
-		  "category"   : "Algorithms",
-		  "url"        : "/algorithms/Questions-about-Survival-Analysis",
 		  "date"       : "2014-08-26 00:00:00 +0600",
 		  "shortdate"  : "August 26, 2014"
 		} ,

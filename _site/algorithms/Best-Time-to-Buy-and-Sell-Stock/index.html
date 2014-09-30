@@ -23,7 +23,7 @@ Description: Awesome dude, awesome life
 <meta charset="utf-8">
 <title>BEST TIME TO BUY AND SELL STOCK I, II AND III &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="leetcode, recursive">
+<meta name="keywords" content="leetcode, recursive, algorithm">
 
 
 
@@ -124,7 +124,7 @@ Description: Awesome dude, awesome life
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
                             <h1>Best Time to Buy and Sell Stock I, II and III</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#leetcode, recursive" data-toggle="tooltip" title="Posts tagged with leetcode, recursive" rel="tag">leetcode, recursive</a> <strong><time datetime="2014-08-13T00:00:00+06:00">13 Aug 2014</time></strong></p>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#leetcode, recursive, algorithm" data-toggle="tooltip" title="Posts tagged with leetcode, recursive, algorithm" rel="tag">leetcode, recursive, algorithm</a> <strong><time datetime="2014-08-13T00:00:00+06:00">13 Aug 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
@@ -184,17 +184,15 @@ Description: Awesome dude, awesome life
 <div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="lineno"> 2</span> <span class="nl">public:</span>
 <span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">maxProfit</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">prices</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno"> 4</span>       	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
-<span class="lineno"> 5</span>         	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno"> 6</span>   		<span class="kt">int</span> <span class="n">cur_lowest</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="lineno"> 7</span>   		<span class="kt">int</span> <span class="n">max_profit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno"> 8</span>   		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
-<span class="lineno"> 9</span>   			<span class="n">cur_lowest</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">cur_lowest</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="lineno">10</span>   			<span class="n">max_profit</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">max_profit</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur_lowest</span><span class="p">);</span>
-<span class="lineno">11</span>   		<span class="p">}</span>      
-<span class="lineno">12</span>   		<span class="k">return</span> <span class="n">max_profit</span><span class="p">;</span>
-<span class="lineno">13</span>     <span class="p">}</span>
-<span class="lineno">14</span> <span class="p">};</span>
+<span class="lineno"> 4</span>       <span class="kt">int</span> <span class="n">minPrice</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
+<span class="lineno"> 5</span>       <span class="kt">int</span> <span class="n">maxProfit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno"> 6</span>       <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+<span class="lineno"> 7</span>         <span class="n">minPrice</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minPrice</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="lineno"> 8</span>         <span class="n">maxProfit</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">minPrice</span><span class="p">,</span> <span class="n">maxProfit</span><span class="p">);</span>
+<span class="lineno"> 9</span>       <span class="p">}</span>
+<span class="lineno">10</span>       <span class="k">return</span> <span class="n">maxProfit</span><span class="p">;</span>
+<span class="lineno">11</span>     <span class="p">}</span>
+<span class="lineno">12</span> <span class="p">};</span>
 </code></pre></div>
 
 <h2 id="problem-ii-1">Problem II</h2>
@@ -216,32 +214,24 @@ Description: Awesome dude, awesome life
 <div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="lineno"> 2</span> <span class="nl">public:</span>
 <span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">maxProfit</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">prices</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno"> 4</span>         <span class="k">if</span> <span class="p">(</span><span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
-<span class="lineno"> 5</span>             <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno"> 6</span> 
-<span class="lineno"> 7</span>         <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="lineno"> 8</span>         <span class="kt">int</span> <span class="n">maxLeftProfit</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="lineno"> 9</span> 
-<span class="lineno">10</span>         <span class="n">memset</span><span class="p">(</span><span class="n">maxLeftProfit</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span>
-<span class="lineno">11</span>         <span class="kt">int</span> <span class="n">currentLowest</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>        
-<span class="lineno">12</span>         <span class="n">maxLeftProfit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno">13</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
-<span class="lineno">14</span>             <span class="n">currentLowest</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">currentLowest</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="lineno">15</span>             <span class="n">maxLeftProfit</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxLeftProfit</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">currentLowest</span><span class="p">);</span>
-<span class="lineno">16</span>         <span class="p">}</span>
-<span class="lineno">17</span> 
-<span class="lineno">18</span>         <span class="kt">int</span> <span class="n">maxProfit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno">19</span>         <span class="kt">int</span> <span class="n">currentHighest</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno">20</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span> <span class="n">i</span><span class="p">){</span>
-<span class="lineno">21</span>             <span class="n">currentHighest</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">currentHighest</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="lineno">22</span>             <span class="kt">int</span> <span class="n">maxRightProfit</span> <span class="o">=</span> <span class="n">currentHighest</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="lineno">23</span>             <span class="n">maxProfit</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxLeftProfit</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">maxRightProfit</span><span class="p">,</span> <span class="n">maxProfit</span><span class="p">);</span>
-<span class="lineno">24</span>         <span class="p">}</span>
-<span class="lineno">25</span> 
-<span class="lineno">26</span>         <span class="k">return</span> <span class="n">maxProfit</span><span class="p">;</span>
-<span class="lineno">27</span>     <span class="p">}</span>
-<span class="lineno">28</span> 
-<span class="lineno">29</span> <span class="p">};</span>
+<span class="lineno"> 4</span>         <span class="kt">int</span> <span class="n">nPrice</span> <span class="o">=</span> <span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="lineno"> 5</span>         <span class="kt">int</span> <span class="n">curMin</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
+<span class="lineno"> 6</span>         <span class="kt">int</span> <span class="n">maxProfitFromLeft</span><span class="p">[</span><span class="n">nPrice</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="lineno"> 7</span>         <span class="n">maxProfitFromLeft</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno"> 8</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nPrice</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+<span class="lineno"> 9</span>             <span class="n">curMin</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">curMin</span><span class="p">);</span>
+<span class="lineno">10</span>             <span class="n">maxProfitFromLeft</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">curMin</span><span class="p">,</span> <span class="n">maxProfitFromLeft</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="lineno">11</span>             <span class="n">maxProfitFromLeft</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">maxProfitFromLeft</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="lineno">12</span>         <span class="p">}</span>
+<span class="lineno">13</span>         <span class="kt">int</span> <span class="n">totalMaxProfit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">14</span>         <span class="kt">int</span> <span class="n">curMax</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">nPrice</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">--</span><span class="p">){</span>
+<span class="lineno">16</span>             <span class="n">curMax</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">curMax</span><span class="p">);</span>
+<span class="lineno">17</span>             <span class="n">totalMaxProfit</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxProfitFromLeft</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">curMax</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">totalMaxProfit</span><span class="p">);</span>                
+<span class="lineno">18</span>         <span class="p">}</span>
+<span class="lineno">19</span>         <span class="k">return</span> <span class="n">totalMaxProfit</span><span class="p">;</span>
+<span class="lineno">20</span>     <span class="p">}</span>
+<span class="lineno">21</span> <span class="p">};</span>
 </code></pre></div>
 
 

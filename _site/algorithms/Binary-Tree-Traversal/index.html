@@ -23,7 +23,7 @@ Description: Awesome dude, awesome life
 <meta charset="utf-8">
 <title>BINARY TREE TRAVERSAL &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="python, numpy">
+<meta name="keywords" content="algorithm, stack, leetcode, tree, traversal">
 
 
 
@@ -32,7 +32,7 @@ Description: Awesome dude, awesome life
 <meta property="og:type" content="article">
 <meta property="og:title" content="Binary Tree Traversal">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/programming/Binary-Tree-Traversal">
+<meta property="og:url" content="/algorithms/Binary-Tree-Traversal">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/programming/Binary-Tree-Traversal">
+<link rel="canonical" href="/algorithms/Binary-Tree-Traversal">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -124,14 +124,27 @@ Description: Awesome dude, awesome life
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
                             <h1>Binary Tree Traversal</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#python, numpy" data-toggle="tooltip" title="Posts tagged with python, numpy" rel="tag">python, numpy</a> <strong><time datetime="2014-09-23T00:00:00+06:00">23 Sep 2014</time></strong></p>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, stack, leetcode, tree, traversal" data-toggle="tooltip" title="Posts tagged with algorithm, stack, leetcode, tree, traversal" rel="tag">algorithm, stack, leetcode, tree, traversal</a> <strong><time datetime="2014-09-23T00:00:00+06:00">23 Sep 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
             </header>
 
         <article class="summer-post-content post tag-simple">
-            <div><h1 id="definition-of-treenode">Definition of TreeNode</h1>
+            <div><h1 id="description">Description</h1>
+
+<p>Traverse a binary tree in pre/in/post-order, with/out extra space.</p>
+
+<p>Difficulty: </p>
+
+<ul>
+  <li>recursive solution: 0.5/5.0 star</li>
+  <li>pre/post-order without recursion with stack: 1.5/5.0 star</li>
+  <li>in-order without recursion with stack: 2.0/5.0 star</li>
+  <li>in-order without any extra space: 3.0/5.0</li>
+</ul>
+
+<h1 id="definition-of-treenode">Definition of TreeNode</h1>
 
 <div class="highlight"><pre><code class="c++"><span class="k">struct</span> <span class="n">TreeNode</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
@@ -257,21 +270,25 @@ Description: Awesome dude, awesome life
 <span class="p">};</span>
 </code></pre></div>
 
+<h1 id="more">More</h1>
+
+<p>Morris traversal allows for <script type="math/tex">O(1)</script> space complexity of traversal, but it may be not a good idea in reality as it makes modifications on the original tree.</p>
+
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Binary Tree Traversal&quot;%20/programming/Binary-Tree-Traversal%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Binary Tree Traversal&quot;%20/algorithms/Binary-Tree-Traversal%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/programming/Binary-Tree-Traversal"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Binary-Tree-Traversal"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/programming/Binary-Tree-Traversal"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Binary-Tree-Traversal"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

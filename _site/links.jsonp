@@ -136,16 +136,6 @@ callback([
   } ,
 
   {
-    "text": "Survival Analysis Summary",
-    "href": "/algorithms/Questions-about-Survival-Analysis"
-  } ,
-
-  {
-    "text": "Tips and Tutorial about Qualtrics",
-    "href": "/economics/Tips-and-Tutorials-about-Qualtrics"
-  } ,
-
-  {
     "text": "Tobit Regression",
     "href": "/economics/Tobit-Regression"
   } ,
@@ -157,7 +147,197 @@ callback([
 
   {
     "text": "Binary Tree Traversal",
-    "href": "/programming/Binary-Tree-Traversal"
+    "href": "/algorithms/Binary-Tree-Traversal"
+  } ,
+
+  {
+    "text": "Search Insert Position",
+    "href": "/algorithms/Climbing-Stairs"
+  } ,
+
+  {
+    "text": "Maximum Product Subarray",
+    "href": "/algorithms/Maximum-Product-Subarray"
+  } ,
+
+  {
+    "text": "Populating Next Right Pointers in Each Node i and ii",
+    "href": "/algorithms/Populating-Next-Right-Pointers-in-Each-Node"
+  } ,
+
+  {
+    "text": "Remove Duplicates from Sorted List",
+    "href": "/algorithms/Remove-Duplicates-From-Sorted-List"
+  } ,
+
+  {
+    "text": "Search Insert Position",
+    "href": "/algorithms/Search-Insert-Position"
+  } ,
+
+  {
+    "text": "Convert Sorted Array to Binary Search Tree",
+    "href": "/algorithms/Convert-Sorted-Array-to-Binary-Search-Tree"
+  } ,
+
+  {
+    "text": "Maximum Subarray",
+    "href": "/algorithms/Maximum-Subarray"
+  } ,
+
+  {
+    "text": "Merge Two Sorted Lists",
+    "href": "/algorithms/Merge-Two-Sorted-Lists"
+  } ,
+
+  {
+    "text": "Remove Element",
+    "href": "/algorithms/Remove-Element"
+  } ,
+
+  {
+    "text": "Balanced Binary Tree",
+    "href": "/algorithms/Balanced-Binary-Tree"
+  } ,
+
+  {
+    "text": "Gray Code",
+    "href": "/algorithms/Gray-Code"
+  } ,
+
+  {
+    "text": "Merge Sorted Array",
+    "href": "/algorithms/Merge-Sorted-Array"
+  } ,
+
+  {
+    "text": "Pascal's Triangle",
+    "href": "/algorithms/Pascal-Triangle"
+  } ,
+
+  {
+    "text": "Best Time to Buy and Sell Stock I, II and III",
+    "href": "/algorithms/Pascal-Triangle-ii"
+  } ,
+
+  {
+    "text": "Plus One",
+    "href": "/algorithms/Plus-One"
+  } ,
+
+  {
+    "text": "Remove Duplicates from Sorted Array",
+    "href": "/algorithms/Remove-Duplicates-from-Sorted-Array"
+  } ,
+
+  {
+    "text": "Sort Colors",
+    "href": "/algorithms/Sort-Colors"
+  } ,
+
+  {
+    "text": "Balanced Binary Tree",
+    "href": "/algorithms/Swap-Nodes-in-Pairs"
+  } ,
+
+  {
+    "text": "Symmetric Tree",
+    "href": "/algorithms/Symmetric-Tree"
+  } ,
+
+  {
+    "text": "Unique Paths",
+    "href": "/algorithms/Unique-Paths"
+  } ,
+
+  {
+    "text": "Binary Tree Level Order Traversal",
+    "href": "/algorithms/Binary-Tree-Level-Order+-Traversal"
+  } ,
+
+  {
+    "text": "Permutations",
+    "href": "/algorithms/Permutations"
+  } ,
+
+  {
+    "text": "Permutations II",
+    "href": "/algorithms/PermutationsII"
+  } ,
+
+  {
+    "text": "Rotate Image",
+    "href": "/algorithms/Rotate-Image"
+  } ,
+
+  {
+    "text": "Binary Tree Level Order Traversal II",
+    "href": "/algorithms/Binary-Tree-Level-Order+-Traversal-ii"
+  } ,
+
+  {
+    "text": "Minimum Path Sum",
+    "href": "/algorithms/Minimum-Path-Sum"
+  } ,
+
+  {
+    "text": "Search a 2D Matrix",
+    "href": "/algorithms/Search-a-2D-Matrix"
+  } ,
+
+  {
+    "text": "Search in Rotated Sorted Array",
+    "href": "/algorithms/Search-in-Rotated-Sorted-Array"
+  } ,
+
+  {
+    "text": "Search in Rotated Sorted Array ii",
+    "href": "/algorithms/Search-in-Rotated-Sorted-Array-ii"
+  } ,
+
+  {
+    "text": "Set Matrix Zeros",
+    "href": "/algorithms/Set-Matrix-Zeros"
+  } ,
+
+  {
+    "text": "Best Time to Buy and Sell Stock I, II and III",
+    "href": "/algorithms/Combinations"
+  } ,
+
+  {
+    "text": "Generate Parentheses",
+    "href": "/algorithms/Generate-Parentheses"
+  } ,
+
+  {
+    "text": "Path Sum",
+    "href": "/algorithms/Path-Sum"
+  } ,
+
+  {
+    "text": "Remove Duplicates from Sorted Array ii",
+    "href": "/algorithms/Remove-Duplicates-from-Sorted-Array-ii"
+  } ,
+
+  {
+    "text": "Single Number ii",
+    "href": "/algorithms/Single-Number-ii"
+  } ,
+
+  {
+    "text": "Spiral Matrix I and II",
+    "href": "/algorithms/Spiral-Matrix-i-ii"
+  } ,
+
+  {
+    "text": "N Queens I And Ii",
+    "href": "/N-Queens-i-and-ii"
+  } ,
+
+  {
+    "text": "N-Queens i and ii",
+    "href": "/algorithms/N-Queens-ii"
   } 
 
 ])

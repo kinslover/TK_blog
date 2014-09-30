@@ -69,10 +69,190 @@
         <loc>/page7/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page8/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page9/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page10/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page11/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page12/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page13/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page14/index.html</loc>
+    </url>
+    
 
     
     <url>
-        <loc>/programming/Binary-Tree-Traversal</loc>
+        <loc>/algorithms/N-Queens-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/N-Queens-i-and-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Spiral-Matrix-i-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Single-Number-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Remove-Duplicates-from-Sorted-Array-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Path-Sum</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Generate-Parentheses</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Combinations</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Set-Matrix-Zeros</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Search-in-Rotated-Sorted-Array-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Search-in-Rotated-Sorted-Array</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Search-a-2D-Matrix</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Minimum-Path-Sum</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Binary-Tree-Level-Order+-Traversal-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Rotate-Image</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/PermutationsII</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Permutations</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Binary-Tree-Level-Order+-Traversal</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Unique-Paths</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Symmetric-Tree</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Swap-Nodes-in-Pairs</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Sort-Colors</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Remove-Duplicates-from-Sorted-Array</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Plus-One</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Pascal-Triangle-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Pascal-Triangle</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Merge-Sorted-Array</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Gray-Code</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Balanced-Binary-Tree</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Remove-Element</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Merge-Two-Sorted-Lists</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Maximum-Subarray</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Convert-Sorted-Array-to-Binary-Search-Tree</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Search-Insert-Position</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Remove-Duplicates-From-Sorted-List</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Populating-Next-Right-Pointers-in-Each-Node</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Maximum-Product-Subarray</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Climbing-Stairs</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Binary-Tree-Traversal</loc>
     </url>
     
     <url>
@@ -81,14 +261,6 @@
     
     <url>
         <loc>/economics/Tobit-Regression</loc>
-    </url>
-    
-    <url>
-        <loc>/economics/Tips-and-Tutorials-about-Qualtrics</loc>
-    </url>
-    
-    <url>
-        <loc>/algorithms/Questions-about-Survival-Analysis</loc>
     </url>
     
     <url>

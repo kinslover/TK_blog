@@ -21,18 +21,18 @@ Description: Awesome dude, awesome life
     </script> 
 
 <meta charset="utf-8">
-<title>SURVIVAL ANALYSIS SUMMARY &vert; TK_BLOG</title>
+<title>SEARCH A 2D MATRIX &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="algorithm, leetcode">
+<meta name="keywords" content="algorithm, leetcode, binary search">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Survival Analysis Summary">
+<meta property="og:title" content="Search a 2D Matrix">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/algorithms/Questions-about-Survival-Analysis">
+<meta property="og:url" content="/algorithms/Search-a-2D-Matrix">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/algorithms/Questions-about-Survival-Analysis">
+<link rel="canonical" href="/algorithms/Search-a-2D-Matrix">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,57 +123,66 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>Survival Analysis Summary</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode" rel="tag">algorithm, leetcode</a> <strong><time datetime="2014-08-26T00:00:00+06:00">26 Aug 2014</time></strong></p>
+                            <h1>Search a 2D Matrix</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode, binary search" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode, binary search" rel="tag">algorithm, leetcode, binary search</a> <strong><time datetime="2014-09-28T00:00:00+06:00">28 Sep 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
             </header>
 
         <article class="summer-post-content post tag-simple">
-            <div><h2 id="good-tutorials">Good Tutorials</h2>
+            <div><h1 id="description">Description</h1>
 
-<p>http://infoscience.epfl.ch/record/112202/files/lafteris.pdf</p>
+<p>https://oj.leetcode.com/problems/search-a-2d-matrix/</p>
 
-<p>http://data.princeton.edu/wws509/notes/c7.pdf</p>
+<p>Difficulty: 1.0/5.0</p>
 
-<p>http://data.princeton.edu/pop509/ParametricSurvival.pdf</p>
+<h1 id="analysis-and-solution">Analysis and solution</h1>
 
-<p>http://cran.r-project.org/web/packages/eha/vignettes/parametric.pdf</p>
-
-<p>http://courses.nus.edu.sg/course/stacar/internet/st3242/handouts/ch6l3.pdf</p>
-
-<p>http://web.stanford.edu/~lutian/coursepdf/unit1.pdf</p>
-
-<p>http://sundoc.bibliothek.uni-halle.de/habil-online/07/07H056/t3.pdf</p>
-
-<h2 id="deal-doubly-censored-data">Deal doubly censored data</h2>
-
-<p>Matlab &amp; R code</p>
-
-<p>http://www.mathworks.com/matlabcentral/fileexchange/41325-kaplan-meier-for-right-and-or-left-and-or-interval-censored-data</p>
-
-<p>Nonparametric Estimation of a Survivorship Function with Doubly Censored Data. Journal of the American Statistical Association 69 (1974): 169–173.</p>
-
-<h2 id="summary-on-r-packages">Summary on R packages</h2>
-
-<p>http://cran.r-project.org/web/views/Survival.html</p>
-
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">bool</span> <span class="n">searchMatrix</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">matrix</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">firstCol</span><span class="p">;</span>
+    	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+    		<span class="n">firstCol</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+    	<span class="kt">int</span> <span class="n">indx</span> <span class="o">=</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">firstCol</span><span class="p">,</span> <span class="n">target</span><span class="p">);</span>
+    	<span class="k">if</span> <span class="p">(</span><span class="n">indx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    		<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    	<span class="k">if</span> <span class="p">(</span><span class="n">indx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    		<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    	<span class="k">return</span> <span class="p">(</span><span class="n">binary_search</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">indx</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">candidates</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">){</span>
+    	<span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    	<span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    	<span class="k">while</span><span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">){</span>
+    		<span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+    		<span class="k">if</span> <span class="p">(</span><span class="n">candidates</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span>
+    			<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    		<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">target</span> <span class="o">&lt;</span> <span class="n">candidates</span><span class="p">[</span><span class="n">mid</span><span class="p">])</span>
+    			<span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    		<span class="k">else</span>
+    			<span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    	<span class="p">}</span>
+    	<span class="k">return</span> <span class="n">left</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Survival Analysis Summary&quot;%20/algorithms/Questions-about-Survival-Analysis%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Search a 2D Matrix&quot;%20/algorithms/Search-a-2D-Matrix%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Questions-about-Survival-Analysis"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Search-a-2D-Matrix"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Questions-about-Survival-Analysis"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Search-a-2D-Matrix"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

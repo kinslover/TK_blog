@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Populating Next Right Pointers in Each Node
+title: Populating Next Right Pointers in Each Node i and ii
 published: true
 comments: true
 category: Algorithms
@@ -10,6 +10,8 @@ tag: algorithm, stack, leetcode, tree, traversal
 # Problem Description
 
 https://oj.leetcode.com/problems/populating-next-right-pointers-in-each-node/
+
+https://oj.leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
 
 Difficulty: 2.5/5.0 stars
 
@@ -64,7 +66,7 @@ Both the time complexity and space complexity of this algorithm is $$O(n)$$.
 
 An alternative solution is DFS. While doing DFS, we maintain a vector of pointers for each layer and use these pointers to help construct ``next`` links. The time complexity is still $$O(N)$$, while the space complexity reduces to $$O(log N)$$.
 
-A good programmer always ask the question: "Can we do better?" (Tim Roughgarden's words). So is there any $$O(1)$$ space complextiy solution to this problem? The answer is yes. Supposed that $$i_{th}$$ layer is sorted out with all $$next$$ pointers being set. Then it is easy to set the ``next`` pointers of $${i+1}_{th}$$ layer.
+A good programmer always ask the question: "Can we do better?" (Tim Roughgarden's words). So is there any $$O(1)$$ space complextiy solution to this problem? The answer is yes. Supposed that $$i_{th}$$ layer is sorted out with all $$next$$ pointers being set. Then it is easy to set the ``next`` pointers of $${i+1}_{th}$$ layer. This solution works for problem ii too.
 
 
 {% highlight c++%}
@@ -79,29 +81,26 @@ A good programmer always ask the question: "Can we do better?" (Tim Roughgarden'
  */
 class Solution {
 public:
- 	void connect(TreeLinkNode *root) {
-		if (!root || (!root->left && !root->right ))
-			return;
-		root->next = NULL;
-		TreeLinkNode * curLevelHead = root;
-		while(curLevelHead){
-			TreeLinkNode * curNode = curLevelHead;
-			TreeLinkNode * nextLevelHead = NULL;
-			while(curNode){ // set the next links of (i+1)th level while we are ith level
-				if (curNode->left){
-					curNode->left->next = curNode->right;
-					if (nextLevelHead == NULL)
-						nextLevelHead = curNode->left;
-				}
-				if (curNode->right){					
-					curNode->right->next = (curNode->next)? curNode->next->left : NULL;
-					if (nextLevelHead == NULL)
-						nextLevelHead = curNode->right;						
-				}
-				curNode = curNode->next;
-			}
-			curLevelHead = nextLevelHead;
-		}
+	void connect(TreeLinkNode *root) {
+    	if (!root) return;
+    	TreeLinkNode * currentLevelStart = root;
+    	TreeLinkNode * nextLevelStart = new TreeLinkNode(0), * nextLevel = NULL;    	
+    	while(currentLevelStart){    		
+    		nextLevelStart->next = NULL;
+    		nextLevel = nextLevelStart;
+    		while(currentLevelStart){
+    			if (currentLevelStart->left != NULL){
+    				nextLevel->next = currentLevelStart->left;
+    				nextLevel = nextLevel->next;
+    			}
+    			if (currentLevelStart->right != NULL){
+    			    nextLevel->next = currentLevelStart->right;
+    				nextLevel = nextLevel->next;
+    			}    			
+    			currentLevelStart = currentLevelStart->next;
+    		}    		
+    		currentLevelStart = nextLevelStart->next;
+    	}
 	}
 };
 {% endhighlight %}

@@ -21,18 +21,18 @@ Description: Awesome dude, awesome life
     </script> 
 
 <meta charset="utf-8">
-<title>TIPS AND TUTORIAL ABOUT QUALTRICS &vert; TK_BLOG</title>
+<title>MERGE TWO SORTED LISTS &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="qualtrics, survey">
+<meta name="keywords" content="algorithm, leetcode">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tips and Tutorial about Qualtrics">
+<meta property="og:title" content="Merge Two Sorted Lists">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/economics/Tips-and-Tutorials-about-Qualtrics">
+<meta property="og:url" content="/algorithms/Merge-Two-Sorted-Lists">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/economics/Tips-and-Tutorials-about-Qualtrics">
+<link rel="canonical" href="/algorithms/Merge-Two-Sorted-Lists">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,53 +123,72 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>Tips and Tutorial about Qualtrics</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#qualtrics, survey" data-toggle="tooltip" title="Posts tagged with qualtrics, survey" rel="tag">qualtrics, survey</a> <strong><time datetime="2014-08-26T00:00:00+06:00">26 Aug 2014</time></strong></p>
+                            <h1>Merge Two Sorted Lists</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode" rel="tag">algorithm, leetcode</a> <strong><time datetime="2014-09-24T00:00:00+06:00">24 Sep 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
             </header>
 
         <article class="summer-post-content post tag-simple">
-            <div><h1 id="tutorial">Tutorial</h1>
+            <div><h1 id="description">Description</h1>
 
-<p>http://www.du.edu/ir/pdf/qualtrics_survey_software.pdf</p>
+<p>https://oj.leetcode.com/problems/merge-two-sorted-lists/</p>
 
-<p>https://wiki.rit.edu/display/SaundersTechnicalSupport/Qualtrics+Surveys</p>
+<p>Difficulty: 0.5/5.0 star</p>
 
-<p>http://webservices.itcs.umich.edu/mediawiki/qualtrics/index.php/University_of_Michigan_Qualtrics_Wiki</p>
+<h1 id="solution">Solution</h1>
 
-<p>http://sapir.psych.wisc.edu/wiki/index.php/MTurk</p>
+<div class="highlight"><pre><code class="c++"><span class="cm">/**</span>
+<span class="cm"> * Definition for singly-linked list.</span>
+<span class="cm"> * struct ListNode {</span>
+<span class="cm"> *     int val;</span>
+<span class="cm"> *     ListNode *next;</span>
+<span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
+<span class="cm"> * };</span>
+<span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+ 	<span class="n">ListNode</span> <span class="o">*</span><span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span><span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">ListNode</span> <span class="o">*</span> <span class="n">newHead</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+		<span class="n">ListNode</span> <span class="o">*</span> <span class="n">curNode</span> <span class="o">=</span> <span class="n">newHead</span><span class="p">;</span>
+		<span class="k">while</span><span class="p">(</span><span class="n">l1</span> <span class="o">&amp;&amp;</span> <span class="n">l2</span><span class="p">){</span>
+			<span class="n">curNode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="p">(</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span><span class="o">?</span><span class="n">l1</span><span class="o">:</span><span class="n">l2</span><span class="p">;</span>
+			<span class="n">curNode</span> <span class="o">=</span> <span class="n">curNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span>
+			    <span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+			<span class="k">else</span>
+ 			    <span class="n">l2</span> <span class="o">=</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">ListNode</span> <span class="o">*</span> <span class="n">remainList</span> <span class="o">=</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span><span class="o">?</span><span class="n">l1</span><span class="o">:</span><span class="n">l2</span><span class="p">;</span>
+		<span class="k">while</span><span class="p">(</span><span class="n">remainList</span><span class="p">){</span>
+			<span class="n">curNode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">remainList</span><span class="p">;</span>
+			<span class="n">remainList</span> <span class="o">=</span> <span class="n">remainList</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+			<span class="n">curNode</span> <span class="o">=</span> <span class="n">curNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">curNode</span> <span class="o">=</span> <span class="n">newHead</span><span class="p">;</span>
+		<span class="n">newHead</span> <span class="o">=</span> <span class="n">newHead</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="n">curNode</span><span class="p">;</span>
+		<span class="k">return</span> <span class="n">newHead</span><span class="p">;</span>
+ 	<span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
 
-<p>http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/survey-javascript-methods/</p>
-
-<p>http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/javascript-in-qualtrics/</p>
-
-<p>http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/example-code-snippets/</p>
-
-<p>http://stackoverflow.com/questions/22851340/in-qualtrics-surveys-how-can-you-save-the-response-to-an-item-into-embedded-dat</p>
-
-<p>http://sites.cognitivescience.co/qualtrics/home/advanced-qualtrics</p>
-
-<p>Survey Protection
- PREVENT BALLOT-BOX STUFFING: This keeps people from taking the survey more than once. 
- Qualtrics uses a browser-based cookie to mark if someone took the survey. If they attempt to take 
- the survey again, they will be kept out.</p>
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Tips and Tutorial about Qualtrics&quot;%20/economics/Tips-and-Tutorials-about-Qualtrics%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Merge Two Sorted Lists&quot;%20/algorithms/Merge-Two-Sorted-Lists%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/economics/Tips-and-Tutorials-about-Qualtrics"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Merge-Two-Sorted-Lists"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/economics/Tips-and-Tutorials-about-Qualtrics"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Merge-Two-Sorted-Lists"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>
