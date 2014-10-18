@@ -3,8 +3,8 @@ layout: post
 title: Survival Analysis Summary
 published: false
 comments: true
-category: Algorithms
-tag: algorithm, leetcode
+category: Survival
+tag: Survival
 ---
 
 

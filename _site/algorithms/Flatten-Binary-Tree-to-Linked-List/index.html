@@ -21,18 +21,18 @@ Description: Awesome dude, awesome life
     </script> 
 
 <meta charset="utf-8">
-<title>UNIQUE PATHS &vert; TK_BLOG</title>
+<title>FLATTEN BINARY TREE TO LINKED LIST &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="algorithm, leetcode, combinatorial, BFS">
+<meta name="keywords" content="algorithm, leetcode, recursion, binary tree">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unique Paths">
+<meta property="og:title" content="Flatten Binary Tree to Linked List">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/algorithms/Unique-Paths">
+<meta property="og:url" content="/algorithms/Flatten-Binary-Tree-to-Linked-List">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/algorithms/Unique-Paths">
+<link rel="canonical" href="/algorithms/Flatten-Binary-Tree-to-Linked-List">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,8 +123,8 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>Unique Paths</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode, combinatorial, BFS" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode, combinatorial, BFS" rel="tag">algorithm, leetcode, combinatorial, BFS</a> <strong><time datetime="2014-09-25T00:00:00+06:00">25 Sep 2014</time></strong></p>
+                            <h1>Flatten Binary Tree to Linked List</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode, recursion, binary tree" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode, recursion, binary tree" rel="tag">algorithm, leetcode, recursion, binary tree</a> <strong><time datetime="2014-10-01T00:00:00+06:00">01 Oct 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
@@ -133,50 +133,75 @@ Description: Awesome dude, awesome life
         <article class="summer-post-content post tag-simple">
             <div><h1 id="description">Description</h1>
 
-<p>https://oj.leetcode.com/problems/unique-paths/</p>
+<p>https://oj.leetcode.com/problems/flatten-binary-tree-to-linked-list/</p>
 
 <p>Difficulty: 2.5/5.0 star</p>
 
-<h1 id="analysis">Analysis</h1>
+<h1 id="analysis-and-solution">Analysis and solution</h1>
 
-<p>It is fairly easy to resort to BFS to solve this problem. However, as there is no obstacle at all, this problem should have closed-form combinatorial solution.</p>
+<p>The trick here is that we have to cache the right pointer before assigning new values to it. Besides pre-order flatten, we can also do in-order flatten or post-order flatten too. To make the code compatible with in/post-order flatten, I let the return value of function <code>flatten</code> to be <code>TreeNode *</code>.</p>
 
-<p>Supposed that our target is <code>(m, n)</code> (coordinate starts from 0), then we know that we have to take exactly <code>m</code> steps downwards and <code>n</code> steps rightwards. Thus the number of unique paths is <script type="math/tex">C_{m+n}^n</script>.</p>
+<div class="highlight"><pre><code class="c++"><span class="k">struct</span> <span class="n">TreeNode</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">left</span><span class="p">;</span>
+    <span class="n">TreeNode</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">left</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">right</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
 
-<h1 id="solution">Solution</h1>
-
-<p>I only included the combinatorial solution in this post. The BFS solution is fairly easy to implement.</p>
-
-<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="nl">public:</span>
-    <span class="kt">int</span> <span class="n">uniquePaths</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-    	<span class="kt">int</span> <span class="n">minNum</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-    	<span class="kt">int</span> <span class="n">sumNum</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span>
-    	<span class="kt">long</span> <span class="kt">long</span> <span class="n">result</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">minNum</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
-    		<span class="n">result</span> <span class="o">*=</span> <span class="n">sumNum</span><span class="o">--</span><span class="p">;</span>
-    		<span class="n">result</span> <span class="o">/=</span> <span class="n">i</span><span class="p">;</span>
-    	<span class="p">}</span>
-    	<span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">result</span><span class="p">;</span>
-	<span class="p">}</span>
+    <span class="n">TreeNode</span> <span class="o">*</span> <span class="n">flatten</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+        <span class="n">TreeNode</span> <span class="o">*</span><span class="n">hyperRoot</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">TreeNode</span> <span class="o">*</span><span class="n">father</span> <span class="o">=</span> <span class="n">hyperRoot</span><span class="p">;</span>
+        <span class="n">inOrderSolver</span><span class="p">(</span><span class="n">father</span><span class="p">,</span> <span class="n">root</span><span class="p">);</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">hyperRoot</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+        <span class="n">father</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">delete</span> <span class="n">hyperRoot</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">preOrderSolver</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span> <span class="o">&amp;</span> <span class="n">father</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="o">*</span> <span class="n">son</span><span class="p">){</span>
+        <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightCache</span> <span class="o">=</span> <span class="n">son</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+        <span class="n">father</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">son</span><span class="p">;</span>
+        <span class="n">father</span> <span class="o">=</span> <span class="n">son</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">son</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span>
+            <span class="n">preOrderSolver</span><span class="p">(</span><span class="n">father</span><span class="p">,</span> <span class="n">son</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="n">son</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rightCache</span><span class="p">)</span>
+            <span class="n">preOrderSolver</span><span class="p">(</span><span class="n">father</span><span class="p">,</span> <span class="n">rightCache</span><span class="p">);</span>
+        
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">inOrderSolver</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span> <span class="o">&amp;</span> <span class="n">father</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="o">*</span> <span class="n">son</span><span class="p">){</span>
+        <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rightCache</span> <span class="o">=</span> <span class="n">son</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">son</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span>
+            <span class="n">inOrderSolver</span><span class="p">(</span><span class="n">father</span><span class="p">,</span> <span class="n">son</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>        
+        <span class="n">father</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">son</span><span class="p">;</span>
+        <span class="n">father</span> <span class="o">=</span> <span class="n">son</span><span class="p">;</span>        
+        <span class="n">son</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rightCache</span><span class="p">)</span>
+            <span class="n">inOrderSolver</span><span class="p">(</span><span class="n">father</span><span class="p">,</span> <span class="n">rightCache</span><span class="p">);</span>
+        
+    <span class="p">}</span>    
 <span class="p">};</span>
 </code></pre></div>
-
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Unique Paths&quot;%20/algorithms/Unique-Paths%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Flatten Binary Tree to Linked List&quot;%20/algorithms/Flatten-Binary-Tree-to-Linked-List%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Unique-Paths"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Flatten-Binary-Tree-to-Linked-List"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Unique-Paths"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Flatten-Binary-Tree-to-Linked-List"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

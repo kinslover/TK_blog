@@ -97,7 +97,95 @@
         <loc>/page14/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page15/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page16/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page17/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page18/index.html</loc>
+    </url>
+    
 
+    
+    <url>
+        <loc>/algorithms/Linked-List-Cycle-i-and-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/codeforce/Code-Force-273</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/3Sum</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/ZigZag-Conversion</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Triangle</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Longest-Palindromic-Substring</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Longest-Common-Prefix</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Count-and-Say</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Add-Binary</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Subsets</loc>
+    </url>
+    
+    <url>
+        <loc>/Valid-Sudoku</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Valid-Parentheses</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Sum-Root-to-Leaf-Numbers</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Remove-Nth-Node-From-End-of-List</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Palindrome-Number</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Minimum-Depth-of-Binary-Tree</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Length-of-Last-Word</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Flatten-Binary-Tree-to-Linked-List</loc>
+    </url>
     
     <url>
         <loc>/algorithms/N-Queens-ii</loc>
@@ -172,7 +260,7 @@
     </url>
     
     <url>
-        <loc>/algorithms/Unique-Paths</loc>
+        <loc>/algorithms/Unique-Paths-i-and-ii</loc>
     </url>
     
     <url>

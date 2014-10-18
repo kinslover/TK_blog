@@ -246,8 +246,8 @@ callback([
   } ,
 
   {
-    "text": "Unique Paths",
-    "href": "/algorithms/Unique-Paths"
+    "text": "Unique Paths i and ii",
+    "href": "/algorithms/Unique-Paths-i-and-ii"
   } ,
 
   {
@@ -338,6 +338,96 @@ callback([
   {
     "text": "N-Queens i and ii",
     "href": "/algorithms/N-Queens-ii"
+  } ,
+
+  {
+    "text": "Flatten Binary Tree to Linked List",
+    "href": "/algorithms/Flatten-Binary-Tree-to-Linked-List"
+  } ,
+
+  {
+    "text": "Length of Last Word",
+    "href": "/algorithms/Length-of-Last-Word"
+  } ,
+
+  {
+    "text": "Minimum Depth of Binary Tree",
+    "href": "/algorithms/Minimum-Depth-of-Binary-Tree"
+  } ,
+
+  {
+    "text": "Palindrome Number",
+    "href": "/algorithms/Palindrome-Number"
+  } ,
+
+  {
+    "text": "Remove Nth Node From End of List",
+    "href": "/algorithms/Remove-Nth-Node-From-End-of-List"
+  } ,
+
+  {
+    "text": "Sum Root to Leaf Numbers",
+    "href": "/algorithms/Sum-Root-to-Leaf-Numbers"
+  } ,
+
+  {
+    "text": "Valid Parentheses",
+    "href": "/algorithms/Valid-Parentheses"
+  } ,
+
+  {
+    "text": "Valid Sudoku",
+    "href": "/Valid-Sudoku"
+  } ,
+
+  {
+    "text": "Subsets i and ii",
+    "href": "/algorithms/Subsets"
+  } ,
+
+  {
+    "text": "Add Binary",
+    "href": "/algorithms/Add-Binary"
+  } ,
+
+  {
+    "text": "Count and Say",
+    "href": "/algorithms/Count-and-Say"
+  } ,
+
+  {
+    "text": "Longest Common Prefix",
+    "href": "/algorithms/Longest-Common-Prefix"
+  } ,
+
+  {
+    "text": "Longest Palindromic Substring",
+    "href": "/algorithms/Longest-Palindromic-Substring"
+  } ,
+
+  {
+    "text": "Triangle",
+    "href": "/algorithms/Triangle"
+  } ,
+
+  {
+    "text": "ZigZag Conversion",
+    "href": "/algorithms/ZigZag-Conversion"
+  } ,
+
+  {
+    "text": "3Sum",
+    "href": "/algorithms/3Sum"
+  } ,
+
+  {
+    "text": "Code Force 273 (Div2)",
+    "href": "/codeforce/Code-Force-273"
+  } ,
+
+  {
+    "text": "Linked List Cycle i and ii",
+    "href": "/algorithms/Linked-List-Cycle-i-and-ii"
   } 
 
 ])
