@@ -416,8 +416,13 @@ callback([
   } ,
 
   {
-    "text": "3Sum",
-    "href": "/algorithms/3Sum"
+    "text": "3Sum Closest",
+    "href": "/algorithms/3Sum-Closest"
+  } ,
+
+  {
+    "text": "3Sum and 4Sum",
+    "href": "/algorithms/3Sum-and-4Sum"
   } ,
 
   {
@@ -426,8 +431,43 @@ callback([
   } ,
 
   {
+    "text": "Convert Sorted List to Binary Search Tree",
+    "href": "/algorithms/Convert-Sorted-List-to-Binary-Search-Tree"
+  } ,
+
+  {
     "text": "Linked List Cycle i and ii",
     "href": "/algorithms/Linked-List-Cycle-i-and-ii"
+  } ,
+
+  {
+    "text": "Path Sum II",
+    "href": "/algorithms/Path-Sum-II"
+  } ,
+
+  {
+    "text": "Binary Tree Zigzag Level Order Traversal",
+    "href": "/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal"
+  } ,
+
+  {
+    "text": "Construct Binary Tree from Inorder and Postorder/Preorder Traversal",
+    "href": "/algorithms/Construct-Binary-Tree-from-Inorder-and-Postorder%3APreorder-Traversal"
+  } ,
+
+  {
+    "text": "Find Minimum in Rotated Sorted Array",
+    "href": "/algorithms/Find-Minimum-in-Rotated-Sorted-Array"
+  } ,
+
+  {
+    "text": "Reorder List",
+    "href": "/algorithms/Reorder-List"
+  } ,
+
+  {
+    "text": "Validate Binary Search Tree",
+    "href": "/algorithms/Validate-Binary-Search-Tree"
   } 
 
 ])

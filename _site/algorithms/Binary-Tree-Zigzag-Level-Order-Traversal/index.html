@@ -21,18 +21,18 @@ Description: Awesome dude, awesome life
     </script> 
 
 <meta charset="utf-8">
-<title>3SUM &vert; TK_BLOG</title>
+<title>BINARY TREE ZIGZAG LEVEL ORDER TRAVERSAL &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="algorithm, leetcode">
+<meta name="keywords" content="algorithm, leetcode, recursive, binary tree, pre-order traverse">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3Sum">
+<meta property="og:title" content="Binary Tree Zigzag Level Order Traversal">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/algorithms/3Sum">
+<meta property="og:url" content="/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/algorithms/3Sum">
+<link rel="canonical" href="/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,8 +123,8 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>3Sum</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode" rel="tag">algorithm, leetcode</a> <strong><time datetime="2014-10-17T00:00:00+06:00">17 Oct 2014</time></strong></p>
+                            <h1>Binary Tree Zigzag Level Order Traversal</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode, recursive, binary tree, pre-order traverse" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode, recursive, binary tree, pre-order traverse" rel="tag">algorithm, leetcode, recursive, binary tree, pre-order traverse</a> <strong><time datetime="2014-10-18T00:00:00+06:00">18 Oct 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
@@ -133,40 +133,28 @@ Description: Awesome dude, awesome life
         <article class="summer-post-content post tag-simple">
             <div><h1 id="description">Description</h1>
 
-<p>https://oj.leetcode.com/problems/3sum/</p>
+<p>https://oj.leetcode.com/problems/binary-tree-zigzag-level-order-traversal/</p>
 
-<p>Difficulty: 3.0/5.0</p>
+<p>Difficulty: 2.0/5.0</p>
 
 <h1 id="solution">Solution</h1>
 
-<p>This is an extension to 2Sum. We are required to get all non-redundant triplets whose sum is zero. In this case, we enumerate each <strong>unqiue</strong> left elemenet in a triplet and use the 2Sum algorithm to find the mid and right element. Note that we can also enumerate each <strong>unique</strong> right element, but enumerating the middle one would be painful. </p>
-
 <div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="nl">public:</span>
- 	<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">threeSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">num</span><span class="p">)</span> <span class="p">{</span>
- 		<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
-		<span class="n">sort</span><span class="p">(</span><span class="n">num</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">num</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-		<span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-		<span class="k">while</span><span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">num</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">2</span><span class="p">)){</span>
-			<span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">num</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
- 			<span class="k">while</span><span class="p">(</span><span class="n">mid</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">){</span>
-				<span class="k">if</span> <span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-				<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">tp</span><span class="p">;</span>
-					<span class="n">tp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]);</span>
- 					<span class="n">tp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="p">]);</span>
- 					<span class="n">tp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="p">]);</span>
- 					<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tp</span><span class="p">);</span>
- 					<span class="k">do</span> <span class="p">{</span> <span class="n">right</span> <span class="o">--</span><span class="p">;}</span> <span class="k">while</span><span class="p">(</span><span class="n">right</span> <span class="o">&gt;</span> <span class="n">mid</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
- 					<span class="k">do</span> <span class="p">{</span> <span class="n">mid</span> <span class="o">++</span><span class="p">;</span> <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="n">right</span> <span class="o">&gt;</span> <span class="n">mid</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
- 				<span class="p">}</span>
-				<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
- 					<span class="k">do</span> <span class="p">{</span> <span class="n">right</span> <span class="o">--</span><span class="p">;}</span> <span class="k">while</span><span class="p">(</span><span class="n">right</span> <span class="o">&gt;</span> <span class="n">mid</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
- 			<span class="k">else</span>
- 					<span class="k">do</span> <span class="p">{</span> <span class="n">mid</span> <span class="o">++</span><span class="p">;}</span> <span class="k">while</span><span class="p">(</span><span class="n">right</span> <span class="o">&gt;</span> <span class="n">mid</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span><span class="p">[</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
- 			<span class="p">}</span>
- 			<span class="k">do</span><span class="p">{</span><span class="n">left</span> <span class="o">++</span><span class="p">;}</span><span class="k">while</span><span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">num</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span><span class="p">[</span><span class="n">left</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
- 		<span class="p">}</span>
+ 	<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">zigzagLevelOrder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+ 		<span class="n">zigzag_helper</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">root</span><span class="p">);</span>
+ 		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">)</span>
+			<span class="n">reverse</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">end</span><span class="p">());</span>
  		<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+ 	<span class="p">}</span>
+ 	<span class="kt">void</span> <span class="n">zigzag_helper</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;&amp;</span> <span class="n">result</span><span class="p">,</span> <span class="kt">int</span> <span class="n">height</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="o">*</span> <span class="n">pt</span><span class="p">){</span>
+ 		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pt</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+ 		<span class="k">if</span> <span class="p">(</span><span class="n">height</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+			<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span>
+ 		<span class="n">result</span><span class="p">[</span><span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+ 		<span class="n">zigzag_helper</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">height</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+		<span class="n">zigzag_helper</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">height</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
  	<span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -177,15 +165,15 @@ Description: Awesome dude, awesome life
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;3Sum&quot;%20/algorithms/3Sum%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Binary Tree Zigzag Level Order Traversal&quot;%20/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/3Sum"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/3Sum"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

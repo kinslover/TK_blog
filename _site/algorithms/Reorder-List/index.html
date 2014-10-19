@@ -21,18 +21,18 @@ Description: Awesome dude, awesome life
     </script> 
 
 <meta charset="utf-8">
-<title>LINKED LIST CYCLE I AND II &vert; TK_BLOG</title>
+<title>REORDER LIST &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="algorithm, leetcode">
+<meta name="keywords" content="algorithm, leetcode, list">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linked List Cycle i and ii">
+<meta property="og:title" content="Reorder List">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/algorithms/Linked-List-Cycle-i-and-ii">
+<meta property="og:url" content="/algorithms/Reorder-List">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/algorithms/Linked-List-Cycle-i-and-ii">
+<link rel="canonical" href="/algorithms/Reorder-List">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,8 +123,8 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>Linked List Cycle i and ii</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode" rel="tag">algorithm, leetcode</a> <strong><time datetime="2014-10-17T00:00:00+06:00">17 Oct 2014</time></strong></p>
+                            <h1>Reorder List</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode, list" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode, list" rel="tag">algorithm, leetcode, list</a> <strong><time datetime="2014-10-18T00:00:00+06:00">18 Oct 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
@@ -133,70 +133,69 @@ Description: Awesome dude, awesome life
         <article class="summer-post-content post tag-simple">
             <div><h1 id="description">Description</h1>
 
-<p>https://oj.leetcode.com/problems/linked-list-cycle/</p>
+<p>https://oj.leetcode.com/problems/reorder-list/</p>
 
-<p>https://oj.leetcode.com/problems/linked-list-cycle-ii/</p>
+<p>Difficulty: 2.0/5.0</p>
 
 <h1 id="solution">Solution</h1>
 
-<p>Solutions to both problems are based on slow-fast pointers. If there is a cycle, the the slow and fast pointer will meet finally. </p>
+<p>We can solve this problem in three steps.</p>
+
+<ol>
+  <li>First, locate the head of the second half</li>
+  <li>Second, reverse the second list</li>
+  <li>Third, Merge the two lists</li>
+</ol>
 
 <div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="nl">public:</span>
-    <span class="kt">bool</span> <span class="n">hasCycle</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span> <span class="o">*</span> <span class="n">slowPt</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="o">*</span> <span class="n">fastPt</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">fastPt</span><span class="p">){</span>
-            <span class="n">slowPt</span> <span class="o">=</span> <span class="n">slowPt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">fastPt</span> <span class="o">=</span> <span class="p">(</span><span class="n">fastPt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span><span class="o">?</span><span class="n">fastPt</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">:</span><span class="nb">NULL</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">slowPt</span> <span class="o">==</span> <span class="n">fastPt</span><span class="p">)</span>
-                <span class="k">break</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="n">reorderList</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+
+    	<span class="c1">//count the number of nodes</span>
+        <span class="kt">int</span> <span class="n">nNode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">ListNode</span> <span class="o">*</span> <span class="n">pt</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">pt</span><span class="p">){</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">nNode</span> <span class="o">++</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">fastPt</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">nNode</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+        
+        <span class="c1">// get the head of the second half</span>
+        <span class="n">ListNode</span> <span class="o">*</span> <span class="n">ptCur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">nNode</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">ptCur</span> <span class="o">=</span> <span class="n">ptCur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">ptCur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">ptCur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        
+        <span class="c1">//reserve the second half and combine the two lists</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">reverse_list</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">combine_list</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">pt</span><span class="p">);</span>    
+
     <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
-<p>For the second problem, we have to find where the circle starts, so let us look at the figure below and do some math work.</p>
-
-<p align="center">
-<img src="/images/LinkedListCycle.png" height="200" />
-</p>
-
-<p>Supposed that the slow and fast pointers met at the purple node, as the fast pointer is twice faster than slow pointer, we have the relationship</p>
-
-<script type="math/tex; mode=display">
-a + k_1 \cdot (b+c) + b = 2  (a + k_2 \cdot (b+c) + b)
-</script>
-
-<p>Then we have </p>
-
-<script type="math/tex; mode=display">
-a = c + (k_1 - 2 k_2 - 1)(b+c)
-</script>
-
-<p>If we have a new pointer starting from the head and the other pointer starting at the node where slow and fast pointers meet (i.e., the purple node), they will meet at <strong>red node</strong>, because <script type="math/tex">a\%(b+c) = c</script> and purple node is <script type="math/tex">c</script> nodes far from the red node.</p>
-
-<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="nl">public:</span>
-    <span class="n">ListNode</span> <span class="o">*</span><span class="n">detectCycle</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-
-		<span class="n">ListNode</span> <span class="o">*</span><span class="n">p1</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-		<span class="k">while</span><span class="p">(</span><span class="n">p2</span><span class="p">){</span>
-			<span class="n">p1</span> <span class="o">=</span> <span class="n">p1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-			<span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span><span class="o">?</span><span class="n">p2</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">:</span><span class="nb">NULL</span><span class="p">;</span>
-			<span class="k">if</span> <span class="p">(</span><span class="n">p1</span> <span class="o">==</span> <span class="n">p2</span><span class="p">)</span>
-				<span class="k">break</span><span class="p">;</span>
- 		<span class="p">}</span>
- 		<span class="k">if</span> <span class="p">(</span><span class="n">p2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">// no cycle</span>
- 		    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-		<span class="n">p2</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-		<span class="k">while</span><span class="p">(</span><span class="n">p1</span> <span class="o">!=</span> <span class="n">p2</span><span class="p">){</span>
-			<span class="n">p2</span> <span class="o">=</span> <span class="n">p2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-			<span class="n">p1</span> <span class="o">=</span> <span class="n">p1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
- 		<span class="p">}</span>
-		<span class="k">return</span> <span class="n">p1</span><span class="p">;</span>
+    
+    <span class="n">ListNode</span> <span class="o">*</span> <span class="n">reverse_list</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">pt</span><span class="p">){</span>
+        <span class="n">ListNode</span> <span class="o">*</span> <span class="n">ptCur</span> <span class="o">=</span> <span class="n">pt</span><span class="p">,</span> <span class="o">*</span> <span class="n">ptNext</span> <span class="o">=</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">ptCur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">ptNext</span><span class="p">){</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="n">ptNext</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">ptNext</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">ptCur</span><span class="p">;</span>
+            <span class="n">ptCur</span> <span class="o">=</span> <span class="n">ptNext</span><span class="p">;</span>
+            <span class="n">ptNext</span> <span class="o">=</span> <span class="n">pt</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ptCur</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">ListNode</span> <span class="o">*</span> <span class="n">combine_list</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span> <span class="n">l2</span><span class="p">){</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span> <span class="o">=</span> <span class="n">l1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">l1</span><span class="o">&amp;&amp;</span><span class="n">l2</span><span class="p">){</span>
+            <span class="n">ListNode</span><span class="o">*</span> <span class="n">tp1</span> <span class="o">=</span> <span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="o">*</span> <span class="n">tp2</span> <span class="o">=</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">l2</span><span class="p">;</span>
+            <span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">tp1</span><span class="p">;</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">tp1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">tp2</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -206,15 +205,15 @@ a = c + (k_1 - 2 k_2 - 1)(b+c)
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Linked List Cycle i and ii&quot;%20/algorithms/Linked-List-Cycle-i-and-ii%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Reorder List&quot;%20/algorithms/Reorder-List%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Linked-List-Cycle-i-and-ii"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Reorder-List"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Linked-List-Cycle-i-and-ii"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Reorder-List"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

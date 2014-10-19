@@ -1,9 +1,65 @@
 [
 	
 		{
+		  "title"      : "Validate Binary Search Tree",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Validate-Binary-Search-Tree",
+		  "date"       : "2014-10-18 00:00:00 +0600",
+		  "shortdate"  : "October 18, 2014"
+		} ,
+	
+		{
+		  "title"      : "Reorder List",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Reorder-List",
+		  "date"       : "2014-10-18 00:00:00 +0600",
+		  "shortdate"  : "October 18, 2014"
+		} ,
+	
+		{
+		  "title"      : "Find Minimum in Rotated Sorted Array",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Find-Minimum-in-Rotated-Sorted-Array",
+		  "date"       : "2014-10-18 00:00:00 +0600",
+		  "shortdate"  : "October 18, 2014"
+		} ,
+	
+		{
+		  "title"      : "Construct Binary Tree from Inorder and Postorder/Preorder Traversal",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Construct-Binary-Tree-from-Inorder-and-Postorder%3APreorder-Traversal",
+		  "date"       : "2014-10-18 00:00:00 +0600",
+		  "shortdate"  : "October 18, 2014"
+		} ,
+	
+		{
+		  "title"      : "Binary Tree Zigzag Level Order Traversal",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal",
+		  "date"       : "2014-10-18 00:00:00 +0600",
+		  "shortdate"  : "October 18, 2014"
+		} ,
+	
+		{
+		  "title"      : "Path Sum II",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Path-Sum-II",
+		  "date"       : "2014-10-17 00:00:00 +0600",
+		  "shortdate"  : "October 17, 2014"
+		} ,
+	
+		{
 		  "title"      : "Linked List Cycle i and ii",
 		  "category"   : "Algorithms",
 		  "url"        : "/algorithms/Linked-List-Cycle-i-and-ii",
+		  "date"       : "2014-10-17 00:00:00 +0600",
+		  "shortdate"  : "October 17, 2014"
+		} ,
+	
+		{
+		  "title"      : "Convert Sorted List to Binary Search Tree",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Convert-Sorted-List-to-Binary-Search-Tree",
 		  "date"       : "2014-10-17 00:00:00 +0600",
 		  "shortdate"  : "October 17, 2014"
 		} ,
@@ -17,9 +73,17 @@
 		} ,
 	
 		{
-		  "title"      : "3Sum",
+		  "title"      : "3Sum and 4Sum",
 		  "category"   : "Algorithms",
-		  "url"        : "/algorithms/3Sum",
+		  "url"        : "/algorithms/3Sum-and-4Sum",
+		  "date"       : "2014-10-17 00:00:00 +0600",
+		  "shortdate"  : "October 17, 2014"
+		} ,
+	
+		{
+		  "title"      : "3Sum Closest",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/3Sum-Closest",
 		  "date"       : "2014-10-17 00:00:00 +0600",
 		  "shortdate"  : "October 17, 2014"
 		} ,

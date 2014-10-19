@@ -32,6 +32,7 @@ So what on earth are we trying to save here? time? space? Let us see the followi
 
 Therefore, compared with solution 1, we save time. compared with solution 2, we save space.
 
+**Note that the result tree is not unique**, e.g., if we have in-order traversal to be ``[1, 2]``, then trees with either 1 or 2 as root are balanced BST.
 
 class Solution {
 public:

@@ -113,10 +113,42 @@
         <loc>/page18/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page19/index.html</loc>
+    </url>
+    
 
     
     <url>
+        <loc>/algorithms/Validate-Binary-Search-Tree</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Reorder-List</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Find-Minimum-in-Rotated-Sorted-Array</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Construct-Binary-Tree-from-Inorder-and-Postorder%3APreorder-Traversal</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Binary-Tree-Zigzag-Level-Order-Traversal</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Path-Sum-II</loc>
+    </url>
+    
+    <url>
         <loc>/algorithms/Linked-List-Cycle-i-and-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Convert-Sorted-List-to-Binary-Search-Tree</loc>
     </url>
     
     <url>
@@ -124,7 +156,11 @@
     </url>
     
     <url>
-        <loc>/algorithms/3Sum</loc>
+        <loc>/algorithms/3Sum-and-4Sum</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/3Sum-Closest</loc>
     </url>
     
     <url>
