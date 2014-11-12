@@ -1,0 +1,84 @@
+
+<hr />
+<p>layout: post
+title: Unique Binary Search Trees i and ii
+comments: true
+category: Algorithms
+tag: algorithm, leetcode
+—</p>
+
+<h1 id="description">Description</h1>
+
+<ul>
+  <li>https://oj.leetcode.com/problems/unique-binary-search-trees/</li>
+  <li>https://oj.leetcode.com/problems/unique-binary-search-trees-ii/</li>
+</ul>
+
+<p>Difficulty: 1.5/5.0, 3.0/5.0</p>
+
+<h1 id="solution">Solution</h1>
+
+<p>We can solve the first problem by search with memorization.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">numTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+	    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+		    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+	    <span class="kt">int</span> <span class="n">numTreesCache</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+	    <span class="n">memset</span><span class="p">(</span><span class="n">numTreesCache</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+	    <span class="n">numTreesCache</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">numTreesCache</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">numTreesCache</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+	    <span class="k">return</span> <span class="nf">compute_num_trees</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">numTreesCache</span><span class="p">);</span>	
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">compute_num_trees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">numTreesCache</span><span class="p">[]){</span>
+	    <span class="k">if</span> <span class="p">(</span><span class="n">numTreesCache</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>  <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+		        <span class="n">numTreesCache</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+=</span> <span class="n">compute_num_trees</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">numTreesCache</span><span class="p">)</span> <span class="o">*</span> <span class="n">compute_num_trees</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">numTreesCache</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">numTreesCache</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>For the second problem, we follow the same idea, but the procedure is more complicated.</p>
+
+<p>For a root at $i$, we construct the vector of possible left subtrees and the vector of possible right subtrees. Then we construct a new tree with each pair of left and right substrees.</p>
+
+<p>Note that copy_tree is a very important function here, if we do <code>root-&gt;left = leftSubstree[i];</code> without <code>copy_tree</code>, then different roots will share subtrees, which is problematic.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeNode</span> <span class="o">*&gt;</span> <span class="n">generateTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeNode</span> <span class="o">*&gt;</span> <span class="n">treeSet</span> <span class="o">=</span> <span class="n">generate_trees_helper</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">treeSet</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeNode</span> <span class="o">*&gt;</span> <span class="n">generate_trees_helper</span><span class="p">(</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">){</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeNode</span> <span class="o">*&gt;</span> <span class="n">result</span><span class="p">;</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="n">right</span><span class="p">)</span>
+			<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+		
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span> <span class="n">mid</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">;</span> <span class="o">++</span> <span class="n">mid</span><span class="p">){</span>
+			<span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeNode</span> <span class="o">*&gt;</span> <span class="n">leftSubstree</span> <span class="o">=</span> <span class="n">generate_trees_helper</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+			<span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeNode</span> <span class="o">*&gt;</span> <span class="n">rightSubstree</span> <span class="o">=</span> <span class="n">generate_trees_helper</span><span class="p">(</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">leftSubstree</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+				<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">rightSubstree</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">j</span><span class="p">){</span>
+					<span class="n">TreeNode</span> <span class="o">*</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">mid</span><span class="p">);</span>
+					<span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">copy_tree</span><span class="p">(</span><span class="n">leftSubstree</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+					<span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">copy_tree</span><span class="p">(</span><span class="n">rightSubstree</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+					<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">TreeNode</span> <span class="o">*</span> <span class="n">copy_tree</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span>
+			<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="n">TreeNode</span> <span class="o">*</span> <span class="n">newRoot</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+		<span class="n">newRoot</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">copy_tree</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+		<span class="n">newRoot</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">copy_tree</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">newRoot</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>

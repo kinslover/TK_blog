@@ -1,0 +1,42 @@
+
+<hr />
+<p>layout: post
+title: Word Break
+comments: true
+category: Algorithms
+tag: algorithm, leetcode, search, memorization
+—</p>
+
+<h1 id="description">Description</h1>
+
+<p>https://oj.leetcode.com/problems/word-break/</p>
+
+<p>Difficulty: 3.0/5.0</p>
+
+<h1 id="solution">Solution</h1>
+
+<p><em>Once we have started from a position and come back to this position with the anwser “NO” for matching, we have no need to visit this position again.</em> This observation can save us a lot of time. Therefore we allocate a bool array to record if a position has been visited or not and search.</p>
+
+<p>As the <code>match_helper</code> is called for at most <script type="math/tex">s.size()</script> times and we have a <script type="math/tex">O(N)</script> loop inside of the <code>match_helper</code>, the time complexity is <script type="math/tex">O(N^2)</script>. The space complexity is <script type="math/tex">O(N)</script> obviously.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">bool</span> <span class="n">wordBreak</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">dict</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">notReachable</span><span class="p">[</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()];</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">notReachable</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="o">*</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+        <span class="k">return</span> <span class="nf">match_helper</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dict</span><span class="p">,</span> <span class="n">notReachable</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="n">match_helper</span><span class="p">(</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">dict</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">notReachable</span><span class="p">[]){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dict</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">))){</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">notReachable</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">match_helper</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dict</span><span class="p">,</span> <span class="n">notReachable</span><span class="p">))</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+                <span class="k">else</span> <span class="n">notReachable</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+

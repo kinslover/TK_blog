@@ -1,0 +1,50 @@
+
+<hr />
+<p>layout: post
+title: Reverse Words in a String 
+comments: true
+category: Algorithms
+tag: algorithm, leetcode
+—</p>
+
+<h1 id="description">Description</h1>
+
+<p>https://oj.leetcode.com/problems/reverse-words-in-a-string/</p>
+
+<p>Difficulty: 2.0/5.0</p>
+
+<h1 id="solution">Solution</h1>
+
+<p>We can do an in-place reversal by</p>
+
+<ul>
+  <li>First, reverse the whole string</li>
+  <li>Second, reverse the individual string</li>
+</ul>
+
+<p>In this way, the time complexity is <script type="math/tex">O(N)</script> and the space complexity is <script type="math/tex">O(1)</script>. </p>
+
+<p>A simpler solution is to use some auxiliary space (<script type="math/tex">O(N)</script>), as below.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="kt">void</span> <span class="n">reverseWords</span><span class="p">(</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">string</span> <span class="n">result</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">idxLeft</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="k">while</span><span class="p">(</span><span class="n">idxLeft</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">idxLeft</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span>
+			<span class="n">idxLeft</span> <span class="o">++</span><span class="p">;</span>
+
+		<span class="k">while</span><span class="p">(</span><span class="n">idxLeft</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+			<span class="kt">int</span> <span class="n">idxRight</span> <span class="o">=</span> <span class="n">idxLeft</span><span class="p">;</span>
+			<span class="k">while</span><span class="p">(</span><span class="n">idxRight</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">idxRight</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39; &#39;</span><span class="p">)</span>
+				<span class="n">idxRight</span> <span class="o">++</span><span class="p">;</span>
+			<span class="n">result</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">idxLeft</span><span class="p">,</span> <span class="n">idxRight</span><span class="o">-</span><span class="n">idxLeft</span><span class="p">)</span><span class="o">+</span> <span class="p">((</span><span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="s">&quot; &quot;</span><span class="o">:</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">result</span><span class="p">;</span>
+			<span class="k">while</span><span class="p">(</span><span class="n">idxRight</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">idxRight</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span> <span class="p">)</span> <span class="c1">// skip the spaces</span>
+				<span class="n">idxRight</span> <span class="o">++</span><span class="p">;</span>
+			<span class="n">idxLeft</span> <span class="o">=</span> <span class="n">idxRight</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">s</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+

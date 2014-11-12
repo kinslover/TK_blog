@@ -1,0 +1,42 @@
+
+<hr />
+<p>layout: post
+title: Restore IP Addresses
+comments: true
+category: Algorithms
+tag: algorithm, leetcode, DFS
+—</p>
+
+<p>One thing worth noting is that <code>"0.1.001.0"</code> is not a legal IP. The time complexity of this algorithm is <script type="math/tex">O(N^4)</script> as we have four partition points to choose.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">restoreIpAddresses</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+		<span class="n">restore_helper</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">restore_helper</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nIP</span><span class="p">,</span> <span class="n">string</span> <span class="n">currentIP</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span><span class="n">result</span><span class="p">){</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">nIP</span> <span class="o">==</span> <span class="mi">4</span><span class="p">){</span>
+			<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">currentIP</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">currentIP</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+			<span class="k">return</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">nIP</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">||</span> <span class="n">start</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span> <span class="c1">// pruning</span>
+		<span class="n">string</span> <span class="n">nextIP</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span>  <span class="n">start</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+			<span class="n">nextIP</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">legalIP</span><span class="p">(</span><span class="n">nextIP</span><span class="p">))</span>
+				<span class="n">restore_helper</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">nIP</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">currentIP</span> <span class="o">+</span><span class="s">&quot;.&quot;</span><span class="o">+</span><span class="n">nextIP</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="kt">bool</span> <span class="n">legalIP</span><span class="p">(</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">){</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">ip</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span><span class="n">i</span>  <span class="o">&lt;</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">i</span><span class="p">)</span>
+			<span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">);</span>
+		<span class="k">return</span> <span class="p">(</span><span class="n">ip</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+

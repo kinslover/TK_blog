@@ -21,18 +21,18 @@ Description: Awesome dude, awesome life
     </script> 
 
 <meta charset="utf-8">
-<title>REMOVE DUPLICATES FROM SORTED LIST &vert; TK_BLOG</title>
+<title>LETTER COMBINATIONS OF A PHONE NUMBER &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="algorithm, leetcode, list">
+<meta name="keywords" content="algorithm, leetcode">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Remove Duplicates from Sorted List">
+<meta property="og:title" content="Letter Combinations of a Phone Number">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/algorithms/Remove-Duplicates-From-Sorted-List">
+<meta property="og:url" content="/algorithms/Letter-Combinations-of-a-Phone-Number">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/algorithms/Remove-Duplicates-From-Sorted-List">
+<link rel="canonical" href="/algorithms/Letter-Combinations-of-a-Phone-Number">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,8 +123,8 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>Remove Duplicates from Sorted List</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode, list" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode, list" rel="tag">algorithm, leetcode, list</a> <strong><time datetime="2014-09-23T00:00:00+06:00">23 Sep 2014</time></strong></p>
+                            <h1>Letter Combinations of a Phone Number</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode" rel="tag">algorithm, leetcode</a> <strong><time datetime="2014-10-19T00:00:00+06:00">19 Oct 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
@@ -133,53 +133,51 @@ Description: Awesome dude, awesome life
         <article class="summer-post-content post tag-simple">
             <div><h1 id="description">Description</h1>
 
-<p>https://oj.leetcode.com/problems/remove-duplicates-from-sorted-list/</p>
+<p>https://oj.leetcode.com/problems/letter-combinations-of-a-phone-number/</p>
 
-<p>Difficulty: 0.5/5.0 stars</p>
+<p>Difficulty: 1.5/5.0</p>
 
 <h1 id="solution">Solution</h1>
 
-<p>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
- 	ListNode *deleteDuplicates(ListNode *head) {
- 		if (!head)
- 			return head;
-		ListNode *curNode = head-&gt;next;
-		ListNode *preNode = head;
-		while(curNode){
-			while(curNode &amp;&amp; curNode-&gt;val == preNode-&gt;val)
-				curNode = curNode-&gt;next;	
-			preNode-&gt;next = curNode;
-			preNode = curNode;
-			curNode = (curNode)?curNode-&gt;next:NULL;
-}
-return head;
-    }
-};</p>
+<p>The DFS solution would be more clear, but a worse solution. It is common that the length of the string is more than several thousands.</p>
 
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">letterCombinations</span><span class="p">(</span><span class="n">string</span> <span class="n">digits</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">string</span> <span class="n">str</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;abc&quot;</span><span class="p">,</span> <span class="s">&quot;def&quot;</span><span class="p">,</span> <span class="s">&quot;ghi&quot;</span><span class="p">,</span> <span class="s">&quot;jkl&quot;</span><span class="p">,</span> <span class="s">&quot;mno&quot;</span><span class="p">,</span> <span class="s">&quot;pqrs&quot;</span><span class="p">,</span> <span class="s">&quot;tuv&quot;</span><span class="p">,</span> <span class="s">&quot;wxyz&quot;</span><span class="p">};</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="n">result</span><span class="p">;</span>
+		<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">digits</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+			<span class="kt">int</span> <span class="n">rSize</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">str</span><span class="p">[</span><span class="n">digits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">].</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="o">++</span> <span class="n">j</span><span class="p">)</span>
+				<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">rSize</span><span class="p">;</span> <span class="o">++</span> <span class="n">k</span><span class="p">)</span>
+					<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+			
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">str</span><span class="p">[</span><span class="n">digits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">j</span><span class="p">)</span>
+				<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">rSize</span><span class="p">;</span> <span class="o">++</span> <span class="n">k</span><span class="p">)</span>
+					<span class="n">result</span><span class="p">[</span><span class="n">rSize</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">str</span><span class="p">[</span><span class="n">digits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+			
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+		
+	<span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Remove Duplicates from Sorted List&quot;%20/algorithms/Remove-Duplicates-From-Sorted-List%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Letter Combinations of a Phone Number&quot;%20/algorithms/Letter-Combinations-of-a-Phone-Number%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Remove-Duplicates-From-Sorted-List"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Letter-Combinations-of-a-Phone-Number"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Remove-Duplicates-From-Sorted-List"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Letter-Combinations-of-a-Phone-Number"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

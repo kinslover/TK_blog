@@ -1,0 +1,51 @@
+
+<hr />
+<p>layout: post
+title: Gas Station
+comments: true
+category: Algorithms
+tag: algorithm, leetcode, greedy
+—</p>
+
+<h1 id="description">Description</h1>
+
+<p>https://oj.leetcode.com/problems/gas-station/</p>
+
+<p>Difficulty: 4.0/5.0</p>
+
+<h1 id="solution">Solution</h1>
+
+<p>This is not a easy problem. First thing to clarify is that we can only go from <script type="math/tex">i$_th$ station to </script>(i+1)_{th}$$ station. </p>
+
+<p>Then we can prove (details omitted) that </p>
+
+<p><em>If <script type="math/tex">\forall k \in [i, j-1]</script>, <script type="math/tex">S_{i,k} >= 0</script>, but <script type="math/tex">% <![CDATA[
+S_{i,j} < 0 %]]></script>, then we cannot reach the  <script type="math/tex">(j-1)_{th}</script> station from any station in <script type="math/tex">[i,j]</script> (i.e., <script type="math/tex">% <![CDATA[
+S_{k, j} < 0, \forall k \in [i,j] %]]></script>).</em> This means that we cannot travel around starting from stations in <script type="math/tex">[i,j]</script></p>
+
+<p>Here <script type="math/tex">S_{i,j} = \sum_{k=i}^j (gas[k] - cost[k])</script>.</p>
+
+<p>Therefore, the algorithm is that we start from gas station <script type="math/tex">k = 0</script> and we keep the current net gas in the tank <script type="math/tex">sum</script>, once the <script type="math/tex">% <![CDATA[
+sum < 0 %]]></script>, we know that the stations that we have been before cannot be the starting stations. Then we clear the net gas <script type="math/tex">sum</script> and move to the next station and check.</p>
+
+<p>If the total net gas is negative, then we do not have a solution, otherwise, we are guaranteed to be able to find a solution.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="kt">int</span> <span class="n">canCompleteCircuit</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">gas</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">cost</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">totalSum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gas</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
+			<span class="n">sum</span> <span class="o">+=</span> <span class="n">gas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">sum</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+				<span class="n">result</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+				<span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="n">totalSum</span> <span class="o">+=</span> <span class="n">gas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">totalSum</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+			<span class="k">return</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>

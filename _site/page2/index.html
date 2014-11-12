@@ -135,12 +135,12 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-17T00:00:00+06:00">
+                <time datetime="2014-11-11T00:00:00+06:00">
                     <span class="day">
-                        17
+                        11
                     </span>
                     <span class="month-year">
-                        October 2014
+                        November 2014
                     </span>
                 </time>
             </span>
@@ -148,13 +148,13 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/algorithms/Path-Sum-II">
-                        Path Sum II
+                    <a href="/algorithms/Insertion-Sort-List">
+                        Insertion Sort List
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/path-sum-ii/ Difficulty: 1.5/5.0 Solution Note that the sum can be negative, which prevents us from pruning. class Solution { public: void pathSumHelper(vector&lt;vector&lt;int&gt; &gt; &amp; result, vector&lt;int&gt;&amp;path, TreeNode* pt, int remaining){ remaining -= pt-&gt;val; path.push_back(pt-&gt;val); if (!pt-&gt;left &amp;&amp; !pt-&gt;right &amp;&amp;...</p>
+                <p>Description Difficulty: 1.5/5.0 Description: https://oj.leetcode.com/problems/insertion-sort-list/ Solution class Solution { public: ListNode *insertionSortList(ListNode *head) { ListNode new_head(INT_MIN); new_head.next = head; ListNode * candidate = new_head.next; ListNode * end = &amp;new_head; while(candidate){ if (candidate-&gt;val &gt;= end-&gt;val){ // should be placed at the...</p>
             </section>
             
                 <div class="summer-index-post-tags">
@@ -168,9 +168,9 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-17T00:00:00+06:00">
+                <time datetime="2014-10-21T00:00:00+06:00">
                     <span class="day">
-                        17
+                        21
                     </span>
                     <span class="month-year">
                         October 2014
@@ -181,13 +181,46 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/algorithms/Linked-List-Cycle-i-and-ii">
-                        Linked List Cycle i and ii
+                    <a href="/Median-of-Two-Sorted-Arrays">
+                        Median Of Two Sorted Arrays
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/linked-list-cycle/ https://oj.leetcode.com/problems/linked-list-cycle-ii/ Solution Solutions to both problems are based on slow-fast pointers. If there is a cycle, the the slow and fast pointer will meet finally. class Solution { public: bool hasCycle(ListNode *head) { ListNode * slowPt = head,...</p>
+                <p>double findMedianSortedArrays(int A[], int m, int B[], int n) { if ((m + n) % 2 != 0) // odd return (double) findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1); else { //...</p>
+            </section>
+            
+                <div class="summer-index-post-tags">
+                
+                    
+                </div>
+            
+        </div>
+    </article>
+	
+    <article class="summer-index-post post row">
+        <div class="small-12 medium-3 large-2 columns datetime">
+            <span class="summer-post-meta">
+                <time datetime="2014-10-20T00:00:00+06:00">
+                    <span class="day">
+                        20
+                    </span>
+                    <span class="month-year">
+                        October 2014
+                    </span>
+                </time>
+            </span>
+        </div>
+        <div class="small-12 medium-9 large-10 columns">
+            <header class="summer-post-header">
+                <h3 class="summer-post-title">
+                    <a href="/algorithms/sqrt">
+                        sqrt
+                    </a>
+                </h3>
+            </header>
+            <section class="summer-post-excerpt">
+                <p>Description https://oj.leetcode.com/submissions/detail/13480861/ Difficulty: 2.5/5.0 Solution Here we use Newton Method to solve this problem. Please refer to http://en.citizendium.org/wiki/Newton%27s_method#Computational_complexity. class Solution { public: int sqrt(int x) { double est = 1; while(fabs(est * est - x) &gt;= 1) est = (est...</p>
             </section>
             
                 <div class="summer-index-post-tags">
@@ -201,9 +234,9 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-17T00:00:00+06:00">
+                <time datetime="2014-10-20T00:00:00+06:00">
                     <span class="day">
-                        17
+                        20
                     </span>
                     <span class="month-year">
                         October 2014
@@ -214,17 +247,17 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/algorithms/Convert-Sorted-List-to-Binary-Search-Tree">
-                        Convert Sorted List to Binary Search Tree
+                    <a href="/Word-Break">
+                        Word Break
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/convert-sorted-list-to-binary-search-tree/ Difficulty: 3.5/5.0 Solution This is a very interesting problem. The key difficuly we are faced with is lack of random access to the elements. However, a list of ascending nodes can be viewed as a in-order traverval of...</p>
+                <p>layout: post title: Word Break comments: true category: Algorithms tag: algorithm, leetcode, search, memorization — Description https://oj.leetcode.com/problems/word-break/ Difficulty: 3.0/5.0 Solution Once we have started from a position and come back to this position with the anwser “NO” for matching, we...</p>
             </section>
             
                 <div class="summer-index-post-tags">
-                <a href="/categories/index.html#algorithms" title="Other posts from the Algorithms category">Algorithms</a>
+                
                     
                 </div>
             
@@ -234,9 +267,9 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-17T00:00:00+06:00">
+                <time datetime="2014-10-20T00:00:00+06:00">
                     <span class="day">
-                        17
+                        20
                     </span>
                     <span class="month-year">
                         October 2014
@@ -247,50 +280,17 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/codeforce/Code-Force-273">
-                        Code Force 273 (Div2)
+                    <a href="/Reverse-Words-in-a-String">
+                        Reverse Words In A String
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Question A Very simple and naive question. One thing worth noticing is that . int main(){ int sum = 0; int tp; for(int i = 0; i &lt; 5; ++ i){ cin &gt;&gt; tp; sum += tp; } if (sum%5...</p>
+                <p>layout: post title: Reverse Words in a String comments: true category: Algorithms tag: algorithm, leetcode — Description https://oj.leetcode.com/problems/reverse-words-in-a-string/ Difficulty: 2.0/5.0 Solution We can do an in-place reversal by First, reverse the whole string Second, reverse the individual string In this...</p>
             </section>
             
                 <div class="summer-index-post-tags">
-                <a href="/categories/index.html#codeforce" title="Other posts from the Codeforce category">Codeforce</a>
-                    
-                </div>
-            
-        </div>
-    </article>
-	
-    <article class="summer-index-post post row">
-        <div class="small-12 medium-3 large-2 columns datetime">
-            <span class="summer-post-meta">
-                <time datetime="2014-10-17T00:00:00+06:00">
-                    <span class="day">
-                        17
-                    </span>
-                    <span class="month-year">
-                        October 2014
-                    </span>
-                </time>
-            </span>
-        </div>
-        <div class="small-12 medium-9 large-10 columns">
-            <header class="summer-post-header">
-                <h3 class="summer-post-title">
-                    <a href="/algorithms/3Sum-and-4Sum">
-                        3Sum and 4Sum
-                    </a>
-                </h3>
-            </header>
-            <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/3sum/ Difficulty: 3.0/5.0 Solution 3Sum is an extension to 2Sum. We are required to get all non-redundant triplets whose sum is zero. In this case, we enumerate each unqiue left elemenet in a triplet and use the 2Sum algorithm...</p>
-            </section>
-            
-                <div class="summer-index-post-tags">
-                <a href="/categories/index.html#algorithms" title="Other posts from the Algorithms category">Algorithms</a>
+                
                     
                 </div>
             
@@ -305,7 +305,7 @@ Description: Awesome dude, awesome life
 	
 
     
-    <span class="page-number">Page 2 of 19</span>
+    <span class="page-number">Page 2 of 23</span>
     	 
         <a class="older-posts" href="/page3/">Older <i class="fa fa-chevron-right"></i></a>
     	

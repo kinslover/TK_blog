@@ -166,8 +166,8 @@ callback([
   } ,
 
   {
-    "text": "Remove Duplicates from Sorted List",
-    "href": "/algorithms/Remove-Duplicates-From-Sorted-List"
+    "text": "Remove Duplicates from Sorted List i and ii",
+    "href": "/algorithms/Remove-Duplicates-From-Sorted-List-i-and-ii"
   } ,
 
   {
@@ -468,6 +468,91 @@ callback([
   {
     "text": "Validate Binary Search Tree",
     "href": "/algorithms/Validate-Binary-Search-Tree"
+  } ,
+
+  {
+    "text": "Clone Graph",
+    "href": "/algorithms/Clone-Graph"
+  } ,
+
+  {
+    "text": "Letter Combinations of a Phone Number",
+    "href": "/algorithms/Letter-Combinations-of-a-Phone-Number"
+  } ,
+
+  {
+    "text": "Partition List",
+    "href": "/algorithms/Partition-List"
+  } ,
+
+  {
+    "text": "Unique Binary Search Trees I And Ii",
+    "href": "/Unique-Binary-Search-Trees-i-and-ii"
+  } ,
+
+  {
+    "text": "Subsets i and ii",
+    "href": "/algorithms/Add-Two-Numbers"
+  } ,
+
+  {
+    "text": "Gas Station",
+    "href": "/Gas-Station"
+  } ,
+
+  {
+    "text": "Restore Ip Addresses",
+    "href": "/Restore-IP-Addresses"
+  } ,
+
+  {
+    "text": "Reverse Words In A String",
+    "href": "/Reverse-Words-in-a-String"
+  } ,
+
+  {
+    "text": "Word Break",
+    "href": "/Word-Break"
+  } ,
+
+  {
+    "text": "sqrt",
+    "href": "/algorithms/sqrt"
+  } ,
+
+  {
+    "text": "Median Of Two Sorted Arrays",
+    "href": "/Median-of-Two-Sorted-Arrays"
+  } ,
+
+  {
+    "text": "Insertion Sort List",
+    "href": "/algorithms/Insertion-Sort-List"
+  } ,
+
+  {
+    "text": "Reverse Linked List II",
+    "href": "/algorithms/Reverse-Linked-List-II"
+  } ,
+
+  {
+    "text": "Two Sum",
+    "href": "/algorithms/Two-Sum"
+  } ,
+
+  {
+    "text": "Binary Tree Maximum Path Sum",
+    "href": "/algorithms/Binary-Tree-Maximum-Path-Sum"
+  } ,
+
+  {
+    "text": "Copy List with Random Pointer",
+    "href": "/algorithms/Copy-List-with-Random-Pointer"
+  } ,
+
+  {
+    "text": "Word Search",
+    "href": "/algorithms/Word-Search"
   } 
 
 ])

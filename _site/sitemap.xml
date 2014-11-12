@@ -117,7 +117,91 @@
         <loc>/page19/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page20/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page21/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page22/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page23/index.html</loc>
+    </url>
+    
 
+    
+    <url>
+        <loc>/algorithms/Word-Search</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Copy-List-with-Random-Pointer</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Binary-Tree-Maximum-Path-Sum</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Two-Sum</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Reverse-Linked-List-II</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Insertion-Sort-List</loc>
+    </url>
+    
+    <url>
+        <loc>/Median-of-Two-Sorted-Arrays</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/sqrt</loc>
+    </url>
+    
+    <url>
+        <loc>/Word-Break</loc>
+    </url>
+    
+    <url>
+        <loc>/Reverse-Words-in-a-String</loc>
+    </url>
+    
+    <url>
+        <loc>/Restore-IP-Addresses</loc>
+    </url>
+    
+    <url>
+        <loc>/Gas-Station</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Add-Two-Numbers</loc>
+    </url>
+    
+    <url>
+        <loc>/Unique-Binary-Search-Trees-i-and-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Partition-List</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Letter-Combinations-of-a-Phone-Number</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Clone-Graph</loc>
+    </url>
     
     <url>
         <loc>/algorithms/Validate-Binary-Search-Tree</loc>
@@ -360,7 +444,7 @@
     </url>
     
     <url>
-        <loc>/algorithms/Remove-Duplicates-From-Sorted-List</loc>
+        <loc>/algorithms/Remove-Duplicates-From-Sorted-List-i-and-ii</loc>
     </url>
     
     <url>
