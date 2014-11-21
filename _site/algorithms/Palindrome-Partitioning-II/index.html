@@ -23,16 +23,16 @@ Description: Awesome dude, awesome life
 <meta charset="utf-8">
 <title>PALINDROME PARTITIONING II &vert; TK_BLOG</title>
 <meta name="description" content="Evolution">
-<meta name="keywords" content="leetcode, DP, matrix multiplication">
+<meta name="keywords" content="algorithm, leetcode, DP">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Palindrome Partitioning II">
+<meta property="og:title" content="Palindrome Partitioning ii">
 <meta property="og:description" content="Evolution">
-<meta property="og:url" content="/algorithms/Palindrome-Partitioning-II">
+<meta property="og:url" content="/algorithms/Palindrome-Partitioning-ii">
 <meta property="og:site_name" content="TK_blog">
 <meta property="og:image" content="/images/">
 
@@ -40,7 +40,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="/algorithms/Palindrome-Partitioning-II">
+<link rel="canonical" href="/algorithms/Palindrome-Partitioning-ii">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="TK_blog Feed">
 <link rel="author" href="https://plus.google.com/u/0/102602916593522619858?rel=author">
 
@@ -123,8 +123,8 @@ Description: Awesome dude, awesome life
                 <div class="summer-post-title-simple row">
                     <div class="small-12 columns">
                         <div class="summer-post-meta-simple">
-                            <h1>Palindrome Partitioning II</h1>
-                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#leetcode, DP, matrix multiplication" data-toggle="tooltip" title="Posts tagged with leetcode, DP, matrix multiplication" rel="tag">leetcode, DP, matrix multiplication</a> <strong><time datetime="2014-08-20T00:00:00+06:00">20 Aug 2014</time></strong></p>
+                            <h1>Palindrome Partitioning ii</h1>
+                            <p>by <strong>Ping Jin</strong> &#8212; on <a href="/tags/index.html#algorithm, leetcode, DP" data-toggle="tooltip" title="Posts tagged with algorithm, leetcode, DP" rel="tag">algorithm, leetcode, DP</a> <strong><time datetime="2014-11-14T00:00:00+06:00">14 Nov 2014</time></strong></p>
                         </div>
                     </div>
                 </div>
@@ -133,140 +133,116 @@ Description: Awesome dude, awesome life
         <article class="summer-post-content post tag-simple">
             <div><h1 id="description">Description</h1>
 
-<p>Given a string s, partition s such that every substring of the partition is a palindrome.</p>
+<p>URL: https://oj.leetcode.com/problems/palindrome-partitioning-ii/</p>
 
-<p>Return the minimum cuts needed for a palindrome partitioning of s.</p>
-
-<p>For example, given s = “aab”,</p>
-
-<p>Return 1 since the palindrome partitioning [“aa”,”b”] could be produced using 1 cut.</p>
-
-<h1 id="analysis">Analysis</h1>
-
-<p>The first solution is a <script type="math/tex">O(n^3)</script> one which is almost the same with the standard solution to Matrix Multiplication. We use <script type="math/tex">num[i][j]</script> to record the minimum number of cuts between <script type="math/tex">i</script> and <script type="math/tex">j</script>, which can be calculated by</p>
-
-<p><script type="math/tex">num[i][j] = \min_{k \in i,...j-1} (num[i][k] + num[k+1][j] + 1)</script>.</p>
-
-<p>However, there are some redundant and unnecessary operations involved. Instead of computing <script type="math/tex">num[i][j]</script> for all possible pairs <script type="math/tex">(i, j)</script>, can we find a solution that reduces the amount of computation? The answer is yes.</p>
-
-<p>Let us define a new variable <script type="math/tex">minCut[i] = num[0][i]</script>. In Solution 2, we only compute <script type="math/tex">minCut[i]</script>, i.e. <script type="math/tex">num[0][i], \forall i</script>.</p>
-
-<p>For the substring <script type="math/tex">str[0...i]</script>, we define <script type="math/tex">D(i)</script> to be the set of indices less than <script type="math/tex">i</script> <script type="math/tex">s.t.</script></p>
-
-<script type="math/tex; mode=display">\forall j \in D, str[j+1, i] \mbox{ is Palindrome }</script>
-
-<p>then </p>
-
-<ul>
-  <li><script type="math/tex">minCut[i] = \min_{j \in D(i)} (minCut[j] + 1)</script>, if <script type="math/tex">str[0,i]</script> is NOT a palindrome</li>
-  <li><script type="math/tex">minCut[i] = 0</script>, if <script type="math/tex">str[0,i]</script> is a palindrome</li>
-</ul>
-
-<p>Below is the pseudo code of the algorithm. In this algorithm, <script type="math/tex">is\_palindrome[][]</script> can be precomputed in <script type="math/tex">O(n^2)</script> time. Therefore, the total time complexity is <script type="math/tex">O(n^2)</script>.</p>
-
-<div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> 	<span class="c1">//pseudo code in mixed C++-Python style</span>
-<span class="lineno"> 2</span> 	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">)</span>
-<span class="lineno"> 3</span> 		<span class="k">if</span> <span class="p">(</span><span class="n">is_palindrome</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
-<span class="lineno"> 4</span> 			<span class="n">minCut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="lineno"> 5</span> 		<span class="k">else</span>
-<span class="lineno"> 6</span> 			<span class="n">minCut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">MAX_INT</span>
-<span class="lineno"> 7</span> 			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span> <span class="n">j</span><span class="p">)</span>
-<span class="lineno"> 8</span> 				<span class="k">if</span> <span class="p">(</span><span class="n">is_palindrome</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
-<span class="lineno"> 9</span> 					<span class="n">minCut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minCut</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">minCut</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-<span class="lineno">10</span> 	<span class="k">return</span> <span class="n">minCut</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</code></pre></div>
+<p>Difficulty: 3.0/5.0</p>
 
 <h1 id="solution">Solution</h1>
 
-<h2 id="on3-solution"><script type="math/tex">O(n^3)</script> solution</h2>
+<p><script type="math/tex">min\_cut[i] = min_{j \in A(i)} \{ min\_cut[j-1]\} + 1</script>, where <script type="math/tex">A(i) = \{j \ \vert \ s[j][i] \hbox{ is palindrome}\}</script>. Here <script type="math/tex">i</script>$ starts from 1 and <code>min_cut[0] = -1</code>.</p>
 
-<p>If you run this code in leetcode OJ, you will get runtime error, as there is a test case where the length of the string is more than 1400. Allocating a 2-D int array with <script type="math/tex">1400 \times 1400</script> elements leads to runtime error.</p>
+<p>The key is that when we use <script type="math/tex">min\_cut[j-1]</script> to update <script type="math/tex">min\_cut[i]</script>, the <script type="math/tex">min\_cut[j-1]</script> must already be computed.</p>
 
-<p>You can replace <code>int num[n][n]</code> with <code>unsigned char num[n][n]</code>, but it is still a nasty solution and will get you a TLE.</p>
+<p>The intuitive solution is to first use a 2-D array <code>isPalin[i][j]</code> to record the if <script type="math/tex">S[i..j]</script> is a palindrome, which is <script type="math/tex">O(N^2)</script> in both time and space complexity. Then we compute the <code>min_cut[i]</code> sequentially, the time complexity of which is <script type="math/tex">O(N^2)</script>. So this is a solution with <script type="math/tex">O(N^2)</script> time complexity and <script type="math/tex">O(N^2)</script> space complexity.</p>
 
-<div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="lineno"> 2</span> <span class="nl">public:</span>
-<span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">minCut</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno"> 4</span>         <span class="kt">int</span> <span class="n">n</span>  <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="lineno"> 5</span>         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno"> 6</span>         <span class="kt">int</span> <span class="n">num</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
-<span class="lineno"> 7</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">)</span>
-<span class="lineno"> 8</span>             <span class="n">memset</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span>
-<span class="lineno"> 9</span>         
-<span class="lineno">10</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">)</span>
-<span class="lineno">11</span>             <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
-<span class="lineno">12</span>         
-<span class="lineno">13</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">len</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">len</span><span class="p">){</span>    
-<span class="lineno">14</span>             <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span> <span class="n">start</span><span class="p">){</span>
-<span class="lineno">15</span>                 <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-<span class="lineno">16</span>                 <span class="k">if</span> <span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
-<span class="lineno">17</span>                     <span class="n">num</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno">18</span>                 <span class="k">else</span><span class="p">{</span>
-<span class="lineno">19</span>                     <span class="n">num</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2100000000</span><span class="p">;</span>
-<span class="lineno">20</span>                     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">start</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">;</span> <span class="o">++</span> <span class="n">k</span><span class="p">)</span>
-<span class="lineno">21</span>                         <span class="n">num</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">num</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">end</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="n">end</span><span class="p">]);</span>
-<span class="lineno">22</span>                 <span class="p">}</span>
-<span class="lineno">23</span>             <span class="p">}</span>
-<span class="lineno">24</span>         <span class="p">}</span>
-<span class="lineno">25</span>         <span class="k">return</span> <span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-<span class="lineno">26</span>     <span class="p">}</span>
-<span class="lineno">27</span> <span class="p">};</span>
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span><span class="p">{</span>
+<span class="nl">private:</span>
+	<span class="kt">void</span> <span class="n">palinSolver</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">palin</span><span class="p">){</span>
+		<span class="c1">// char as the mid		</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s_end</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">mid</span> <span class="o">&lt;</span> <span class="n">s_end</span><span class="p">;</span> <span class="o">++</span><span class="n">mid</span><span class="p">){</span>
+			<span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">s_end</span><span class="p">;</span> <span class="n">left</span> <span class="o">--</span><span class="p">,</span> <span class="n">right</span> <span class="o">++</span><span class="p">){</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">])</span>
+					<span class="k">break</span><span class="p">;</span>
+				<span class="n">palin</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="c1">// gap as the mid</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s_end</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">mid</span> <span class="o">&lt;</span> <span class="n">s_end</span><span class="p">;</span> <span class="o">++</span><span class="n">mid</span><span class="p">){</span>
+			<span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">s_end</span><span class="p">;</span> <span class="n">left</span> <span class="o">--</span><span class="p">,</span> <span class="n">right</span> <span class="o">++</span><span class="p">){</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">])</span>
+					<span class="k">break</span><span class="p">;</span>
+				<span class="n">palin</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+
+	<span class="p">}</span>
+<span class="nl">public:</span>
+	<span class="kt">int</span> <span class="n">minCut</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">num_char</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+
+		<span class="c1">// compute the adjacent list of palindrome</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">palin_adj</span><span class="p">(</span><span class="n">num_char</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span>		
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_char</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">)</span>
+			<span class="n">palin_adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+		<span class="n">palinSolver</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">palin_adj</span><span class="p">);</span>
+
+		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">min_cut</span><span class="p">(</span><span class="n">num_char</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">);</span>
+		<span class="n">min_cut</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_char</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>			
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">palin_adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">;</span> <span class="n">j</span> <span class="o">++</span><span class="p">){</span>				
+				<span class="k">if</span> <span class="p">(</span><span class="n">min_cut</span><span class="p">[</span><span class="n">palin_adj</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">INT_MAX</span><span class="p">)</span>
+					<span class="n">min_cut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_cut</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">min_cut</span><span class="p">[</span><span class="n">palin_adj</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="n">min_cut</span><span class="p">[</span><span class="n">num_char</span><span class="p">];</span>
+
+	<span class="p">}</span>
+<span class="p">};</span>
 </code></pre></div>
 
-<h2 id="on2-solution"><script type="math/tex">O(n^2)</script> solution</h2>
+<p>Note that instead of using the DP thought <code>isPalin[i][j] = isPalin[i+1][j-1] &amp;&amp; (S[i] == S[j])</code>. We can also enumerate the centering position and go to both ends, while checking if <code>S[left] == S[right]</code>. By checking palindrome in this way, we can check if  <script type="math/tex">S[i][j]</script> is palindrome for every pair of <script type="math/tex">(i, j)</script> in <script type="math/tex">O(N^2)</script> time without extra space. The question is: can we embed the <code>min_cut[]</code> computation in this procedure.</p>
 
-<div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span><span class="p">{</span>
-<span class="lineno"> 2</span> <span class="nl">public:</span>
-<span class="lineno"> 3</span> 	<span class="kt">int</span> <span class="n">minCut</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno"> 4</span> 		<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="lineno"> 5</span> 		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno"> 6</span> 		
-<span class="lineno"> 7</span> 		<span class="c1">// palindrome judgement</span>
-<span class="lineno"> 8</span> 		<span class="kt">bool</span> <span class="n">isPal</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
-<span class="lineno"> 9</span> 		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">)</span>
-<span class="lineno">10</span> 			<span class="n">isPal</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="n">isPal</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>		
-<span class="lineno">11</span> 		<span class="n">isPal</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>			
-<span class="lineno">12</span> 
-<span class="lineno">13</span> 		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">len</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">len</span><span class="p">)</span>
-<span class="lineno">14</span> 			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span> <span class="n">start</span><span class="p">){</span>
-<span class="lineno">15</span> 				<span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-<span class="lineno">16</span> 				<span class="n">isPal</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">end</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="n">isPal</span><span class="p">[</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-<span class="lineno">17</span> 			<span class="p">}</span>			
-<span class="lineno">18</span> 		
-<span class="lineno">19</span> 		<span class="c1">//calculate minimum number of cut</span>
-<span class="lineno">20</span> 		<span class="kt">int</span> <span class="n">minCutArray</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="lineno">21</span> 		<span class="n">minCutArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno">22</span> 		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span> <span class="n">i</span><span class="p">){</span>
-<span class="lineno">23</span> 		    <span class="k">if</span> <span class="p">(</span><span class="n">isPal</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]){</span>
-<span class="lineno">24</span> 		        <span class="n">minCutArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno">25</span> 		        <span class="k">continue</span><span class="p">;</span>
-<span class="lineno">26</span> 		    <span class="p">}</span>
-<span class="lineno">27</span> 			<span class="n">minCutArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2100000000</span><span class="p">;</span>
-<span class="lineno">28</span> 			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span> <span class="n">j</span> <span class="p">){</span>
-<span class="lineno">29</span> 				<span class="k">if</span> <span class="p">(</span><span class="n">isPal</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
-<span class="lineno">30</span> 					<span class="n">minCutArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minCutArray</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">minCutArray</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-<span class="lineno">31</span> 			<span class="p">}</span>
-<span class="lineno">32</span> 		<span class="p">}</span>
-<span class="lineno">33</span> 		<span class="k">return</span> <span class="n">minCutArray</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-<span class="lineno">34</span> 	<span class="p">}</span> 
-<span class="lineno">35</span> <span class="p">};</span>
+<p>In the following code, in the iteration of <code>mid</code>, we only use <code>min_cut[&lt; mid]</code> to update <code>min_cut[&gt;= mid]</code>, and after iteration of <code>mid</code>, we will never update <code>min_cut[&lt;= mid]</code>. This guarantees that our computation is right.</p>
+
+<p>This solution is <script type="math/tex">O(N^2)</script> in time complexity and <script type="math/tex">O(N)</script> in space complexity.</p>
+
+<div class="highlight"><pre><code class="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+	<span class="kt">int</span> <span class="n">minCut</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">){</span>
+		<span class="c1">// char as the mid		</span>
+		<span class="kt">int</span> <span class="n">n_char</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">min_cut</span><span class="p">(</span><span class="n">n_char</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_char</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+		<span class="n">min_cut</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s_end</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">mid</span> <span class="o">&lt;</span> <span class="n">s_end</span><span class="p">;</span> <span class="o">++</span><span class="n">mid</span><span class="p">){</span>
+			<span class="c1">//odd number of chars</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">s_end</span><span class="p">;</span> <span class="n">left</span> <span class="o">--</span><span class="p">,</span> <span class="n">right</span> <span class="o">++</span><span class="p">){</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">])</span>
+					<span class="k">break</span><span class="p">;</span>				
+				<span class="c1">//is palin</span>
+				<span class="n">min_cut</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_cut</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_cut</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+			<span class="p">}</span>
+
+			<span class="c1">//even number of chars</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">s_end</span><span class="p">;</span> <span class="n">left</span> <span class="o">--</span><span class="p">,</span> <span class="n">right</span> <span class="o">++</span><span class="p">){</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">])</span>
+					<span class="k">break</span><span class="p">;</span>
+				<span class="c1">//is palin</span>
+				<span class="n">min_cut</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_cut</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_cut</span><span class="p">[</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+			<span class="p">}</span>			
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="n">min_cut</span><span class="p">[</span><span class="n">n_char</span><span class="p">];</span>
+
+	<span class="p">}</span>
+<span class="p">};</span>
 </code></pre></div>
-
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Palindrome Partitioning II&quot;%20/algorithms/Palindrome-Partitioning-II%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Palindrome Partitioning ii&quot;%20/algorithms/Palindrome-Partitioning-ii%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Palindrome-Partitioning-II"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=/algorithms/Palindrome-Partitioning-ii"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Palindrome-Partitioning-II"
+                <a class="google-icon" href="https://plus.google.com/share?url=/algorithms/Palindrome-Partitioning-ii"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>

@@ -133,10 +133,58 @@
         <loc>/page23/index.html</loc>
     </url>
     
+    <url>
+        <loc>/page24/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>/page25/index.html</loc>
+    </url>
+    
 
     
     <url>
+        <loc>/algorithms/Counting-Inversions</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Binary-Indexed_Tree</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Word-Ladder-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Word-Break-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Surrounded-Regions</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Palindrome-Partitioning-ii</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Word-Ladder</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/LRU-Cache</loc>
+    </url>
+    
+    <url>
         <loc>/algorithms/Word-Search</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Quick-Sort</loc>
+    </url>
+    
+    <url>
+        <loc>/algorithms/Min-Stack</loc>
     </url>
     
     <url>
@@ -212,7 +260,7 @@
     </url>
     
     <url>
-        <loc>/algorithms/Find-Minimum-in-Rotated-Sorted-Array</loc>
+        <loc>/algorithms/Find-Minimum-in-Rotated-Sorted-Array-I-and-II</loc>
     </url>
     
     <url>

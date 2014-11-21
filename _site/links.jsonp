@@ -456,8 +456,8 @@ callback([
   } ,
 
   {
-    "text": "Find Minimum in Rotated Sorted Array",
-    "href": "/algorithms/Find-Minimum-in-Rotated-Sorted-Array"
+    "text": "Find Minimum in Rotated Sorted Array I and II",
+    "href": "/algorithms/Find-Minimum-in-Rotated-Sorted-Array-I-and-II"
   } ,
 
   {
@@ -551,8 +551,58 @@ callback([
   } ,
 
   {
+    "text": "Min Stack",
+    "href": "/algorithms/Min-Stack"
+  } ,
+
+  {
+    "text": "Quick Sort",
+    "href": "/algorithms/Quick-Sort"
+  } ,
+
+  {
     "text": "Word Search",
     "href": "/algorithms/Word-Search"
+  } ,
+
+  {
+    "text": "LRU Cache",
+    "href": "/algorithms/LRU-Cache"
+  } ,
+
+  {
+    "text": "Word Ladder",
+    "href": "/algorithms/Word-Ladder"
+  } ,
+
+  {
+    "text": "Palindrome Partitioning ii",
+    "href": "/algorithms/Palindrome-Partitioning-ii"
+  } ,
+
+  {
+    "text": "Surrounded Regions",
+    "href": "/algorithms/Surrounded-Regions"
+  } ,
+
+  {
+    "text": "Word Break ii",
+    "href": "/algorithms/Word-Break-ii"
+  } ,
+
+  {
+    "text": "Word Ladder ii",
+    "href": "/algorithms/Word-Ladder-ii"
+  } ,
+
+  {
+    "text": "Binary Indexed Tree",
+    "href": "/algorithms/Binary-Indexed_Tree"
+  } ,
+
+  {
+    "text": "Counting Inversions",
+    "href": "/algorithms/Counting-Inversions"
   } 
 
 ])

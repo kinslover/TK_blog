@@ -1,9 +1,89 @@
 [
 	
 		{
+		  "title"      : "Counting Inversions",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Counting-Inversions",
+		  "date"       : "2014-11-16 00:00:00 +0600",
+		  "shortdate"  : "November 16, 2014"
+		} ,
+	
+		{
+		  "title"      : "Binary Indexed Tree",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Binary-Indexed_Tree",
+		  "date"       : "2014-11-15 00:00:00 +0600",
+		  "shortdate"  : "November 15, 2014"
+		} ,
+	
+		{
+		  "title"      : "Word Ladder ii",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Word-Ladder-ii",
+		  "date"       : "2014-11-14 00:00:00 +0600",
+		  "shortdate"  : "November 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "Word Break ii",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Word-Break-ii",
+		  "date"       : "2014-11-14 00:00:00 +0600",
+		  "shortdate"  : "November 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "Surrounded Regions",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Surrounded-Regions",
+		  "date"       : "2014-11-14 00:00:00 +0600",
+		  "shortdate"  : "November 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "Palindrome Partitioning ii",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Palindrome-Partitioning-ii",
+		  "date"       : "2014-11-14 00:00:00 +0600",
+		  "shortdate"  : "November 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "Word Ladder",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Word-Ladder",
+		  "date"       : "2014-11-13 00:00:00 +0600",
+		  "shortdate"  : "November 13, 2014"
+		} ,
+	
+		{
+		  "title"      : "LRU Cache",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/LRU-Cache",
+		  "date"       : "2014-11-13 00:00:00 +0600",
+		  "shortdate"  : "November 13, 2014"
+		} ,
+	
+		{
 		  "title"      : "Word Search",
 		  "category"   : "Algorithms",
 		  "url"        : "/algorithms/Word-Search",
+		  "date"       : "2014-11-12 00:00:00 +0600",
+		  "shortdate"  : "November 12, 2014"
+		} ,
+	
+		{
+		  "title"      : "Quick Sort",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Quick-Sort",
+		  "date"       : "2014-11-12 00:00:00 +0600",
+		  "shortdate"  : "November 12, 2014"
+		} ,
+	
+		{
+		  "title"      : "Min Stack",
+		  "category"   : "Algorithms",
+		  "url"        : "/algorithms/Min-Stack",
 		  "date"       : "2014-11-12 00:00:00 +0600",
 		  "shortdate"  : "November 12, 2014"
 		} ,
@@ -153,9 +233,9 @@
 		} ,
 	
 		{
-		  "title"      : "Find Minimum in Rotated Sorted Array",
+		  "title"      : "Find Minimum in Rotated Sorted Array I and II",
 		  "category"   : "Algorithms",
-		  "url"        : "/algorithms/Find-Minimum-in-Rotated-Sorted-Array",
+		  "url"        : "/algorithms/Find-Minimum-in-Rotated-Sorted-Array-I-and-II",
 		  "date"       : "2014-10-18 00:00:00 +0600",
 		  "shortdate"  : "October 18, 2014"
 		} ,

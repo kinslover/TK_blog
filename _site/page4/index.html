@@ -135,12 +135,12 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-19T00:00:00+06:00">
+                <time datetime="2014-11-11T00:00:00+06:00">
                     <span class="day">
-                        19
+                        11
                     </span>
                     <span class="month-year">
-                        October 2014
+                        November 2014
                     </span>
                 </time>
             </span>
@@ -148,13 +148,13 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/algorithms/Letter-Combinations-of-a-Phone-Number">
-                        Letter Combinations of a Phone Number
+                    <a href="/algorithms/Insertion-Sort-List">
+                        Insertion Sort List
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/letter-combinations-of-a-phone-number/ Difficulty: 1.5/5.0 Solution The DFS solution would be more clear, but a worse solution. It is common that the length of the string is more than several thousands. class Solution { public: vector&lt;string&gt; letterCombinations(string digits) { string str[]...</p>
+                <p>Description Difficulty: 1.5/5.0 Description: https://oj.leetcode.com/problems/insertion-sort-list/ Solution class Solution { public: ListNode *insertionSortList(ListNode *head) { ListNode new_head(INT_MIN); new_head.next = head; ListNode * candidate = new_head.next; ListNode * end = &amp;new_head; while(candidate){ if (candidate-&gt;val &gt;= end-&gt;val){ // should be placed at the...</p>
             </section>
             
                 <div class="summer-index-post-tags">
@@ -168,9 +168,9 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-19T00:00:00+06:00">
+                <time datetime="2014-10-21T00:00:00+06:00">
                     <span class="day">
-                        19
+                        21
                     </span>
                     <span class="month-year">
                         October 2014
@@ -181,13 +181,46 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/algorithms/Clone-Graph">
-                        Clone Graph
+                    <a href="/Median-of-Two-Sorted-Arrays">
+                        Median Of Two Sorted Arrays
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/clone-graph/ Difficulty: 1.5/5.0 Solution class Solution { public: UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) { unordered_map&lt;UndirectedGraphNode*, UndirectedGraphNode*&gt;ht; UndirectedGraphNode * newNode = traverse_copy(node, ht); return newNode; } UndirectedGraphNode* traverse_copy(UndirectedGraphNode * node, unordered_map&lt;UndirectedGraphNode*, UndirectedGraphNode*&gt; &amp;ht){ if (node == NULL) return NULL; if (ht.find(node) !=...</p>
+                <p>double findMedianSortedArrays(int A[], int m, int B[], int n) { if ((m + n) % 2 != 0) // odd return (double) findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1); else { //...</p>
+            </section>
+            
+                <div class="summer-index-post-tags">
+                
+                    
+                </div>
+            
+        </div>
+    </article>
+	
+    <article class="summer-index-post post row">
+        <div class="small-12 medium-3 large-2 columns datetime">
+            <span class="summer-post-meta">
+                <time datetime="2014-10-20T00:00:00+06:00">
+                    <span class="day">
+                        20
+                    </span>
+                    <span class="month-year">
+                        October 2014
+                    </span>
+                </time>
+            </span>
+        </div>
+        <div class="small-12 medium-9 large-10 columns">
+            <header class="summer-post-header">
+                <h3 class="summer-post-title">
+                    <a href="/algorithms/sqrt">
+                        sqrt
+                    </a>
+                </h3>
+            </header>
+            <section class="summer-post-excerpt">
+                <p>Description https://oj.leetcode.com/submissions/detail/13480861/ Difficulty: 2.5/5.0 Solution Here we use Newton Method to solve this problem. Please refer to http://en.citizendium.org/wiki/Newton%27s_method#Computational_complexity. class Solution { public: int sqrt(int x) { double est = 1; while(fabs(est * est - x) &gt;= 1) est = (est...</p>
             </section>
             
                 <div class="summer-index-post-tags">
@@ -201,9 +234,9 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-18T00:00:00+06:00">
+                <time datetime="2014-10-20T00:00:00+06:00">
                     <span class="day">
-                        18
+                        20
                     </span>
                     <span class="month-year">
                         October 2014
@@ -214,17 +247,17 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/algorithms/Validate-Binary-Search-Tree">
-                        Validate Binary Search Tree
+                    <a href="/Word-Break">
+                        Word Break
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/validate-binary-search-tree/ Difficulty: 1.5/2.0 Solution class Solution { public: bool isValidBST(TreeNode *pt) { return validate(pt, INT_MAX, INT_MIN); } bool validate(TreeNode * pt, int upperBound, int lowerBound){ if (!pt) return true; return (pt-&gt;val &lt; upperBound &amp;&amp; pt-&gt;val &gt; lowerBound) &amp;&amp; \...</p>
+                <p>layout: post title: Word Break comments: true category: Algorithms tag: algorithm, leetcode, search, memorization — Description https://oj.leetcode.com/problems/word-break/ Difficulty: 3.0/5.0 Solution Once we have started from a position and come back to this position with the anwser “NO” for matching, we...</p>
             </section>
             
                 <div class="summer-index-post-tags">
-                <a href="/categories/index.html#algorithms" title="Other posts from the Algorithms category">Algorithms</a>
+                
                     
                 </div>
             
@@ -234,9 +267,9 @@ Description: Awesome dude, awesome life
     <article class="summer-index-post post row">
         <div class="small-12 medium-3 large-2 columns datetime">
             <span class="summer-post-meta">
-                <time datetime="2014-10-18T00:00:00+06:00">
+                <time datetime="2014-10-20T00:00:00+06:00">
                     <span class="day">
-                        18
+                        20
                     </span>
                     <span class="month-year">
                         October 2014
@@ -247,50 +280,17 @@ Description: Awesome dude, awesome life
         <div class="small-12 medium-9 large-10 columns">
             <header class="summer-post-header">
                 <h3 class="summer-post-title">
-                    <a href="/algorithms/Reorder-List">
-                        Reorder List
+                    <a href="/Reverse-Words-in-a-String">
+                        Reverse Words In A String
                     </a>
                 </h3>
             </header>
             <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/reorder-list/ Difficulty: 2.0/5.0 Solution We can solve this problem in three steps. First, locate the head of the second half Second, reverse the second list Third, Merge the two lists class Solution { public: void reorderList(ListNode *head) { //count...</p>
+                <p>layout: post title: Reverse Words in a String comments: true category: Algorithms tag: algorithm, leetcode — Description https://oj.leetcode.com/problems/reverse-words-in-a-string/ Difficulty: 2.0/5.0 Solution We can do an in-place reversal by First, reverse the whole string Second, reverse the individual string In this...</p>
             </section>
             
                 <div class="summer-index-post-tags">
-                <a href="/categories/index.html#algorithms" title="Other posts from the Algorithms category">Algorithms</a>
-                    
-                </div>
-            
-        </div>
-    </article>
-	
-    <article class="summer-index-post post row">
-        <div class="small-12 medium-3 large-2 columns datetime">
-            <span class="summer-post-meta">
-                <time datetime="2014-10-18T00:00:00+06:00">
-                    <span class="day">
-                        18
-                    </span>
-                    <span class="month-year">
-                        October 2014
-                    </span>
-                </time>
-            </span>
-        </div>
-        <div class="small-12 medium-9 large-10 columns">
-            <header class="summer-post-header">
-                <h3 class="summer-post-title">
-                    <a href="/algorithms/Find-Minimum-in-Rotated-Sorted-Array">
-                        Find Minimum in Rotated Sorted Array
-                    </a>
-                </h3>
-            </header>
-            <section class="summer-post-excerpt">
-                <p>Description https://oj.leetcode.com/problems/find-minimum-in-rotated-sorted-array/ Difficulty: 1.5/5.0 Related: Search in Rotated Sorted Array I Search in Rotated Sorted Array II Solution It is a simplified version of Search in Rotated Sorted Array I. We are only required to find the pivot point. One...</p>
-            </section>
-            
-                <div class="summer-index-post-tags">
-                <a href="/categories/index.html#algorithms" title="Other posts from the Algorithms category">Algorithms</a>
+                
                     
                 </div>
             
@@ -305,7 +305,7 @@ Description: Awesome dude, awesome life
 	
 
     
-    <span class="page-number">Page 4 of 23</span>
+    <span class="page-number">Page 4 of 25</span>
     	 
         <a class="older-posts" href="/page5/">Older <i class="fa fa-chevron-right"></i></a>
     	

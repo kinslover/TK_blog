@@ -143,50 +143,57 @@ Description: Awesome dude, awesome life
 
 <h1 id="solution">Solution</h1>
 
-<div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="lineno"> 2</span> <span class="nl">public:</span>
-<span class="lineno"> 3</span>     <span class="n">ListNode</span> <span class="o">*</span><span class="n">sortList</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno"> 4</span>         <span class="n">ListNode</span> <span class="o">*</span><span class="n">pt</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-<span class="lineno"> 5</span>         <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="lineno"> 6</span>         <span class="k">while</span><span class="p">(</span><span class="n">pt</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">++</span><span class="n">n</span><span class="p">))</span>
-<span class="lineno"> 7</span>             <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-<span class="lineno"> 8</span>         <span class="k">if</span> <span class="p">(</span><span class="n">head</span><span class="p">)</span>
-<span class="lineno"> 9</span>             <span class="n">head</span> <span class="o">=</span> <span class="n">mergeSort</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
-<span class="lineno">10</span>         <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
-<span class="lineno">11</span>     <span class="p">}</span>
-<span class="lineno">12</span>     <span class="n">ListNode</span> <span class="o">*</span> <span class="n">mergeSort</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*&amp;</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num</span><span class="p">){</span>        
-<span class="lineno">13</span>         <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span> <span class="c1">// O(nlogn) is not good enough, need to utilize the property that head is visited sequentially</span>
-<span class="lineno">14</span>             <span class="n">ListNode</span> <span class="o">*</span> <span class="n">cur_head</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-<span class="lineno">15</span>             <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-<span class="lineno">16</span>             <span class="n">cur_head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="lineno">17</span>             <span class="k">return</span> <span class="n">cur_head</span><span class="p">;</span>
-<span class="lineno">18</span>         <span class="p">}</span>
-<span class="lineno">19</span> 
-<span class="lineno">20</span>         <span class="n">ListNode</span> <span class="o">*</span> <span class="n">left</span> <span class="o">=</span> <span class="n">mergeSort</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">num</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
-<span class="lineno">21</span>         <span class="n">ListNode</span> <span class="o">*</span> <span class="n">right</span> <span class="o">=</span> <span class="n">mergeSort</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">num</span><span class="o">-</span><span class="n">num</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
-<span class="lineno">22</span>         
-<span class="lineno">23</span>         <span class="c1">// Merge</span>
-<span class="lineno">24</span>         <span class="n">ListNode</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-<span class="lineno">25</span>         <span class="n">ListNode</span><span class="o">*</span> <span class="n">cur_head</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
-<span class="lineno">26</span>         <span class="k">while</span><span class="p">(</span><span class="n">left</span> <span class="o">&amp;&amp;</span> <span class="n">right</span><span class="p">){</span>
-<span class="lineno">27</span>             <span class="n">ListNode</span> <span class="o">*</span> <span class="o">&amp;</span> <span class="n">nxt</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">-&gt;</span><span class="n">val</span> <span class="p">)</span><span class="o">?</span> <span class="n">left</span><span class="o">:</span><span class="n">right</span><span class="p">;</span>
-<span class="lineno">28</span>             <span class="n">move_forward</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">nxt</span><span class="p">);</span>
-<span class="lineno">29</span>         <span class="p">}</span>
-<span class="lineno">30</span>         <span class="n">ListNode</span> <span class="o">*</span> <span class="o">&amp;</span> <span class="n">nxt</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">?</span> <span class="n">right</span><span class="o">:</span><span class="n">left</span><span class="p">;</span>        
-<span class="lineno">31</span>         <span class="k">while</span> <span class="p">(</span><span class="n">nxt</span><span class="p">)</span>
-<span class="lineno">32</span>             <span class="n">move_forward</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">nxt</span><span class="p">);</span>        
-<span class="lineno">33</span>         
-<span class="lineno">34</span>         <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="lineno">35</span>         <span class="n">cur</span> <span class="o">=</span> <span class="n">cur_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-<span class="lineno">36</span>         <span class="k">delete</span> <span class="n">cur_head</span><span class="p">;</span>
-<span class="lineno">37</span>         <span class="k">return</span> <span class="n">cur</span><span class="p">;</span>
-<span class="lineno">38</span>     <span class="p">}</span>
-<span class="lineno">39</span>     <span class="kt">void</span> <span class="n">move_forward</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span> <span class="o">&amp;</span> <span class="n">cur</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span> <span class="o">&amp;</span> <span class="n">nxt</span><span class="p">){</span>
-<span class="lineno">40</span>         <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
-<span class="lineno">41</span>         <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-<span class="lineno">42</span>         <span class="n">nxt</span> <span class="o">=</span> <span class="n">nxt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>        
-<span class="lineno">43</span>     <span class="p">}</span>
-<span class="lineno">44</span> <span class="p">};</span>
+<div class="highlight"><pre><code class="c++"><span class="lineno"> 1</span> <span class="c1">// Merge Sort for linked list</span>
+<span class="lineno"> 2</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno"> 3</span> <span class="nl">public:</span>
+<span class="lineno"> 4</span>     <span class="n">ListNode</span> <span class="o">*</span><span class="n">sortList</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 5</span>         <span class="kt">int</span> <span class="n">num_node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno"> 6</span>         <span class="n">ListNode</span> <span class="o">*</span> <span class="n">pt</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+<span class="lineno"> 7</span>         <span class="k">while</span><span class="p">(</span><span class="n">pt</span><span class="p">){</span>
+<span class="lineno"> 8</span>             <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno"> 9</span>             <span class="n">num_node</span> <span class="o">++</span><span class="p">;</span>
+<span class="lineno">10</span>         <span class="p">}</span>
+<span class="lineno">11</span>         <span class="n">head</span> <span class="o">=</span> <span class="n">mergeSort</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">num_node</span><span class="p">);</span>
+<span class="lineno">12</span>         <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+<span class="lineno">13</span>     <span class="p">}</span>
+<span class="lineno">14</span>     <span class="n">ListNode</span> <span class="o">*</span> <span class="n">mergeSort</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*&amp;</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num_node</span><span class="p">){</span>
+<span class="lineno">15</span>         <span class="k">if</span> <span class="p">(</span><span class="n">num_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="lineno">16</span>             <span class="k">return</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="lineno">17</span>         <span class="k">if</span> <span class="p">(</span><span class="n">num_node</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+<span class="lineno">18</span>             <span class="n">ListNode</span> <span class="o">*</span> <span class="n">head_cache</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+<span class="lineno">19</span>             <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// key: head is advanced to the next element</span>
+<span class="lineno">20</span>             <span class="n">head_cache</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>  <span class="c1">// do not forget this line </span>
+<span class="lineno">21</span>             <span class="k">return</span> <span class="n">head_cache</span><span class="p">;</span>
+<span class="lineno">22</span>         <span class="p">}</span>
+<span class="lineno">23</span>         <span class="kt">int</span> <span class="n">num_left</span> <span class="o">=</span> <span class="n">num_node</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_right</span> <span class="o">=</span> <span class="n">num_node</span> <span class="o">-</span> <span class="n">num_left</span><span class="p">;</span>
+<span class="lineno">24</span>         <span class="n">ListNode</span> <span class="o">*</span> <span class="n">left_head</span> <span class="o">=</span> <span class="n">mergeSort</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">num_left</span><span class="p">);</span>
+<span class="lineno">25</span>         <span class="n">ListNode</span> <span class="o">*</span> <span class="n">right_head</span> <span class="o">=</span><span class="n">mergeSort</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">num_right</span><span class="p">);</span>
+<span class="lineno">26</span>         <span class="k">return</span> <span class="nf">merge</span><span class="p">(</span><span class="n">left_head</span><span class="p">,</span> <span class="n">right_head</span><span class="p">);</span>
+<span class="lineno">27</span>     <span class="p">}</span>
+<span class="lineno">28</span>     <span class="n">ListNode</span> <span class="o">*</span> <span class="n">merge</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span> <span class="n">left</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span> <span class="n">right</span><span class="p">){</span>
+<span class="lineno">29</span>         <span class="n">ListNode</span> <span class="n">new_head</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="lineno">30</span>         <span class="n">ListNode</span> <span class="o">*</span><span class="n">pt</span><span class="o">=</span> <span class="o">&amp;</span><span class="n">new_head</span><span class="p">;</span>
+<span class="lineno">31</span>         <span class="k">while</span><span class="p">(</span><span class="n">left</span> <span class="o">&amp;&amp;</span> <span class="n">right</span><span class="p">){</span>
+<span class="lineno">32</span>             <span class="k">if</span> <span class="p">(</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">){</span>
+<span class="lineno">33</span>                 <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+<span class="lineno">34</span>                 <span class="n">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">35</span>             <span class="p">}</span>
+<span class="lineno">36</span>             <span class="k">else</span><span class="p">{</span>
+<span class="lineno">37</span>                 <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+<span class="lineno">38</span>                 <span class="n">right</span> <span class="o">=</span> <span class="n">right</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>                
+<span class="lineno">39</span>             <span class="p">}</span>
+<span class="lineno">40</span>             <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">41</span>         <span class="p">}</span>
+<span class="lineno">42</span>         <span class="n">ListNode</span> <span class="o">*</span> <span class="n">non_emp_ptr</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span><span class="p">)</span><span class="o">?</span><span class="n">left</span><span class="o">:</span><span class="n">right</span><span class="p">;</span>
+<span class="lineno">43</span>         <span class="k">while</span><span class="p">(</span><span class="n">non_emp_ptr</span><span class="p">){</span>
+<span class="lineno">44</span>             <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">non_emp_ptr</span><span class="p">;</span>
+<span class="lineno">45</span>             <span class="n">non_emp_ptr</span> <span class="o">=</span> <span class="n">non_emp_ptr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">46</span>             <span class="n">pt</span><span class="o">=</span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">47</span>         <span class="p">}</span>
+<span class="lineno">48</span>         <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="lineno">49</span>         <span class="k">return</span> <span class="n">new_head</span><span class="p">.</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">50</span>     <span class="p">}</span>
+<span class="lineno">51</span> <span class="p">};</span>
 </code></pre></div>
 
             </div>
