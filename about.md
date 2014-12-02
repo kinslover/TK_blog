@@ -7,7 +7,7 @@ imagefeature: fourseasons.jpg
 chart: true
 ---
 <figure>
-  <img src="{{ site.baseurl }}/images/bio.png" alt="Ping Jin" height="50">
+  <img src="{{ site.baseurl }}/images/bio.png" alt="Ping Jin" height="10">
   <figcaption>Ping Jin</figcaption>
 </figure>
 
